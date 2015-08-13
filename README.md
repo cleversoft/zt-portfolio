@@ -1,2 +1,5 @@
 # zt-portfolio
-extension is a  free Joomla! 3.x component designed to create media (image or video) portfolio functionality in to your CMS website. Allows designers, artists, photographers to create, manage and publish a very modern and outstanding filterable portfolio. Present your best work to customers and new clients in an attractive, professional and responsive way.  It’s very easy and fast to create stunning portfolios and integrate them into your Joomla! site. The Filterable Portfolio - when a particular tag is selected, the list of projects is instantly regenerated with a new list of projects from the selected tag. - See more at: http://www.joomshaper.com/joomla-extensions/sp-simple-portfolio#sthash.TJr6ap2x.dpuf
+
+ZT Portfoliois a  free Joomla! 3.x extension designed to create media (image or video) portfolio functionality in to your CMS website. Allows designers, artists, photographers to create, manage and publish a very modern and outstanding filterable portfolio. Present your best work to customers and new clients in an attractive, professional and responsive way.  
+
+It’s very easy and fast to create stunning portfolios and integrate them into your Joomla! site. The Filterable Portfolio - when a particular tag is selected, the list of projects is instantly regenerated with a new list of projects from the selected tag.
