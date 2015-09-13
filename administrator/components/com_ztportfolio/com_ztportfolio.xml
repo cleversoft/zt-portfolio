@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" version="3.4" method="upgrade">
+	<name>COM_ZTPORTFOLIO</name>
+	<author>ZooTemplate.Com</author>
+	<authorEmail>support@zootemplate.com</authorEmail>
+	<authorUrl>http://www.example.org</authorUrl>
+	<copyright>(C) 2015 Copyright Info</copyright>
+	<license>License Info</license>
+	<version>1.1.0</version>
+	<creationDate>September 2015</creationDate>
+	<description>COM_ZTPORTFOLIO_XML_DESCRIPTION</description>
+	<administration>
+		<menu link="option=com_ztportfolio">Portfolio</menu>
+		<files folder="admin">
+			<filename>ztportfolio.php</filename>
+		</files>
+ 		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_ztportfolio.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_ztportfolio.sys.ini</language>
+		</languages>
+	</administration>
+</extension>
