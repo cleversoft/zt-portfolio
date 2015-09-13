@@ -492,6 +492,7 @@
 /plugins/search/weblinks/*
 /plugins/search/tags/*
 /plugins/search/index.html
+/plugins/system/zooframework/*
 /plugins/system/cache/*
 /plugins/system/debug/*
 /plugins/system/highlight/*
@@ -522,4 +523,12 @@
 /configuration.php
 /index.php
 /joomla.xml
+/libraries
+/media
+/nbproject
+/layouts
+/modules/mod_tags_*
 /*.txt
+/*.dist
+/images/*
+/plugins/authentication/*
