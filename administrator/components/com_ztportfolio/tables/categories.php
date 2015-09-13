@@ -1,5 +1,7 @@
 <?php
+
 defined('_JEXEC') or die;
+
 /**
  * Zt Portfolio data table
  */
@@ -15,7 +17,6 @@ class ZtPortfolioTableCategories extends JTable
         parent::__construct('#__ztportfolio_categories', 'category', $db);
         JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_portfolio.data'));
     }
-    
 
     /**
      * Check data validation
@@ -38,7 +39,7 @@ class ZtPortfolioTableCategories extends JTable
     {
         if ($this->check())
         {
-            if (is_object($this->header))
+            if (is_object($this->header) || is_array($this->header))
             {
                 $this->header = json_encode($this->header);
                 return parent::store($updateNulls);

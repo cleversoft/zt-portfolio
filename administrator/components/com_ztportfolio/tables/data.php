@@ -18,7 +18,6 @@ class ZtPortfolioTableData extends JTable
         JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_portfolio.data'));
     }
 
-
     /**
      * Check data validation
      * @return boolean
@@ -38,11 +37,11 @@ class ZtPortfolioTableData extends JTable
      */
     public function store($updateNulls = false)
     {
-        
+
         if ($this->check())
         {
             $this->modified = JFactory::getDate()->toSql();
-            if (is_object($this->header))
+            if (is_object($this->header) || is_array($this->header))
             {
                 $this->header = json_encode($this->header);
                 return parent::store($updateNulls);

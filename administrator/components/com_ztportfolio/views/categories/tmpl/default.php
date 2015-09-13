@@ -1,0 +1,2 @@
+<?php ZtPortfolioHelperToolbar::addToolBar(); ?>
+Categories

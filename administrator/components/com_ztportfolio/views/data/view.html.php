@@ -1,6 +1,6 @@
 <?php
 
-class ZtPortfolioViewZtPortfolio extends JViewLegacy
+class ztportfolioViewData extends JViewLegacy
 {
 
     public function display($tpl = null)

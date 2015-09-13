@@ -19,6 +19,8 @@ if (!JFactory::getUser()->authorise('core.manage', 'com_ztautolinks')) {
 
 /* Register tables directory */
 JTable::addIncludePath(__DIR__ . '/tables');
+require_once dirname(__FILE__) . '/helpers/toolbar.php';
+//JLoader::register('ZtPortfolioHelper', dirname(__FILE__) . '/helpers/');
 $controller = JControllerLegacy::getInstance('ZtPortfolio');
 if(JFolder::exists(JPATH_ROOT . '/plugins/system/zooframework') && defined('ZTFRAMEWORK')){
     $controller->execute(JFactory::getApplication()->input->get('task'));
