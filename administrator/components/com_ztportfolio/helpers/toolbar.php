@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Toolbar helper
+ */
 class ZtPortfolioHelperToolbar
 {
 
