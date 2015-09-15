@@ -14,8 +14,8 @@ class ZtPortfolioTableCategories extends JTable
      */
     public function __construct(&$db)
     {
-        parent::__construct('#__ztportfolio_categories', 'category', $db);
-        JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_portfolio.data'));
+        parent::__construct('#__ztportfolio_categories', 'id', $db);
+        JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_portfolio.categories'));
     }
 
     /**
@@ -29,6 +29,21 @@ class ZtPortfolioTableCategories extends JTable
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Load data from database
+     * @param type $keys
+     * @param type $reset
+     * @return type
+     */
+    public function load($keys = null, $reset = true)
+    {
+        $result = parent::load($keys, $reset);
+        if($result){
+            $this->header = json_decode($this->header);
+        }
+        return $result;
     }
 
     /**
