@@ -10,21 +10,24 @@
 defined('_JEXEC') or die;
 
 
-$document = JFactory::getDocument();
 
 /* Permission checking */
 if (!JFactory::getUser()->authorise('core.manage', 'com_ztautolinks')) {
     return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
+jimport('joomla.application.component.controller');
+
+$document = JFactory::getDocument();
+
 /* Register tables directory */
 JTable::addIncludePath(__DIR__ . '/tables');
-require_once dirname(__FILE__) . '/helpers/toolbar.php';
-//JLoader::register('ZtPortfolioHelper', dirname(__FILE__) . '/helpers/');
-$controller = JControllerLegacy::getInstance('ZtPortfolio');
+JLoader::register('ZtPortfolioHelperToolbar', __DIR__ . '/helpers/toolbar.php');
+JLoader::register('ZtPortfolioHelperCommon', __DIR__ . '/helpers/common.php');
 if(JFolder::exists(JPATH_ROOT . '/plugins/system/zooframework') && defined('ZTFRAMEWORK')){
-    $controller->execute(JFactory::getApplication()->input->get('task'));
+    $controller = JControllerLegacy::getInstance('ZtPortfolio');
+    $controller->execute(JFactory::getApplication()->input->getCmd('task'));
+    $controller->redirect();
 }else{
     return JError::raiseWarning(404, JText::_('COM_PORTFOLIO_ERROR_ZOOFRAMEWORK_REQUIRED'));
 }
-$controller->redirect();
