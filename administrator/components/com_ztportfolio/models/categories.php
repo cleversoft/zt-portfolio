@@ -5,16 +5,58 @@
  */
 class ZtPortfolioModelCategories extends JModelLegacy
 {
-
-    public function newCategory(){
+    
+    /**
+     * Create new category
+     * @param type $headers
+     * @return type
+     */
+    public function create($name, $headers)
+    {
         $table = $this->getTable();
-        $header = new stdClass();
-        $header->name = 'hello';
-        $header->type = 'text';
-        $header->value = 'this is value';
-        $table->name = 'Hello';
-        $table->header = array('header1' => $header, 'header2' => $header);
+        $table->name = $name;
+        $table->header = $headers;
         return $table->store();
+    }
+
+    /**
+     * Get categories data by key
+     * @param type $id
+     * @return type
+     */
+    public function load($id)
+    {
+        $table = $this->getTable();
+        $table->load($id);
+        return $table->getProperties();
+    }
+    
+    /**
+     * Update an existed category
+     * @param type $id
+     * @param type $name
+     * @param type $headers
+     * @return type
+     */
+    public function update($id, $name, $headers){
+        $table = $this->getTable($id);
+        $table->name = $name;
+        $table->header = $headers;
+        return $table->store();
+    }
+
+    /**
+     * List all categories
+     */
+    public function listAll()
+    {
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+                ->from($db->quoteName('#__ztportfolio_categories'))
+                ->order($db->quoteName('id'));
+        return $db->setQuery($query)
+                        ->loadAssocList();
     }
 
     /**
@@ -26,8 +68,7 @@ class ZtPortfolioModelCategories extends JModelLegacy
      */
     public function getTable($type = 'Categories', $prefix = 'ZtPortfolioTable', $config = array())
     {
-        $table = JTable::getInstance($type, $prefix, $config);
-        return $table;
+        return JTable::getInstance($type, $prefix, $config);
     }
 
 }
