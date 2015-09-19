@@ -24,7 +24,7 @@ class ZtPortfolioTableData extends JTable
      */
     public function check()
     {
-        if (empty($this->category) || empty($this->content) || empty($this->status) || empty($this->title) || empty($this->thumbnail) || strlen($this->title) > 255 || strlen($this->thumbnail) > 500)
+        if (empty($this->category) || empty($this->header) || empty($this->content))
         {
             return false;
         }
@@ -37,13 +37,13 @@ class ZtPortfolioTableData extends JTable
      */
     public function store($updateNulls = false)
     {
+
         if ($this->check())
         {
             $this->modified = JFactory::getDate()->toSql();
-            $this->status = intval($this->status);
-            $this->category = intval($this->category);
-            if ($this->status !== 0 && $this->category !== 0)
+            if (is_object($this->header) || is_array($this->header))
             {
+                $this->header = json_encode($this->header);
                 return parent::store($updateNulls);
             }
         }
