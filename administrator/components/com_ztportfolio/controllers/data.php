@@ -1,9 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-class ZtPortfolioControllerData extends JControllerForm
+class ZtPortfolioControllerData extends JControllerLegacy
 {
-    function display($cachable = false, $urlparams = array()) {
-        parent::display($cachable, $urlparams);
-    }
+
 }
