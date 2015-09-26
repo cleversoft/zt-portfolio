@@ -1,0 +1,33 @@
+#zt-portfolio-element {
+    margin: 5px 0px 5px 10px;
+    background-color: #eeeeee;
+    -webkit-border-radius: 5px;
+    width: 220px;
+    padding: 5px;
+}
+
+#zt-portfolio-category-tools{
+    margin-top: 25px;
+    width: 220px;
+}
+
+.categories-header {
+    font-weight: bold;
+    background-color: #7D92A8;
+    text-align: center;
+    padding: 5px;
+}
+
+.categories-data{
+    margin-top: 5px;
+    text-align: center;
+    padding: 5px;
+}
+
+.categories-data-bold{
+    background-color: #C2D2F4;
+}
+
+.categories-data-thin{
+    background-color: #D6C2FF;
+}
