@@ -16,17 +16,19 @@ class ZtPortfolioModelData extends JModelLegacy
     /**
      * Create new portfolio
      * @param type $category
+     * @param type $header
      * @param type $title
      * @param type $thumbnail
      * @param type $content
      * @param type $status
      * @return type
      */
-    public function create($category, $title, $thumbnail, $content, $status = ZtPortfolioModelData::STATUS_DRAFT)
+    public function create($category, $header, $title, $thumbnail, $content, $status = ZtPortfolioModelData::STATUS_DRAFT)
     {
         $table = $this->getTable();
         $table->category = $category;
         $table->status = $status;
+        $table->header = $header;
         $table->title = $title;
         $table->thumbnail = $thumbnail;
         $table->content = $content;
@@ -49,16 +51,18 @@ class ZtPortfolioModelData extends JModelLegacy
      * Update portfolio
      * @param type $id
      * @param type $category
+     * @param type $header
      * @param type $title
      * @param type $thumbnail
      * @param type $content
      * @param type $status
      * @return type
      */
-    public function update($id, $category, $title, $thumbnail, $content, $status)
+    public function update($id, $category, $header, $title, $thumbnail, $content, $status)
     {
         $table = $this->getTable($id);
         $table->category = $category;
+        $table->header = $header;
         $table->status = $status;
         $table->title = $title;
         $table->thumbnail = $thumbnail;
@@ -85,7 +89,7 @@ class ZtPortfolioModelData extends JModelLegacy
      * @param type $status
      * @return type
      */
-    public function listAllByStatus($status){
+    public function listAllByStatus($status = ZtPortfolioModelData::STATUS_PUBLIC){
         $db = $this->getDbo();
         $query = $db->getQuery(true);
         $query->select('*')
