@@ -11,7 +11,7 @@ class ZtPortfolioViewZtPortfolio extends JViewLegacy
 
     protected function addToolbar()
     {
-        JToolBarHelper::title(JText::_('COM_PORTFOLIO_MANAGEMENT_TITLE'));
+        JToolBarHelper::title(JText::_('COM_ZTPORTFOLIO_MANAGEMENT_TITLE'));
     }
 
 }

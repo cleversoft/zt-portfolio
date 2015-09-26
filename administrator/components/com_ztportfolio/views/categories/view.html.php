@@ -1,8 +1,12 @@
 <?php
 
-class ztportfolioViewCategories extends JViewLegacy
+class ZtPortfolioViewCategories extends JViewLegacy
 {
 
+    public function __construct($config = array())
+    {
+        parent::__construct($config);
+    }
     public function display($tpl = null)
     {
         $this->addToolbar();
@@ -11,7 +15,7 @@ class ztportfolioViewCategories extends JViewLegacy
 
     protected function addToolbar()
     {
-        JToolBarHelper::title(JText::_('COM_PORTFOLIO_MANAGEMENT_TITLE'));
+        JToolBarHelper::title(JText::_('COM_ZTPORTFOLIO_MANAGEMENT_TITLE'));
     }
 
 }
