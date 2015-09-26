@@ -27,9 +27,9 @@ class ZtPortfolioHelperToolbar
             $(\'div#toolbar\').append(html);
         }
         $(w.document).ready(function(){
-                addCustomToolBar(\'' . JRoute::_('index.php?option=com_ztportfolio') . '\', \'home\', \'' . JText::_('COM_PORTFOLIO_HOME') . '\', \'btn btn-small btn-success\');
-                addCustomToolBar(\'' . JRoute::_('index.php?option=com_ztportfolio&view=categories') . '\', \'list-2\', \'' . JText::_('COM_PORTFOLIO_CATEGORIES_MANAGER') . '\', \'btn btn-small btn-small\');
-                addCustomToolBar(\'' . JRoute::_('index.php?option=com_ztportfolio&view=data') . '\', \'paragraph-center\', \'' . JText::_('COM_PORTFOLIO_CONTENT_MANAGER') . '\', \'btn btn-small btn-primary\');
+                addCustomToolBar(\'' . JRoute::_('index.php?option=com_ztportfolio') . '\', \'home\', \'' . JText::_('COM_ZTPORTFOLIO_HOME') . '\', \'btn btn-small btn-success\');
+                addCustomToolBar(\'' . JRoute::_('index.php?option=com_ztportfolio&task=categories.display') . '\', \'list-2\', \'' . JText::_('COM_ZTPORTFOLIO_CATEGORIES_MANAGER') . '\', \'btn btn-small btn-small\');
+                addCustomToolBar(\'' . JRoute::_('index.php?option=com_ztportfolio&task=data.display') . '\', \'paragraph-center\', \'' . JText::_('COM_ZTPORTFOLIO_CONTENT_MANAGER') . '\', \'btn btn-small btn-primary\');
             });
     })(window);
 ');
