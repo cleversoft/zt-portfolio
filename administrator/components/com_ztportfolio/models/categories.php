@@ -32,6 +32,17 @@ class ZtPortfolioModelCategories extends JModelLegacy
     }
     
     /**
+     * Delete category
+     * @param type $id
+     * @return type
+     */
+    public function delete($id){
+        $talbe = $this->getTable();
+        return $talbe->delete($id);
+    }
+
+
+    /**
      * Update an existed category
      * @param type $id
      * @param type $name

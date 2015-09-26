@@ -31,3 +31,11 @@
 .categories-data-thin{
     background-color: #D6C2FF;
 }
+
+.categories-controls span{
+    cursor: pointer;
+}
+
+.categories-controls span:hover{
+    color: #1f6377;
+}

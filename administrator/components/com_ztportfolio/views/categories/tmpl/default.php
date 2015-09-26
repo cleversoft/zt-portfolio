@@ -17,8 +17,8 @@
         <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_HEADER')); ?></label>
         <div id="zt-portfolio-container"></div>
         <div id="zt-portfolio-category-tools">
-            <button id="category-create" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CREATE')); ?></button>
-            <button id="category-clear" class="btn btn-danger pull-right"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CLEAR')); ?></button>
+            <button onclick="categoryCreate();" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CREATE')); ?></button>
+            <button onclick="categoryClear();" class="btn btn-danger pull-right"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CLEAR')); ?></button>
         </div>
     </div>
     <div class="span3">
@@ -48,7 +48,7 @@
             </div>
             <div class="form-group">
                 <div class="controls">
-                    <button id="header-add" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_ADD')); ?></button>
+                    <button onclick="headerAdd();" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_ADD')); ?></button>
                 </div>
             </div>
         </div>
