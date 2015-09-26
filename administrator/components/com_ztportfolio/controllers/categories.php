@@ -2,8 +2,7 @@
 
 defined('_JEXEC') or die;
 
-class ZtPortfolioControllerCategories extends JControllerLegacy
-{
+class ZtPortfolioControllerCategories extends JControllerLegacy {
 
     private $_model = null;
 
@@ -11,8 +10,7 @@ class ZtPortfolioControllerCategories extends JControllerLegacy
      * Display categories editor
      * @param type $config
      */
-    public function __construct($config = array())
-    {
+    public function __construct($config = array()) {
         parent::__construct($config);
         $this->_model = $this->getModel('Categories', 'ZtPortfolioModel');
     }
@@ -22,39 +20,35 @@ class ZtPortfolioControllerCategories extends JControllerLegacy
      * @param type $cachable
      * @param type $urlparams
      */
-    public function display($cachable = false, $urlparams = array())
-    {
+    public function display($cachable = false, $urlparams = array()) {
         $view = $this->getView('Categories', 'html', 'ZtPortfolioView');
         $html = new ZtHtml();
         $html->set('categories', $this->_model->listAll());
         $view->set('html', $html);
+        $editor = new ZtHtml();
+        $editor->set('category', array());
+        $view->set('editor', $editor);
         $view->display();
     }
 
     /**
      * Create new categories
      */
-    public function create()
-    {
+    public function create() {
         $ajax = ZtAjax::getInstance();
         $jInput = JFactory::getApplication()->input;
-        if (ZtFramework::isAjax())
-        {
-            $name = $jInput->get('name', '' ,'STRING');
+        if (ZtFramework::isAjax()) {
+            $name = $jInput->get('name', '', 'STRING');
             $headers = json_decode($jInput->get('header', '[]', 'RAW'));
-            if (!empty($headers) && !empty($name))
-            {
-                if ($this->_model->create($name, $headers))
-                {
+            if (!empty($headers) && !empty($name)) {
+                if ($this->_model->create($name, $headers)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_CREATE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
                     $ajax->addExecute('categoryClear();');
                     $this->_reload();
-                } else
-                {
+                } else {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_SAVE'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
                 }
-            } else
-            {
+            } else {
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_CREATE_CATEGORY'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
             }
         }
@@ -64,8 +58,7 @@ class ZtPortfolioControllerCategories extends JControllerLegacy
     /**
      * Private reload
      */
-    private function _reload()
-    {
+    private function _reload() {
         $ajax = ZtAjax::getInstance();
         $html = new ZtHtml();
         $html->set('categories', $this->_model->listAll());
@@ -75,11 +68,9 @@ class ZtPortfolioControllerCategories extends JControllerLegacy
     /**
      * Reload categories
      */
-    public function reload()
-    {
+    public function reload() {
         $ajax = ZtAjax::getInstance();
-        if (ZtFramework::isAjax())
-        {
+        if (ZtFramework::isAjax()) {
             $this->_reload();
         }
         $ajax->response();
@@ -88,21 +79,62 @@ class ZtPortfolioControllerCategories extends JControllerLegacy
     /**
      * Delete category
      */
-    public function delete()
-    {
+    public function delete() {
         $ajax = ZtAjax::getInstance();
         $jInput = JFactory::getApplication()->input;
-        if (ZtFramework::isAjax())
-        {
+        if (ZtFramework::isAjax()) {
             $id = $jInput->get('id', 0, 'INT');
-            if ($this->_model->delete($id))
-            {
+            if ($this->_model->delete($id)) {
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_DELETE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
                 $this->_reload();
-            } else
-            {
+            } else {
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_DELETE_CATEGORY'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
             }
+        }
+        $ajax->response();
+    }
+
+    /**
+     * Create new categories
+     */
+    public function save() {
+        $ajax = ZtAjax::getInstance();
+        $jInput = JFactory::getApplication()->input;
+        if (ZtFramework::isAjax()) {
+            $id = $jInput->get('id', '', 'INT');
+            $name = $jInput->get('name', '', 'STRING');
+            $headers = json_decode($jInput->get('header', '[]', 'RAW'));
+            if (!empty($headers) && !empty($name)) {
+                if ($this->_model->update($id, $name, $headers)) {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_UPDATE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
+                    $ajax->addExecute('categoryClear();');
+                    $this->_reload();
+                } else {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_SAVE'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+                }
+            } else {
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_SAVE'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+            }
+        }
+        $ajax->response();
+    }
+    
+    /**
+     * Load editor
+     */
+    public function loadEditor() {
+        $ajax = ZtAjax::getInstance();
+        $jInput = JFactory::getApplication()->input;
+        if (ZtFramework::isAjax()) {
+            $id = $jInput->get('id', 0, 'INT');
+            $html = new ZtHtml();
+            if($id === 0){
+                $html->set('category', array());
+            }else{
+                $html->set('category', $this->_model->load($id));
+            }
+            $ajax->addHtml($html->fetch('com_ztportfolio://html/categories.info.php'), '#category-info');
+            $ajax->addHtml($html->fetch('com_ztportfolio://html/categories.header.php'), '#header-editor');
         }
         $ajax->response();
     }

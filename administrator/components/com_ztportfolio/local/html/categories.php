@@ -11,7 +11,7 @@
         <div class="span4 <?php echo($class); ?>"><?php echo($category['name']); ?></div>
         <div class="span3 <?php echo($class); ?>"><?php echo(count(json_decode($category['header']))); ?></div>
         <div class="span3 <?php echo($class); ?> categories-controls">
-            <span class="icon-pencil-2"></span>
+            <span class="icon-pencil-2" onclick="categoryLoadEditor(<?php echo($category['id']); ?>);"></span>
             <span class="icon-trash" onclick="categoryDelete(<?php echo($category['id']); ?>);"></span>
         </div>
     </div>

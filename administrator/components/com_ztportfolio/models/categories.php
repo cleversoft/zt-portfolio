@@ -50,7 +50,8 @@ class ZtPortfolioModelCategories extends JModelLegacy
      * @return type
      */
     public function update($id, $name, $headers){
-        $table = $this->getTable($id);
+        $table = $this->getTable();
+        $table->id = $id;
         $table->name = $name;
         $table->header = $headers;
         return $table->store();
