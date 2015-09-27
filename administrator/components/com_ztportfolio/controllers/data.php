@@ -9,9 +9,19 @@ class ZtPortfolioControllerData extends JControllerLegacy {
         $this->_model = $this->getModel('Data', 'ZtPortfolioModel');
     }
 
+    /**
+     * Display portfolio
+     * @param type $cachable
+     * @param type $urlparams
+     */
     public function display($cachable = false, $urlparams = array()) {
         $view = $this->getView('Data', 'html', 'ZtPortfolioView');
+        $jInput = JFactory::getApplication()->input;
+        $id = $jInput->get('id', 0, 'INT');
         $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
+        if ($id > 0) {
+            $view->set('portfolio', $this->_model->load($id));
+        }
         $view->set('categories', $modelCategories->listAll());
         $view->display();
     }
@@ -44,6 +54,34 @@ class ZtPortfolioControllerData extends JControllerLegacy {
     }
 
     /**
+     * Create new portfolio
+     */
+    public function save() {
+        $ajax = ZtAjax::getInstance();
+        $jInput = JFactory::getApplication()->input;
+        if (ZtFramework::isAjax()) {
+            $id = $jInput->get('id', 0, 'INT');
+            $title = $jInput->get('title', '', 'STRING');
+            $header = $jInput->get('header', '', 'RAW');
+            $thumbnail = $jInput->get('thumbnail', '', 'STRING');
+            $content = $jInput->get('content', '', 'RAW');
+            $category = $jInput->get('category', 0, 'INT');
+            $headers = json_decode($jInput->get('header', '[]', 'RAW'));
+            if (!empty($header) && !empty($title) && !empty($thumbnail) && $category > 0 && $id > 0) {
+                if ($this->_model->update($id, $category, $header, $title, $thumbnail, $content, ZtPortfolioModelData::STATUS_PUBLIC)) {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_UPDATE_PORTFOLIO_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
+                    $ajax->addExecute('window.setTimeout(function(){window.location=\'' . JUri::root() . '/administrator/index.php?option=com_ztportfolio\';}, 3000);');
+                } else {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_SAVE'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+                }
+            } else {
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_FILL_FORM'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+            }
+        }
+        $ajax->response();
+    }    
+    
+    /**
      * Cancel
      */
     public function cancel() {
@@ -65,7 +103,7 @@ class ZtPortfolioControllerData extends JControllerLegacy {
             $html = new ZtHtml();
             $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
             $category = $modelCategories->load($id);
-            if(!is_array($category['header'])){
+            if (!is_array($category['header'])) {
                 $category['header'] = json_decode($category['header']);
             }
             $html->set('headers', $category['header']);

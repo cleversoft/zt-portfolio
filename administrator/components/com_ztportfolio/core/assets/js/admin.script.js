@@ -113,9 +113,6 @@
 
 
     w.portfolioCreate = function () {
-        if ($('#category-name').val() === '') {
-            return false;
-        }
         var $elements = $('div#portfolio-header-edit').find('input#portfolio-header-element');
         var data = [];
         $elements.each(function () {
@@ -129,6 +126,31 @@
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.create',
             data: {
+                title: $('#portfolio-title').val(),
+                thumbnail: $('#portfolio-thumbnail').val(),
+                category: $('#portfolio-category').val(),
+                header: JSON.stringify(data),
+                content: $('#portfolio-content_ifr').contents().find('#tinymce').html(),
+                zt_cmd: 'ajax'
+            }
+        }, true);
+    };
+    
+    w.portfolioSave = function (id) {
+        var $elements = $('div#portfolio-header-edit').find('input#portfolio-header-element');
+        var data = [];
+        $elements.each(function () {
+            var elementData = {};
+            elementData.name = $(this).data('name');
+            elementData.type = $(this).data('type');
+            elementData.value = $(this).val();
+            data.push(elementData);
+        });
+
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.save',
+            data: {
+                id: id,
                 title: $('#portfolio-title').val(),
                 thumbnail: $('#portfolio-thumbnail').val(),
                 category: $('#portfolio-category').val(),

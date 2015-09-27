@@ -14,7 +14,11 @@ if (empty($portfolio)) {
         $currentCategory = reset($categories);
     }
 } else {
-    $currentCategory = $categories[$portfolio['category']];
+    foreach ($categories as $item) {
+        if ($item['id'] == $portfolio['category']) {
+            $currentCategory = $item;
+        }
+    }
 }
 ?>
 <div class="row-fluid" >
@@ -26,7 +30,11 @@ if (empty($portfolio)) {
                     <?php if (!empty($currentCategory)): ?>
                         <?php
                         $html = new ZtHtml();
-                        $html->set('headers', $currentCategory['header']);
+                        if (!empty($portfolio)) {
+                            $html->set('headers', $portfolio['header']);
+                        } else {
+                            $html->set('headers', $currentCategory['header']);
+                        }
                         echo $html->fetch('com_ztportfolio://html/portfolio.header.php');
                         ?>
                     <?php endif; ?> 
@@ -39,7 +47,7 @@ if (empty($portfolio)) {
                 <?php
                 $editor = JFactory::getConfig()->get('editor');
                 $editor = JEditor::getInstance($editor);
-                echo $editor->display('portfolio-content', '', 100, 50, 20, 10, true, 'portfolio-content');
+                echo $editor->display('portfolio-content', ((!empty($portfolio) ? $portfolio['content'] : '')), 100, 50, 20, 10, true, 'portfolio-content');
                 ?>
             </div>
         </div>
@@ -48,7 +56,7 @@ if (empty($portfolio)) {
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_TITLE')); ?></label>
             <div class="controls">
-                <input id="portfolio-title" minlength="5" type="text"">
+                <input id="portfolio-title" minlength="5" type="text" value="<?php echo((!empty($portfolio) ? $portfolio['title'] : '')); ?>">
             </div>
         </div>
         <div class="form-group">
@@ -56,7 +64,7 @@ if (empty($portfolio)) {
             <div class="controls">
                 <select id="portfolio-category" onchange="portfolioLoadHeader(this);">
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?php echo($category['id']); ?>"><?php echo($category['name']); ?></option>
+                        <option value="<?php echo($category['id']); ?>" <?php echo(($category['id'] == $portfolio['category']) ? 'selected' : ''); ?>><?php echo($category['name']); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -64,7 +72,7 @@ if (empty($portfolio)) {
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_THUMBNAIL')); ?></label>
             <div class="controls">
-                <input id="portfolio-thumbnail" minlength="5" type="text"" readonly="true">
+                <input id="portfolio-thumbnail" minlength="5" type="text"" readonly="true" value="<?php echo((!empty($portfolio) ? $portfolio['thumbnail'] : '')); ?>">
                 <div id="portfolio-file-view" class="porfolio-file-view"></div>
                 <script type="text/javascript">
                     jQuery(document).ready(function () {

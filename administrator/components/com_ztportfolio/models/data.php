@@ -60,7 +60,8 @@ class ZtPortfolioModelData extends JModelLegacy
      */
     public function update($id, $category, $header, $title, $thumbnail, $content, $status)
     {
-        $table = $this->getTable($id);
+        $table = $this->getTable();
+        $table->id = $id;
         $table->category = $category;
         $table->header = $header;
         $table->status = $status;
