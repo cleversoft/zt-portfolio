@@ -32,9 +32,9 @@
         $parent.find('input').val('');
         $parent.find('select').val('text');
     };
-    
-    w.categorySave = function(id){
-        if ($('#category-name').val() === ''){
+
+    w.categorySave = function (id) {
+        if ($('#category-name').val() === '') {
             return false;
         }
         var $elements = $('div#zt-portfolio-container').find('div#zt-portfolio-element');
@@ -57,9 +57,9 @@
             }
         }, true);
     };
-    
+
     w.categoryCreate = function () {
-        if ($('#category-name').val() === ''){
+        if ($('#category-name').val() === '') {
             return false;
         }
         var $elements = $('div#zt-portfolio-container').find('div#zt-portfolio-element');

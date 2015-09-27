@@ -6,9 +6,13 @@
     padding: 2px;
 }
 
-#zt-portfolio-category-tools{
+#zt-portfolio-category-tools, #zt-portfolio-portfolio-tools{
     margin-top: 25px;
     width: 220px;
+}
+
+.control-label{
+    font-weight: bold;
 }
 
 .categories-header {
@@ -38,4 +42,16 @@
 
 .categories-controls span:hover{
     color: #1f6377;
+}
+
+.porfolio-file-view{
+    width: 210px;
+    height: 200px;
+    border-top: solid 1px #BBB;
+    border-left: solid 1px #BBB;
+    border-bottom: solid 1px #FFF;
+    border-right: solid 1px #FFF;
+    background: #FFF;
+    overflow: scroll;
+    padding: 5px;
 }
