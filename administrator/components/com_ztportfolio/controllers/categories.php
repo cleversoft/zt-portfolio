@@ -84,6 +84,11 @@ class ZtPortfolioControllerCategories extends JControllerLegacy {
         $jInput = JFactory::getApplication()->input;
         if (ZtFramework::isAjax()) {
             $id = $jInput->get('id', 0, 'INT');
+            $modelData = $this->getModel('Data', 'ZtPortfolioModel');
+            if(count($modelData->listByCategory($id)) > 0){
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CATEGORY_NOT_EMPTY'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+                $ajax->response();
+            }
             if ($this->_model->delete($id)) {
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_DELETE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
                 $this->_reload();

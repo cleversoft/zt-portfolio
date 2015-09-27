@@ -46,7 +46,17 @@ class ZtPortfolioModelData extends JModelLegacy
         $table->load($id);
         return $table->getProperties();
     }
-
+    
+    /**
+     * Delete portfolio
+     * @param type $id
+     * @return type
+     */
+    public function delete($id){
+        $talbe = $this->getTable();
+        return $talbe->delete($id);
+    }
+    
     /**
      * Update portfolio
      * @param type $id
@@ -114,7 +124,6 @@ class ZtPortfolioModelData extends JModelLegacy
                 ->from($db->quoteName('#__ztportfolio_data'))
                 ->where($db->quoteName('category') . '=' . $db->quote($category))
                 ->order($db->quoteName('id'));
-        echo($query);
         return $db->setQuery($query)
                         ->loadAssocList();
     }

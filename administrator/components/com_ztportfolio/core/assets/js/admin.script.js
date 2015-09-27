@@ -180,4 +180,14 @@
         }, true);
     };
     
+    w.portfolioDelete = function (id) {
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.delete',
+            data: {
+                zt_cmd: 'ajax',
+                id: id
+            }
+        }, true);
+    };
+    
 })(window, jQuery);

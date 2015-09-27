@@ -82,6 +82,24 @@ class ZtPortfolioControllerData extends JControllerLegacy {
     }    
     
     /**
+     * Delete category
+     */
+    public function delete() {
+        $ajax = ZtAjax::getInstance();
+        $jInput = JFactory::getApplication()->input;
+        if (ZtFramework::isAjax()) {
+            $id = $jInput->get('id', 0, 'INT');
+            if ($this->_model->delete($id)) {
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_DELETE_PORTFOLIO_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
+                $ajax->addExecute('window.setTimeout(function(){window.location=\'' . JUri::root() . '/administrator/index.php?option=com_ztportfolio\';}, 3000);');
+            } else {
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_DELETE_PORFOLIO'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+            }
+        }
+        $ajax->response();
+    }
+    
+    /**
      * Cancel
      */
     public function cancel() {
