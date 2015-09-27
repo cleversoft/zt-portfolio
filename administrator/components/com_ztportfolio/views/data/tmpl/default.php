@@ -27,7 +27,7 @@ if (empty($portfolio)) {
                         <?php foreach ($currentCategory['header'] as $key => $header): ?>
                             <div class="row-fluid">
                                 <div class="span4"><?php echo($header->name); ?></div>
-                                <div class="span4"><input></div>
+                                <div class="span4"><input id="portfolio-header-element" data-name="<?php echo($header->name); ?>" data-type="<?php echo($header->type); ?>"></div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?> 
@@ -40,7 +40,6 @@ if (empty($portfolio)) {
                 <?php
                 $editor = JFactory::getConfig()->get('editor');
                 $editor = JEditor::getInstance($editor);
-
                 echo $editor->display('funybody', '', 100, 50, 20, 10, true, 'fuck');
                 ?>
             </div>
@@ -79,9 +78,9 @@ if (empty($portfolio)) {
         </div>
         <div id="zt-portfolio-portfolio-tools">
             <?php if (empty($category)): ?>
-                <button onclick="categoryCreate();" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CREATE')); ?></button>
+                <button onclick="portfolioCreate();" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CREATE')); ?></button>
             <?php else: ?>
-                <button onclick="categorySave(<?php echo($category['id']); ?>);" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE')); ?></button>
+                <button onclick="portfolioSave(<?php echo($category['id']); ?>);" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE')); ?></button>
             <?php endif; ?>
             <button onclick="categoryClear();" class="btn btn-default pull-right"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CLEAR')); ?></button>
         </div>
