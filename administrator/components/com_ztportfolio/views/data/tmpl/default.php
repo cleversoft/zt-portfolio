@@ -24,12 +24,11 @@ if (empty($portfolio)) {
             <div class = "controls">
                 <div id="portfolio-header-edit">
                     <?php if (!empty($currentCategory)): ?>
-                        <?php foreach ($currentCategory['header'] as $key => $header): ?>
-                            <div class="row-fluid">
-                                <div class="span4"><?php echo($header->name); ?></div>
-                                <div class="span4"><input id="portfolio-header-element" data-name="<?php echo($header->name); ?>" data-type="<?php echo($header->type); ?>"></div>
-                            </div>
-                        <?php endforeach; ?>
+                        <?php
+                        $html = new ZtHtml();
+                        $html->set('headers', $currentCategory['header']);
+                        echo $html->fetch('com_ztportfolio://html/portfolio.header.php');
+                        ?>
                     <?php endif; ?> 
                 </div>
             </div>
@@ -40,7 +39,7 @@ if (empty($portfolio)) {
                 <?php
                 $editor = JFactory::getConfig()->get('editor');
                 $editor = JEditor::getInstance($editor);
-                echo $editor->display('funybody', '', 100, 50, 20, 10, true, 'fuck');
+                echo $editor->display('portfolio-content', '', 100, 50, 20, 10, true, 'portfolio-content');
                 ?>
             </div>
         </div>
@@ -49,13 +48,13 @@ if (empty($portfolio)) {
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_TITLE')); ?></label>
             <div class="controls">
-                <input id="category-name" minlength="5" type="text"">
+                <input id="portfolio-title" minlength="5" type="text"">
             </div>
         </div>
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_CATEGORY')); ?></label>
             <div class="controls">
-                <select id="portfolio-category">
+                <select id="portfolio-category" onchange="portfolioLoadHeader(this);">
                     <?php foreach ($categories as $category): ?>
                         <option value="<?php echo($category['id']); ?>"><?php echo($category['name']); ?></option>
                     <?php endforeach; ?>
@@ -77,12 +76,12 @@ if (empty($portfolio)) {
             </div>
         </div>
         <div id="zt-portfolio-portfolio-tools">
-            <?php if (empty($category)): ?>
+            <?php if (empty($portfolio)): ?>
                 <button onclick="portfolioCreate();" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CREATE')); ?></button>
             <?php else: ?>
-                <button onclick="portfolioSave(<?php echo($category['id']); ?>);" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE')); ?></button>
+                <button onclick="portfolioSave(<?php echo($portfolio['id']); ?>);" class="btn btn-success"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE')); ?></button>
             <?php endif; ?>
-            <button onclick="categoryClear();" class="btn btn-default pull-right"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CLEAR')); ?></button>
+            <button onclick="portfolioCancel();" class="btn btn-default pull-right"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CANCEL')); ?></button>
         </div>
     </div>
 </div>
