@@ -1,0 +1,10 @@
+{
+    "name": "Zt Module Portfolio",
+    "extension": {
+        "type": "module",
+        "group": "",
+        "name": "mod_ztportfolio"
+    },
+    "namespace": "mod_ztportfolio",
+    "admin": 0
+}

@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension
-	type="module"
-	version="3.4"
-	client="site"
-	method="upgrade">
-	<!-- Note: Site is the default if client is not specified -->
-	<name>ZtPortfolio</name>
-	<creationDate>September 2008</creationDate>
-	<author>ZooTemplate.Com</author>
-	<authorEmail>support@zootemplate.com</authorEmail>
-	<authorUrl>https://www.zootemplate.com</authorUrl>
-	<copyright>(C) 2015 Copyright Info</copyright>
-	<license>License Info</license>
-	<version>1.1.0</version>
-	<description>MOD_ZTPORTFOLIO_XML_DESCRIPTION</description>
-	<files>
-		<filename module="mod_ztportfolio">mod_ztportfolio.php</filename>
-	</files>
+    type="module"
+    version="3.4"
+    client="site"
+    method="upgrade">
+    <!-- Note: Site is the default if client is not specified -->
+    <name>ZtPortfolio</name>
+    <creationDate>September 2008</creationDate>
+    <author>ZooTemplate.Com</author>
+    <authorEmail>support@zootemplate.com</authorEmail>
+    <authorUrl>https://www.zootemplate.com</authorUrl>
+    <copyright>(C) 2015 Copyright Info</copyright>
+    <license>License Info</license>
+    <version>1.1.0</version>
+    <description>MOD_ZTPORTFOLIO_XML_DESCRIPTION</description>
+    <files>
+        <folder>core</folder>
+        <folder>local</folder>
+        <filename module="mod_ztportfolio">mod_ztportfolio.php</filename>
+        <filename>helper.php</filename>
+        <filename>extension.json</filename>
+    </files>
     <languages folder="language">
         <language tag="en-GB">en-GB/en-GB.mod_ztportfolio.ini</language>
         <language tag="en-GB">en-GB/en-GB.mod_ztportfolio.sys.ini</language>
