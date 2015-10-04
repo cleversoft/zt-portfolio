@@ -17,9 +17,11 @@ CREATE TABLE IF NOT EXISTS `#__ztportfolio_categories` (
 
 CREATE TABLE IF NOT EXISTS `#__ztportfolio_data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `category` int(11) NOT NULL,
+  `category` varchar(500) NOT NULL,
   `header` text NOT NULL,
   `title` varchar(500) NOT NULL,
+  `url` varchar(500) NOT NULL,
+  `description` varchar(1000) NOT NULL,
   `content` longtext NOT NULL,
   `status` int(11) NOT NULL,
   `thumbnail` varchar(1000) NOT NULL,

@@ -2,12 +2,12 @@
 
 defined('_JEXEC') or die;
 
-// Include the syndicate functions only once
-require_once __DIR__ . '/helper.php';
-
 if(!JFolder::exists(JPATH_ROOT . '/plugins/system/zooframework') && defined('ZTFRAMEWORK')){
     return JError::raiseWarning(404, JText::_('COM_ZTPORTFOLIO_ERROR_ZOOFRAMEWORK_REQUIRED'));
 }
+
+// Include the syndicate functions only once
+require_once __DIR__ . '/helper.php';
 
 ZtFramework::registerExtension(__DIR__ . '/extension.json');
 

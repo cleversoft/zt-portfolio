@@ -20,7 +20,7 @@
         </sql>
     </uninstall>
     <administration>
-        <menu link="option=com_ztportfolio">Portfolio</menu>
+        <menu>COM_ZTPORTFOLIO_MENU</menu>
         <files folder="admin">
             <folder>sql</folder>
             <folder>controllers</folder>
