@@ -10,6 +10,18 @@ CREATE TABLE IF NOT EXISTS `#__ztportfolio_categories` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Table structure for table `#__ztportfolio_properties`
+--
+
+CREATE TABLE IF NOT EXISTS `#__ztportfolio_properties` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `value` varchar(500) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Table structure for table `#__ztportfolio_data`
