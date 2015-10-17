@@ -47,27 +47,16 @@
         $parent.find('select').val('text');
     };
 
-    w.categorySave = function () {
-        var id = $('#category-name').val()|0;
-        if (id === '0') {
+    w.categorySave = function(){
+        name = atob(name);
+        if ($('#zt-portfolio-edit-category #category-name').val() === '') {
             return false;
         }
-        var $elements = $('div#zt-portfolio-container').find('div#zt-portfolio-element');
-        var data = [];
-        $elements.each(function () {
-            var elementData = {};
-            elementData.name = $(this).data('name');
-            elementData.type = $(this).data('type');
-            elementData.value = $(this).data('value');
-            data.push(elementData);
-        });
-
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.save',
             data: {
-                name: $('#category-name').find('option:selected').text(),
-                header: JSON.stringify(data),
-                id: id,
+                name: $('#zt-portfolio-edit-category #category-name').val(),
+                id: $('#zt-portfolio-edit-category #category-id').val(),
                 zt_cmd: 'ajax'
             }
         }, true);
@@ -85,7 +74,7 @@
             }
         }, true);
     };
-
+    
     w.categoryDelete = function (id) {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.delete',
@@ -95,17 +84,76 @@
             }
         }, true);
     };
-
-    w.categoryLoadEditor = function (id) {
+    
+    w.portfolioPublish = function(){
+        var $categoriesEl = $('#zt-portfolio-portfolios-list tbody').find('input:checked');
+        var categories = [];
+        $categoriesEl.each(function () {
+            categories.push($(this).val());
+        });
         zt.ajax.request({
-            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.loadEditor',
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.updateStatus',
             data: {
                 zt_cmd: 'ajax',
-                id: id
+                portfolios: categories.toString(),
+                status: 2
             }
         }, true);
     };
-
+    
+    w.portfolioUnpublish = function(){
+        var $categoriesEl = $('#zt-portfolio-portfolios-list tbody').find('input:checked');
+        var categories = [];
+        $categoriesEl.each(function () {
+            categories.push($(this).val());
+        });
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.updateStatus',
+            data: {
+                zt_cmd: 'ajax',
+                portfolios: categories.toString(),
+                status: 1
+            }
+        }, true);
+    };
+    
+    w.categoryPublish = function(){
+        var $categoriesEl = $('#zt-portfolio-categories-list tbody').find('input:checked');
+        var categories = [];
+        $categoriesEl.each(function () {
+            categories.push($(this).val());
+        });
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.updateStatus',
+            data: {
+                zt_cmd: 'ajax',
+                categories: categories.toString(),
+                status: 5
+            }
+        }, true);
+    };
+    
+    w.categoryUnpublish = function(){
+        var $categoriesEl = $('#zt-portfolio-categories-list tbody').find('input:checked');
+        var categories = [];
+        $categoriesEl.each(function () {
+            categories.push($(this).val());
+        });
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.updateStatus',
+            data: {
+                zt_cmd: 'ajax',
+                categories: categories.toString(),
+                status: 10
+            }
+        }, true);
+    };
+    
+    w.editCategory = function(id, name){
+        $('#zt-portfolio-edit-category #category-id').val(id);
+        $('#zt-portfolio-edit-category #category-name').val(atob(name));
+        $('#zt-portfolio-edit-category').modal('show');
+    };
 
     w.categoryClear = function () {
         var $editor = $('#zt-portfolio-header-editor');
@@ -114,21 +162,55 @@
         $('#zt-portfolio-container').html('');
         $('#category-name').val('');
     };
-
+    
+    w.propertySave = function (id) {
+        var ajaxData = {
+                name: $('#property-name').val(),
+                type: $('#property-type').val(),
+                value: $('#property-value').val(),
+                zt_cmd: 'ajax'
+            };
+        if(typeof(id) !== 'undefined'){
+            ajaxData.id = id|0;
+        }
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=properties.save',
+            data: ajaxData
+        }, true);
+    };
+    
+    w.propertyDelete = function (id) {
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=properties.delete',
+            data: {
+                zt_cmd: 'ajax',
+                id: id
+            }
+        }, true);
+    };
 
     w.portfolioCreate = function () {
-        var $elements = $('div#category-selector').find('input:checked');
-        var data = [];
-        $elements.each(function () {
-            data.push($(this).val());
+        var $categoriesEl = $('div#category-selector').find('input:checked');
+        var categories = [];
+        $categoriesEl.each(function () {
+            categories.push($(this).val());
         });
-
+        var $propertiesEl = $('div#property-selector').find('input:checked');
+        var properties = [];
+        $propertiesEl.each(function () {
+            var elementData = {};
+            elementData.name = $(this).data('name');
+            elementData.type = $(this).data('type');
+            elementData.value = $(this).val();
+            properties.push(elementData);
+        });
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.create',
             data: {
                 title: $('#portfolio-title').val(),
                 thumbnail: $('#portfolio-thumbnail').val(),
-                category: data.toString(),
+                category: categories.toString(),
+                header: JSON.stringify(properties),
                 url: $('#portfolio-url').val(),
                 content: $('#portfolio-content_ifr').contents().find('#tinymce').html(),
                 description: $('#portfolio-description_ifr').contents().find('#tinymce').html(),
@@ -138,19 +220,28 @@
     };
     
     w.portfolioSave = function (id) {
-        var $elements = $('div#category-selector').find('input:checked');
-        var data = [];
-        $elements.each(function () {
-            data.push($(this).val());
+        var $categoriesEl = $('div#category-selector').find('input:checked');
+        var categories = [];
+        $categoriesEl.each(function () {
+            categories.push($(this).val());
         });
-
+        var $propertiesEl = $('div#property-selector').find('input:checked');
+        var properties = [];
+        $propertiesEl.each(function () {
+            var elementData = {};
+            elementData.name = $(this).data('name');
+            elementData.type = $(this).data('type');
+            elementData.value = $(this).val();
+            properties.push(elementData);
+        });
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.save',
             data: {
                 id: id,
                 title: $('#portfolio-title').val(),
                 thumbnail: $('#portfolio-thumbnail').val(),
-                category: data.toString(),
+                category: categories.toString(),
+                header: JSON.stringify(properties),
                 url: $('#portfolio-url').val(),
                 content: $('#portfolio-content_ifr').contents().find('#tinymce').html(),
                 description: $('#portfolio-description_ifr').contents().find('#tinymce').html(),
@@ -186,6 +277,12 @@
                 id: id
             }
         }, true);
+    };    
+
+    w.publicCheckAll = function(parent){
+        var $parent = $(parent).find('tbody');
+        $parent.find('input[type="checkbox"]').prop('checked', $(parent).find('#check-all').prop('checked'));
     };
+
     
 })(window, jQuery);

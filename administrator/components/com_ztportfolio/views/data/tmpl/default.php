@@ -29,6 +29,8 @@
     (function (w, $) {
         $(w.document).ready(function () {
             addCustomToolBar('<?php echo JRoute::_('index.php?option=com_ztportfolio&task=data.portfolio'); ?>', 'plus-circle', ' <?php echo JText::_('ZT_PORTFOLIO_CATEGORIES_ADD_NEW'); ?>', 'btn btn-small btn-success');
+            addCustomToolBar('javascript: portfolioPublish();', 'publish', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_PUBLISH'); ?>', 'btn btn-small btn-defaut');
+            addCustomToolBar('javascript: portfolioUnpublish();', 'unpublish', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_UNPUBLISH'); ?>', 'btn btn-small btn-defaut');
         });
     })(window, jQuery);
 </script>

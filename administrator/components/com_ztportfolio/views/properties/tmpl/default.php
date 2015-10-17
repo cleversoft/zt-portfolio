@@ -1,3 +1,4 @@
+<?php $activeProperty = $this->get('html')->get('activeProperty', NULL); ?>
 <?php ZtPortfolioHelperToolbar::toolBar(); ?>
 <?php $this->get('html')->set('active', 'properties.display'); ?>
 <div id="j-sidebar-container" class="j-sidebar-container j-sidebar-visible">
@@ -20,17 +21,19 @@
 </div>
 <div id="j-main-container" class="span10 j-toggle-main">
     <div class="row-fluid">
-        <div class="span12">
+        <div class="span4">
             <?php echo $this->get('html')->fetch('com_ztportfolio://html/properties.editor.php'); ?>
+        </div>
+        <div class="span8" id="zt-portfolio-properties-list">
+            <?php echo $this->get('html')->fetch('com_ztportfolio://html/properties.php'); ?>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     (function (w, $) {
         $(w.document).ready(function () {
-            addCustomToolBar('javascript:categorySave();', 'save', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE'); ?>', 'btn btn-small');
-            addCustomToolBar('javascript:categoryClear();', 'delete', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_CLEAR'); ?>', 'btn btn-small');
-            addCustomToolBar('<?php echo JRoute::_('index.php?option=com_ztportfolio&task=data.display'); ?>', 'cancel', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_CANCEL'); ?>', 'btn btn-small');
+            addCustomToolBar('javascript:propertySave(<?php echo(!empty($activeProperty) ? $activeProperty['id']:''); ?>);', 'save', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE'); ?>', 'btn btn-small');
+            addCustomToolBar('<?php echo JRoute::_('index.php?option=com_ztportfolio&task=properties.display'); ?>', 'cancel', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_CANCEL'); ?>', 'btn btn-small');
         });
     })(window, jQuery);
 </script>

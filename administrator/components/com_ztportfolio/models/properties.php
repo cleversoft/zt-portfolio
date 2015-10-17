@@ -1,27 +1,29 @@
 <?php
 
 /**
- * Categories Model
+ * Properties Model
  */
-class ZtPortfolioModelCategories extends JModelLegacy
+class ZtPortfolioModelProperties extends JModelLegacy
 {
-    const STATUS_PUBLIC = 5;
-    const STATUS_UNPUBLIC = 10;
+
     /**
-     * Create new category
-     * @param type $headers
+     * Create new property
+     * @param type $name
+     * @param type $type
+     * @param type $value
      * @return type
      */
-    public function create($name)
+    public function create($name, $type='text', $value= '')
     {
         $table = $this->getTable();
         $table->name = $name;
-        $table->status = ZtPortfolioModelCategories::STATUS_PUBLIC;
+        $table->type = $type;
+        $table->value = $value;
         return $table->store();
     }
 
     /**
-     * Get categories data by key
+     * Get property data by key
      * @param type $id
      * @return type
      */
@@ -33,7 +35,7 @@ class ZtPortfolioModelCategories extends JModelLegacy
     }
     
     /**
-     * Delete category
+     * Delete property
      * @param type $id
      * @return type
      */
@@ -42,43 +44,35 @@ class ZtPortfolioModelCategories extends JModelLegacy
         return $talbe->delete($id);
     }
 
-
     /**
      * Update an existed category
      * @param type $id
      * @param type $name
-     * @param type $headers
+     * @param type $type
+     * @param type $value
      * @return type
      */
-    public function update($id, $name){
+    public function update($id, $name, $type, $value){
         $table = $this->getTable();
         $table->id = $id;
         $table->name = $name;
+        $table->type = $type;
+        $table->value = $value;
         return $table->store();
     }
 
     /**
-     * List all categories
+     * List all properties
      */
     public function listAll()
     {
         $db = $this->getDbo();
         $query = $db->getQuery(true);
         $query->select('*')
-                ->from($db->quoteName('#__ztportfolio_categories'))
+                ->from($db->quoteName('#__ztportfolio_properties'))
                 ->order($db->quoteName('id'));
         return $db->setQuery($query)
                         ->loadAssocList();
-    }
-    
-    public function updateStatus($categories, $status){
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->update($db->quoteName('#__ztportfolio_categories'))
-                ->set($db->quoteName('status') . '=' . $db->quote($status))
-                ->where($db->quoteName('id') . ' IN (' . $categories . ')');
-        $db->setQuery($query);
-        return $db->execute();
     }
 
     /**
@@ -88,7 +82,7 @@ class ZtPortfolioModelCategories extends JModelLegacy
      * @param type $config
      * @return type
      */
-    public function getTable($type = 'Categories', $prefix = 'ZtPortfolioTable', $config = array())
+    public function getTable($type = 'Properties', $prefix = 'ZtPortfolioTable', $config = array())
     {
         return JTable::getInstance($type, $prefix, $config);
     }

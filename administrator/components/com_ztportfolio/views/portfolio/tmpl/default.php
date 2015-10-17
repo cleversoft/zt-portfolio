@@ -2,6 +2,7 @@
 ZtPortfolioHelperToolbar::toolBar();
 $portfolio = $this->get('portfolio', null);
 $categories = $this->get('categories');
+$properties = $this->get('properties');
 ?>
 <div class="row-fluid" >
     <div class="span9">
@@ -51,7 +52,7 @@ $categories = $this->get('categories');
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_CATEGORY')); ?></label>
+            <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_CATEGORIES')); ?></label>
             <div class="controls">
                 <?php foreach ($categories as $category): ?>
                     <div style="padding: 5px;" id="category-selector">
@@ -59,6 +60,20 @@ $categories = $this->get('categories');
                             <input type="checkbox" value="<?php echo($category['id']); ?>" <?php echo((in_array($category['id'], $portfolio['category'])) ? 'checked' : ''); ?>> <?php echo($category['name']); ?>
                         <?php else: ?>
                             <input type="checkbox" value="<?php echo($category['id']); ?>"> <?php echo($category['name']); ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_PROPERTIES')); ?></label>
+            <div class="controls">
+                <?php foreach ($properties as $property): ?>
+                    <div style="padding: 5px;" id="property-selector">
+                        <?php if (!empty($portfolio) || true): ?>
+                            <input type="checkbox" value="<?php echo($property['id']); ?>" data-name="<?php echo($property['name']); ?>" data-type="<?php echo($property['type']); ?>"> <?php echo($property['name']); ?>
+                        <?php else: ?>
+                            <input type="checkbox" value="<?php echo($property['id']); ?>"> <?php echo($property['name']); ?>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>

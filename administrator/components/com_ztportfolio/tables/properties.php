@@ -3,9 +3,9 @@
 defined('_JEXEC') or die;
 
 /**
- * Zt Portfolio categories table
+ * Zt Portfolio properties table
  */
-class ZtPortfolioTableCategories extends JTable
+class ZtPortfolioTableProperties extends JTable
 {
 
     /**
@@ -14,8 +14,8 @@ class ZtPortfolioTableCategories extends JTable
      */
     public function __construct(&$db)
     {
-        parent::__construct('#__ztportfolio_categories', 'id', $db);
-        JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_portfolio.categories'));
+        parent::__construct('#__ztportfolio_properties', 'id', $db);
+        JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_portfolio.properties'));
     }
 
     /**
@@ -24,13 +24,13 @@ class ZtPortfolioTableCategories extends JTable
      */
     public function check()
     {
-        if (empty($this->name))
+        if (empty($this->name) || empty($this->type))
         {
             return false;
         }
         return true;
     }
-
+    
     /**
      * Store data
      * @param type $updateNulls

@@ -40,7 +40,9 @@ class ZtPortfolioControllerData extends JControllerAdmin {
         $id = $jInput->get('id', 0, 'INT');
         $modelData = $this->getModel('Data', 'ZtPortfolioModel');
         $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
+        $modelProperties = $this->getModel('Properties', 'ZtPortfolioModel');
         $view->set('categories', $modelCategories->listAll());
+        $view->set('properties', $modelProperties->listAll());
         if ($id > 0) {
             $portfolio = $modelData->load($id);
             $portfolio['category'] = explode(',', $portfolio['category']);
@@ -63,11 +65,11 @@ class ZtPortfolioControllerData extends JControllerAdmin {
             $category = $jInput->get('category', '', 'STRING');
             $thumbnail = $jInput->get('thumbnail', '', 'STRING');
             $content = $jInput->get('content', '', 'RAW');
+            $header = json_decode($jInput->get('header', '[]', 'RAW'));
             if(empty($category)){
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_PLEASE_SELECT_CATEGORY'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
                 $ajax->response();
             }
-            $header = $modelCategories->getHeaders($category);
             if (!empty($header) && !empty($title) && !empty($description) && !empty($thumbnail) && !empty($category)) {
                 if ($this->_model->create($category, $header, $title, $url, $description, $thumbnail, $content, ZtPortfolioModelData::STATUS_PUBLIC)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_CREATE_PORTFOLIO_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
@@ -97,11 +99,11 @@ class ZtPortfolioControllerData extends JControllerAdmin {
             $category = $jInput->get('category', '', 'STRING');
             $thumbnail = $jInput->get('thumbnail', '', 'STRING');
             $content = $jInput->get('content', '', 'RAW');
+            $header = json_decode($jInput->get('header', '[]', 'RAW'));
             if(empty($category)){
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_PLEASE_SELECT_CATEGORY'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
                 $ajax->response();
             }
-            $header = $modelCategories->getHeaders($category);
             if (!empty($header) && !empty($title) && !empty($description) && !empty($thumbnail) && !empty($category) && $id > 0) {
                 if ($this->_model->update($id, $category, $header, $title, $url, $description, $thumbnail, $content, ZtPortfolioModelData::STATUS_PUBLIC)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_UPDATE_PORTFOLIO_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
@@ -116,6 +118,26 @@ class ZtPortfolioControllerData extends JControllerAdmin {
         $ajax->response();
     }
 
+    public function updateStatus() {
+        $ajax = ZtAjax::getInstance();
+        $jInput = JFactory::getApplication()->input;
+        if (ZtFramework::isAjax()) {
+            $portfolios = $jInput->get('portfolios', '', 'STRING');
+            $status = $jInput->get('status', ZtPortfolioModelData::STATUS_PUBLIC, 'INT');
+            if (!empty($portfolios)) {
+                if ($this->_model->updateStatus($portfolios, $status)) {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_STATUS_UPDATE_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
+                    $this->_reload();
+                } else {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANNOT_UPDATE_STATUS'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+                }
+            } else {
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANNOT_UPDATE_STATUS'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+            }
+        }
+        $ajax->response();
+    }
+    
     /**
      * Private reload
      */

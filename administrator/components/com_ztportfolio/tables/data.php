@@ -47,7 +47,7 @@ class ZtPortfolioTableData extends JTable {
      */
     public function store($updateNulls = false) {
         if ($this->check()) {
-            $this->modified = JFactory::getDate()->toSql();
+            $this->modified = time();
             $this->status = intval($this->status);
             if (is_object($this->header) || is_array($this->header)) {
                 $this->header = json_encode($this->header);
@@ -56,5 +56,5 @@ class ZtPortfolioTableData extends JTable {
         }
         return false;
     }
-
+    
 }

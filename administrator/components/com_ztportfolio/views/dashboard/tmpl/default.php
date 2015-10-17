@@ -20,12 +20,12 @@
 </div>
 <div id="j-main-container" class="span10 j-toggle-main">
     <div class="row-fluid">
-        <div class="span12" id="zt-portfolio-categories-list">
+        <div class="span12" id="zt-portfolio-zt-portfolio-categories-list">
             <?php echo $this->get('html')->fetch('com_ztportfolio://html/dashboard.categories.php'); ?>
         </div>
     </div>
 </div>
-<div class="modal hide fade" id="zt-portfolio-create-category">
+<div class="modal hide fade" id="zt-portfolio-create-category" style="width: 225px; margin-left: -112px;">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3><?php echo(JText::_('COM_ZTPORTFOLIO_HEADER_CREATE_CATEGORY')); ?></h3>
@@ -43,10 +43,31 @@
         <button data-dismiss="modal" class="btn"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CANCEL')); ?></button>
     </div>
 </div>
+<div class="modal hide fade" id="zt-portfolio-edit-category" style="width: 225px; margin-left: -112px;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3><?php echo(JText::_('COM_ZTPORTFOLIO_HEADER_EDIT_CATEGORY')); ?></h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_CATEGORY_NAME')); ?></label>
+            <div class="controls">
+                <input id="category-name" minlength="5" type="text">
+                <input id="category-id" minlength="5" type="hidden">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-primary" onclick="categorySave();"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_SAVE')); ?></button>
+        <button data-dismiss="modal" class="btn"><?php echo(JText::_('COM_ZTPORTFOLIO_BUTTON_CANCEL')); ?></button>
+    </div>
+</div>
 <script type="text/javascript">
     (function (w, $) {
         $(w.document).ready(function () {
             addCustomToolBar('javascript: categoryShowModal();', 'plus-circle', ' <?php echo JText::_('ZT_PORTFOLIO_CATEGORIES_ADD_NEW'); ?>', 'btn btn-small btn-success');
+            addCustomToolBar('javascript: categoryPublish();', 'publish', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_PUBLISH'); ?>', 'btn btn-small btn-defaut');
+            addCustomToolBar('javascript: categoryUnpublish();', 'unpublish', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_UNPUBLISH'); ?>', 'btn btn-small btn-defaut');
         });
     })(window, jQuery);
 </script>

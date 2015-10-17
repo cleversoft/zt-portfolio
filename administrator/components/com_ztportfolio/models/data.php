@@ -84,6 +84,16 @@ class ZtPortfolioModelData extends JModelLegacy
         $table->content = $content;
         return $table->store();
     }
+    
+    public function updateStatus($portfolios, $status){
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->update($db->quoteName('#__ztportfolio_data'))
+                ->set($db->quoteName('status') . '=' . $db->quote($status))
+                ->where($db->quoteName('id') . ' IN (' . $portfolios . ')');
+        $db->setQuery($query);
+        return $db->execute();
+    }
 
     /**
      * List all portfolios

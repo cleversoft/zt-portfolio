@@ -23,5 +23,5 @@ class ZtPortfolioControllerDashboard extends JControllerLegacy {
         $view->set('html', $html);
         $view->display();
     }
-
+    
 }

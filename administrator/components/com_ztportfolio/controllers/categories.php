@@ -30,7 +30,27 @@ class ZtPortfolioControllerCategories extends JControllerAdmin {
         $view->set('editor', $editor);
         $view->display();
     }
-
+    
+    public function updateStatus() {
+        $ajax = ZtAjax::getInstance();
+        $jInput = JFactory::getApplication()->input;
+        if (ZtFramework::isAjax()) {
+            $categories = $jInput->get('categories', '', 'STRING');
+            $status = $jInput->get('status', ZtPortfolioModelCategories::STATUS_PUBLIC, 'INT');
+            if (!empty($categories)) {
+                if ($this->_model->updateStatus($categories, $status)) {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_STATUS_UPDATE_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
+                    $this->_reload();
+                } else {
+                    $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANNOT_UPDATE_STATUS'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+                }
+            } else {
+                $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANNOT_UPDATE_STATUS'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
+            }
+        }
+        $ajax->response();
+    }
+    
     /**
      * Create new categories
      */
@@ -39,9 +59,8 @@ class ZtPortfolioControllerCategories extends JControllerAdmin {
         $jInput = JFactory::getApplication()->input;
         if (ZtFramework::isAjax()) {
             $name = $jInput->get('name', '', 'STRING');
-            $headers = json_decode($jInput->get('header', '[]', 'RAW'));
             if (!empty($name)) {
-                if ($this->_model->create($name, $headers)) {
+                if ($this->_model->create($name)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_CREATE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
                     $this->_reload();
                 } else {
@@ -61,7 +80,7 @@ class ZtPortfolioControllerCategories extends JControllerAdmin {
         $ajax = ZtAjax::getInstance();
         $html = new ZtHtml();
         $html->set('categories', $this->_model->listAll());
-        $ajax->addHtml($html->fetch('com_ztportfolio://html/dashboard.categories.php'), '#zt-portfolio-categories-list');
+        $ajax->addHtml($html->fetch('com_ztportfolio://html/dashboard.categories.php'), '#zt-portfolio-zt-portfolio-categories-list');
     }
 
     /**
@@ -83,7 +102,6 @@ class ZtPortfolioControllerCategories extends JControllerAdmin {
         $jInput = JFactory::getApplication()->input;
         if (ZtFramework::isAjax()) {
             $id = $jInput->get('id', 0, 'INT');
-            $modelData = $this->getModel('Data', 'ZtPortfolioModel');
             if ($this->_model->delete($id)) {
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_DELETE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
                 $this->_reload();
@@ -103,10 +121,10 @@ class ZtPortfolioControllerCategories extends JControllerAdmin {
         if (ZtFramework::isAjax()) {
             $id = $jInput->get('id', 0, 'INT');
             $name = $jInput->get('name', '', 'STRING');
-            $headers = json_decode($jInput->get('header', '[]', 'RAW'));
-            if (!empty($headers) && !empty($name) && $id > 0) {
-                if ($this->_model->update($id, $name, $headers)) {
+            if (!empty($name) && $id > 0) {
+                if ($this->_model->update($id, $name)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_UPDATE_CATEGORY_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
+                    $this->_reload();
                 } else {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_SAVE'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
                 }
@@ -116,41 +134,4 @@ class ZtPortfolioControllerCategories extends JControllerAdmin {
         }
         $ajax->response();
     }
-    
-    public function reloadHeader(){
-        $ajax = ZtAjax::getInstance();
-        $jInput = JFactory::getApplication()->input;
-        if (ZtFramework::isAjax()) {
-            $id = $jInput->get('id', 0, 'INT');
-            $html = new ZtHtml();
-            if($id === 0){
-                $html->set('category', array());
-            }else{
-                $html->set('category', $this->_model->load($id));
-            }
-            $ajax->addHtml($html->fetch('com_ztportfolio://html/categories.header.php'), '#zt-portfolio-container');
-        }
-        $ajax->response();
-    }
-    
-    /**
-     * Load editor
-     */
-    public function loadEditor() {
-        $ajax = ZtAjax::getInstance();
-        $jInput = JFactory::getApplication()->input;
-        if (ZtFramework::isAjax()) {
-            $id = $jInput->get('id', 0, 'INT');
-            $html = new ZtHtml();
-            if($id === 0){
-                $html->set('category', array());
-            }else{
-                $html->set('category', $this->_model->load($id));
-            }
-            $ajax->addHtml($html->fetch('com_ztportfolio://html/categories.info.php'), '#category-info');
-            $ajax->addHtml($html->fetch('com_ztportfolio://html/categories.header.php'), '#header-editor');
-        }
-        $ajax->response();
-    }
-
 }

@@ -19,6 +19,7 @@ class ModZtPortfolioHelper {
             $query = $db->getQuery(true);
             $query->select('*')
                     ->from($db->quoteName('#__ztportfolio_data'))
+                    ->where('`status`=2')
                     ->order($db->quoteName('id'));
             self::$_portfolios = $db->setQuery($query)
                     ->loadAssocList();
@@ -65,6 +66,7 @@ class ModZtPortfolioHelper {
             $query = $db->getQuery(true);
             $query->select('*')
                     ->from($db->quoteName('#__ztportfolio_categories'))
+                    ->where('`status`=5')
                     ->order($db->quoteName('id'));
             self::$_categories = $db->setQuery($query)
                     ->loadAssocList();
