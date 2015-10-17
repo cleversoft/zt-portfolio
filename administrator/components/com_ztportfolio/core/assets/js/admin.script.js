@@ -201,7 +201,7 @@
             var elementData = {};
             elementData.name = $(this).data('name');
             elementData.type = $(this).data('type');
-            elementData.value = $(this).val();
+            elementData.value = $(this).data('value');
             properties.push(elementData);
         });
         zt.ajax.request({
@@ -231,7 +231,7 @@
             var elementData = {};
             elementData.name = $(this).data('name');
             elementData.type = $(this).data('type');
-            elementData.value = $(this).val();
+            elementData.value = $(this).data('value');
             properties.push(elementData);
         });
         zt.ajax.request({

@@ -70,10 +70,10 @@ $properties = $this->get('properties');
             <div class="controls">
                 <?php foreach ($properties as $property): ?>
                     <div style="padding: 5px;" id="property-selector">
-                        <?php if (!empty($portfolio) || true): ?>
-                            <input type="checkbox" value="<?php echo($property['id']); ?>" data-name="<?php echo($property['name']); ?>" data-type="<?php echo($property['type']); ?>"> <?php echo($property['name']); ?>
+                        <?php if (!empty($portfolio)): ?>
+                            <input type="checkbox" value="<?php echo($property['id']); ?>" data-value="<?php echo($property['value']); ?>" data-name="<?php echo($property['name']); ?>" data-type="<?php echo($property['type']); ?>"> <?php echo($property['name']); ?>
                         <?php else: ?>
-                            <input type="checkbox" value="<?php echo($property['id']); ?>"> <?php echo($property['name']); ?>
+                            <input type="checkbox" value="<?php echo($property['id']); ?>" data-value="<?php echo($property['value']); ?>" data-name="<?php echo($property['name']); ?>" data-type="<?php echo($property['type']); ?>"> <?php echo($property['name']); ?>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
