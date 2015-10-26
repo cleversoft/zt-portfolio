@@ -71,6 +71,21 @@ class ZtPortfolioModelCategories extends JModelLegacy
                         ->loadAssocList();
     }
     
+    /**
+     * List all categories
+     */
+    public function listAllByStatus($status)
+    {
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+                ->from($db->quoteName('#__ztportfolio_categories'))
+                ->where($db->quoteName('status') . '=' . $db->quote($status))
+                ->order($db->quoteName('id'));
+        return $db->setQuery($query)
+                        ->loadAssocList();
+    }
+    
     public function updateStatus($categories, $status){
         $db = $this->getDbo();
         $query = $db->getQuery(true);

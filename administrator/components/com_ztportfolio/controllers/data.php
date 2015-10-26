@@ -16,7 +16,6 @@ class ZtPortfolioControllerData extends JControllerAdmin {
      */
     public function display($cachable = false, $urlparams = array()) {
         $view = $this->getView('Data', 'html', 'ZtPortfolioView');
-        $jInput = JFactory::getApplication()->input;
         $modelData = $this->getModel('Data', 'ZtPortfolioModel');
         $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
         $html = new ZtHtml();
@@ -41,7 +40,7 @@ class ZtPortfolioControllerData extends JControllerAdmin {
         $modelData = $this->getModel('Data', 'ZtPortfolioModel');
         $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
         $modelProperties = $this->getModel('Properties', 'ZtPortfolioModel');
-        $view->set('categories', $modelCategories->listAll());
+        $view->set('categories', $modelCategories->listAllByStatus(ZtPortfolioModelCategories::STATUS_PUBLIC));
         $view->set('properties', $modelProperties->listAll());
         if ($id > 0) {
             $portfolio = $modelData->load($id);
@@ -58,7 +57,6 @@ class ZtPortfolioControllerData extends JControllerAdmin {
         $ajax = ZtAjax::getInstance();
         $jInput = JFactory::getApplication()->input;
         if (ZtFramework::isAjax()) {
-            $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
             $title = $jInput->get('title', '', 'STRING');
             $url = $jInput->get('url', '', 'STRING');
             $description = $jInput->get('description', '', 'STRING');

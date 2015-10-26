@@ -12,6 +12,7 @@
     };
 
     w.categoryShowModal = function () {
+        $('#zt-portfolio-create-category #category-name').val('');
         $('#zt-portfolio-create-category').modal('show');
     };
 
