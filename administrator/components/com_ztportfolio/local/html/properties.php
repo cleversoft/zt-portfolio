@@ -12,7 +12,7 @@
         <?php foreach ($properties as $key => $property): ?>
             <tr>
                 <td><?php echo($key + 1); ?></td>
-                <td><a href="<?php echo(rtrim(JUri::root(), '/') . '/administrator/index.php?option=com_ztportfolio&task=properties.display&id=' . $property['id']); ?>"><?php echo($property['name']); ?></a></td>
+                <td><a href="javascript:propertyEditor(<?php echo($property['id']); ?>);"><?php echo($property['name']); ?></a></td>
                 <td><?php echo($property['type']); ?></td>
                 <td><?php echo($property['value']); ?></td>
                 <td class="nowrap center categories-controls"><span class="icon-trash" onclick="propertyDelete(<?php echo($property['id']); ?>);"></span></td>

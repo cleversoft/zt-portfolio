@@ -107,7 +107,7 @@ class ZtPortfolioControllerData extends JControllerAdmin {
             if (!empty($header) && !empty($title) && !empty($description) && !empty($thumbnail) && !empty($category) && $id > 0) {
                 if ($this->_model->update($id, $category, $header, $title, $url, $description, $thumbnail, $content, ZtPortfolioModelData::STATUS_PUBLIC)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_UPDATE_PORTFOLIO_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
-                    $ajax->addExecute('window.setTimeout(function(){window.location=\'' . JUri::root() . '/administrator/index.php?option=com_ztportfolio\';}, 3000);');
+                    $ajax->addExecute('window.setTimeout(function(){window.location=\'' . JUri::root() . '/administrator/index.php?option=com_ztportfolio&task=data.display\';}, 3000);');
                 } else {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_ERROR_CANOT_SAVE'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
                 }
@@ -173,26 +173,6 @@ class ZtPortfolioControllerData extends JControllerAdmin {
         $ajax = ZtAjax::getInstance();
         if (ZtFramework::isAjax()) {
             $ajax->addExecute('window.location=\'' . JUri::root() . '/administrator/index.php?option=com_ztportfolio&task=data.display\';');
-        }
-        $ajax->response();
-    }
-
-    /**
-     * Reload header
-     */
-    public function loadHeader() {
-        $ajax = ZtAjax::getInstance();
-        $jInput = JFactory::getApplication()->input;
-        $id = $jInput->get('id', 0, 'INT');
-        if (ZtFramework::isAjax() && $id > 0) {
-            $html = new ZtHtml();
-            $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
-            $category = $modelCategories->load($id);
-            if (!is_array($category['header'])) {
-                $category['header'] = json_decode($category['header']);
-            }
-            $html->set('headers', $category['header']);
-            $ajax->addHtml($html->fetch('com_ztportfolio://html/portfolio.header.php'), '#portfolio-header-edit');
         }
         $ajax->response();
     }

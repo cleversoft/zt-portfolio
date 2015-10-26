@@ -10,19 +10,19 @@
             }
         }, true);
     };
-    
-    w.categoryShowModal = function(){
+
+    w.categoryShowModal = function () {
         $('#zt-portfolio-create-category').modal('show');
     };
-    
-    w.categoryReloadHeader = function(){
+
+    w.categoryReloadHeader = function () {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.reloadHeader',
             data: {
                 zt_cmd: 'ajax',
                 id: $('#category-name').val()
             }
-        }, true);        
+        }, true);
     };
 
     w.headerRemove = function (thisPtr) {
@@ -47,7 +47,7 @@
         $parent.find('select').val('text');
     };
 
-    w.categorySave = function(){
+    w.categorySave = function () {
         name = atob(name);
         if ($('#zt-portfolio-edit-category #category-name').val() === '') {
             return false;
@@ -61,7 +61,7 @@
             }
         }, true);
     };
-    
+
     w.categoryCreate = function () {
         if ($('#category-name').val() === '') {
             return false;
@@ -74,7 +74,7 @@
             }
         }, true);
     };
-    
+
     w.categoryDelete = function (id) {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=categories.delete',
@@ -84,8 +84,8 @@
             }
         }, true);
     };
-    
-    w.portfolioPublish = function(){
+
+    w.portfolioPublish = function () {
         var $categoriesEl = $('#zt-portfolio-portfolios-list tbody').find('input:checked');
         var categories = [];
         $categoriesEl.each(function () {
@@ -100,8 +100,8 @@
             }
         }, true);
     };
-    
-    w.portfolioUnpublish = function(){
+
+    w.portfolioUnpublish = function () {
         var $categoriesEl = $('#zt-portfolio-portfolios-list tbody').find('input:checked');
         var categories = [];
         $categoriesEl.each(function () {
@@ -116,8 +116,8 @@
             }
         }, true);
     };
-    
-    w.categoryPublish = function(){
+
+    w.categoryPublish = function () {
         var $categoriesEl = $('#zt-portfolio-categories-list tbody').find('input:checked');
         var categories = [];
         $categoriesEl.each(function () {
@@ -132,8 +132,8 @@
             }
         }, true);
     };
-    
-    w.categoryUnpublish = function(){
+
+    w.categoryUnpublish = function () {
         var $categoriesEl = $('#zt-portfolio-categories-list tbody').find('input:checked');
         var categories = [];
         $categoriesEl.each(function () {
@@ -148,8 +148,8 @@
             }
         }, true);
     };
-    
-    w.editCategory = function(id, name){
+
+    w.editCategory = function (id, name) {
         $('#zt-portfolio-edit-category #category-id').val(id);
         $('#zt-portfolio-edit-category #category-name').val(atob(name));
         $('#zt-portfolio-edit-category').modal('show');
@@ -162,23 +162,38 @@
         $('#zt-portfolio-container').html('');
         $('#category-name').val('');
     };
-    
-    w.propertySave = function (id) {
+
+    w.propertySave = function () {
         var ajaxData = {
-                name: $('#property-name').val(),
-                type: $('#property-type').val(),
-                value: $('#property-value').val(),
-                zt_cmd: 'ajax'
-            };
-        if(typeof(id) !== 'undefined'){
-            ajaxData.id = id|0;
-        }
+            name: $('#property-name').val(),
+            type: $('#property-type').val(),
+            value: $('#property-value').val(),
+            id: $('#property-id').val(),
+            zt_cmd: 'ajax'
+        };
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=properties.save',
             data: ajaxData
         }, true);
     };
-    
+
+    w.propertyEditor = function (id) {
+        zt.ajax.request({
+            url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=properties.showEditor',
+            data: {
+                id: id
+            }
+        }, true);
+    };
+
+    w.propertyShowEditor = function () {
+        $('#property-name').val('');
+        $('#property-type').val('text');
+        $('#property-value').val('');
+        $('#property-id').val('');
+        jQuery('#zt-portfolio-property-editor').modal('show');
+    };
+
     w.propertyDelete = function (id) {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=properties.delete',
@@ -190,19 +205,21 @@
     };
 
     w.portfolioCreate = function () {
-        var $categoriesEl = $('div#category-selector').find('input:checked');
+        var $categoriesEl = $('select#category-selector').find('option:selected');
         var categories = [];
         $categoriesEl.each(function () {
             categories.push($(this).val());
         });
-        var $propertiesEl = $('div#property-selector').find('input:checked');
+        var $propertiesEl = $('input#zt-portfolio-property-element');
         var properties = [];
         $propertiesEl.each(function () {
-            var elementData = {};
-            elementData.name = $(this).data('name');
-            elementData.type = $(this).data('type');
-            elementData.value = $(this).data('value');
-            properties.push(elementData);
+            if($(this).val() !== ''){
+                var elementData = {};
+                elementData.name = $(this).data('name');
+                elementData.type = $(this).data('type');
+                elementData.value = $(this).val();
+                properties.push(elementData);
+            }
         });
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.create',
@@ -218,21 +235,23 @@
             }
         }, true);
     };
-    
+
     w.portfolioSave = function (id) {
-        var $categoriesEl = $('div#category-selector').find('input:checked');
+        var $categoriesEl = $('select#category-selector').find('option:selected');
         var categories = [];
         $categoriesEl.each(function () {
             categories.push($(this).val());
         });
-        var $propertiesEl = $('div#property-selector').find('input:checked');
+        var $propertiesEl = $('input#zt-portfolio-property-element');
         var properties = [];
         $propertiesEl.each(function () {
-            var elementData = {};
-            elementData.name = $(this).data('name');
-            elementData.type = $(this).data('type');
-            elementData.value = $(this).data('value');
-            properties.push(elementData);
+            if($(this).val() !== ''){
+                var elementData = {};
+                elementData.name = $(this).data('name');
+                elementData.type = $(this).data('type');
+                elementData.value = $(this).val();
+                properties.push(elementData);
+            }
         });
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.save',
@@ -249,8 +268,8 @@
             }
         }, true);
     };
-    
-    w.portfolioCancel = function(){
+
+    w.portfolioCancel = function () {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.cancel',
             data: {
@@ -258,8 +277,8 @@
             }
         }, true);
     };
-    
-    w.portfolioLoadHeader = function(thisPtr){
+
+    w.portfolioLoadHeader = function (thisPtr) {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.loadHeader',
             data: {
@@ -268,7 +287,7 @@
             }
         }, true);
     };
-    
+
     w.portfolioDelete = function (id) {
         zt.ajax.request({
             url: zt.settings.backendUrl + 'index.php?option=com_ztportfolio&task=data.delete',
@@ -277,12 +296,12 @@
                 id: id
             }
         }, true);
-    };    
+    };
 
-    w.publicCheckAll = function(parent){
+    w.publicCheckAll = function (parent) {
         var $parent = $(parent).find('tbody');
         $parent.find('input[type="checkbox"]').prop('checked', $(parent).find('#check-all').prop('checked'));
     };
 
-    
+
 })(window, jQuery);

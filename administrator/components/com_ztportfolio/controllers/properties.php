@@ -18,7 +18,6 @@ class ZtPortfolioControllerProperties extends JControllerAdmin {
      */
     public function display($cachable = false, $urlparams = array()) {
         $jInput = JFactory::getApplication()->input;
-        $id = $jInput->get('id', 0, 'INT');
         $view = $this->getView('Properties', 'html', 'ZtPortfolioView');
         $modelCategories = $this->getModel('Categories', 'ZtPortfolioModel');
         $modelProperties = $this->getModel('Properties', 'ZtPortfolioModel');
@@ -28,11 +27,24 @@ class ZtPortfolioControllerProperties extends JControllerAdmin {
             'properties.display' => 'COM_ZTPORTFOLIO_PROPERTIES'));
         $html->set('categories', $modelCategories->listAll());
         $html->set('properties', $modelProperties->listAll());
-        if ($id > 0) {
-            $html->set('activeProperty', $modelProperties->load($id));
-        }
         $view->set('html', $html);
         $view->display();
+    }
+    
+    /**
+     * Show properties editor
+     */
+    public function showEditor(){
+        $jInput = JFactory::getApplication()->input;
+        $html = new ZtHtml();
+        $ajax = ZtAjax::getInstance();
+        $id = $jInput->get('id', 0, 'INT');
+        if($id > 0){
+            $html->set('activeProperty', $this->_model->load($id));
+        }
+        $ajax->addHtml($html->fetch('com_ztportfolio://html/properties.editor.php'), "#zt-portfolio-property-editor .modal-body");
+        $ajax->addExecute('jQuery(\'#zt-portfolio-property-editor\').modal(\'show\');');
+        $ajax->response();
     }
 
     /**

@@ -28,6 +28,7 @@ if (JFolder::exists(JPATH_ROOT . '/plugins/system/zooframework') && defined('ZTF
     $ztPath = ZtPath::getInstance();
     $ztAsset = ZtAssets::getInstance();
 
+    JHtml::_('formbehavior.chosen');
     $ztAsset->addScript('com_ztportfolio://assets/js/admin.script.js');
     $ztAsset->addStyleSheet('com_ztportfolio://assets/css/admin.style.css');
     $controller = JControllerLegacy::getInstance('ZtPortfolio');

@@ -3,46 +3,106 @@ ZtPortfolioHelperToolbar::toolBar();
 $portfolio = $this->get('portfolio', null);
 $categories = $this->get('categories');
 $properties = $this->get('properties');
+$headers = array();
+if (!empty($portfolio['header'])) {
+    foreach ($portfolio['header'] as $header) {
+        $headers[$header->type][$header->name] = $header->value;
+    }
+}
 ?>
 <div class="row-fluid" >
     <div class="span9">
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom: 15px;">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_URL')); ?></label>
             <div class="controls">
                 <input id="portfolio-url" minlength="5" type="text" value="<?php echo(!empty($portfolio) ? $portfolio['url'] : ''); ?>">
             </div>
             <i><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_URL_DESCRIPTION')); ?></i>
         </div>
-        <table width="100%">
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_DESCRIPTION')); ?></label>
-                        <div class="controls">
-                            <?php
-                            $editor = JFactory::getConfig()->get('editor');
-                            $editor = JEditor::getInstance($editor);
-                            echo $editor->display('portfolio-description', ((!empty($portfolio) ? $portfolio['description'] : '')), 100, 100, 20, 10, true, 'portfolio-description');
-                            ?>
-                        </div>
-                    </div>                 
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_CONTENT')); ?></label>
-                        <div class="controls">
-                            <?php
-                            $editor = JFactory::getConfig()->get('editor');
-                            $editor = JEditor::getInstance($editor);
-                            echo $editor->display('portfolio-content', ((!empty($portfolio) ? $portfolio['content'] : '')), 100, 100, 20, 10, true, 'portfolio-content');
-                            ?>
+        <div class="accordion" id="zt-portfolio-editor">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#zt-portfolio-editor" href="#collapseOne">
+                        <?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_EDIT_PROPERTIES')); ?>
+                    </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        <div class="row-fluid">
+                            <?php foreach ($properties as $property): ?>
+                                <div class="form-group">
+                                    <label class="control-label"><?php echo($property['name']); ?></label>
+                                    <div class="controls">
+                                        <div style="padding: 5px;">
+                                            <?php if (!empty($headers[$property['type']][$property['name']])): ?>
+                                                <input id="zt-portfolio-property-element" type="text" value="<?php echo($headers[$property['type']][$property['name']]); ?>" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>">
+                                            <?php else: ?>
+                                                <input id="zt-portfolio-property-element" type="text" value="" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>">
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#zt-portfolio-editor" href="#collapseTwo">
+                        <?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_DESCRIPTION')); ?>
+                    </a>
+                </div>
+                <div id="collapseTwo" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label class="control-label"></label>
+                                        <div class="controls">
+                                            <?php
+                                            $editor = JFactory::getConfig()->get('editor');
+                                            $editor = JEditor::getInstance($editor);
+                                            echo $editor->display('portfolio-description', ((!empty($portfolio) ? $portfolio['description'] : '')), 100, 100, 20, 10, true, 'portfolio-description');
+                                            ?>
+                                        </div>
+                                    </div>                 
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#zt-portfolio-editor" href="#collapseThree">
+                        <?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_CONTENT')); ?>
+                    </a>
+                </div>
+                <div id="collapseThree" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label class="control-label"></label>
+                                        <div class="controls">
+                                            <?php
+                                            $editor = JFactory::getConfig()->get('editor');
+                                            $editor = JEditor::getInstance($editor);
+                                            echo $editor->display('portfolio-content', ((!empty($portfolio) ? $portfolio['content'] : '')), 100, 100, 20, 10, true, 'portfolio-content');
+                                            ?>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="span3">
         <div class="form-group">
@@ -54,35 +114,21 @@ $properties = $this->get('properties');
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_CATEGORIES')); ?></label>
             <div class="controls">
-                <?php foreach ($categories as $category): ?>
-                    <div style="padding: 5px;" id="category-selector">
+                <select id="category-selector" multiple>
+                    <?php foreach ($categories as $category): ?>
                         <?php if (!empty($portfolio)): ?>
-                            <input type="checkbox" value="<?php echo($category['id']); ?>" <?php echo((in_array($category['id'], $portfolio['category'])) ? 'checked' : ''); ?>> <?php echo($category['name']); ?>
+                            <option value="<?php echo($category['id']); ?>" <?php echo((in_array($category['id'], $portfolio['category'])) ? 'selected' : ''); ?>> <?php echo($category['name']); ?></option>
                         <?php else: ?>
-                            <input type="checkbox" value="<?php echo($category['id']); ?>"> <?php echo($category['name']); ?>
+                            <option value="<?php echo($category['id']); ?>"> <?php echo($category['name']); ?></option>
                         <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_PROPERTIES')); ?></label>
-            <div class="controls">
-                <?php foreach ($properties as $property): ?>
-                    <div style="padding: 5px;" id="property-selector">
-                        <?php if (!empty($portfolio)): ?>
-                            <input type="checkbox" value="<?php echo($property['id']); ?>" data-value="<?php echo($property['value']); ?>" data-name="<?php echo($property['name']); ?>" data-type="<?php echo($property['type']); ?>"> <?php echo($property['name']); ?>
-                        <?php else: ?>
-                            <input type="checkbox" value="<?php echo($property['id']); ?>" data-value="<?php echo($property['value']); ?>" data-name="<?php echo($property['name']); ?>" data-type="<?php echo($property['type']); ?>"> <?php echo($property['name']); ?>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_THUMBNAIL')); ?></label>
             <div class="controls">
-                <input id="portfolio-thumbnail" minlength="5" type="text"" readonly="true" value="<?php echo((!empty($portfolio) ? $portfolio['thumbnail'] : '')); ?>">
+                <input id="portfolio-thumbnail" minlength="5" type="text" readonly="true" value="<?php echo((!empty($portfolio) ? $portfolio['thumbnail'] : '')); ?>">
                 <div id="portfolio-file-view" class="porfolio-file-view"></div>
                 <script type="text/javascript">
                     jQuery(document).ready(function () {
@@ -105,5 +151,6 @@ $properties = $this->get('properties');
 <?php endif; ?>
             addCustomToolBar('<?php echo JRoute::_('index.php?option=com_ztportfolio&task=data.display'); ?>', 'cancel', ' <?php echo JText::_('COM_ZTPORTFOLIO_BUTTON_CANCEL'); ?>', 'btn btn-small');
         });
+        $('#category-selector').chosen({no_results_text: "Oops, nothing found!"});
     })(window, jQuery);
 </script>
