@@ -68,7 +68,7 @@ class ZtPortfolioControllerData extends JControllerAdmin {
                 $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_PLEASE_SELECT_CATEGORY'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_ERROR'), 'danger');
                 $ajax->response();
             }
-            if (!empty($header) && !empty($title) && !empty($description) && !empty($thumbnail) && !empty($category)) {
+            if (!empty($title) && !empty($description) && !empty($thumbnail) && !empty($category)) {
                 if ($this->_model->create($category, $header, $title, $url, $description, $thumbnail, $content, ZtPortfolioModelData::STATUS_PUBLIC)) {
                     $ajax->addMessage(JText::_('COM_ZTPORTFOLIO_MESSAGE_CREATE_PORTFOLIO_SUCCESSFUL'), JText::_('COM_ZTPORTFOLIO_MESSAGE_HEAD_SUCCESS'), 'success');
                     $ajax->addExecute('window.setTimeout(function(){window.location=\'' . JUri::root() . '/administrator/index.php?option=com_ztportfolio&task=data.display\';}, 3000);');

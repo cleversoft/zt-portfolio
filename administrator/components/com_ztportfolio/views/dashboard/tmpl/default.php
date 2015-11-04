@@ -34,7 +34,7 @@
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_CATEGORY_NAME')); ?></label>
             <div class="controls">
-                <input id="category-name" minlength="5" type="text">
+                <input id="category-name"  type="text">
             </div>
         </div>
     </div>
@@ -52,8 +52,8 @@
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_CATEGORY_NAME')); ?></label>
             <div class="controls">
-                <input id="category-name" minlength="5" type="text">
-                <input id="category-id" minlength="5" type="hidden">
+                <input id="category-name"  type="text">
+                <input id="category-id"  type="hidden">
             </div>
         </div>
     </div>

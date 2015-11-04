@@ -44,6 +44,7 @@ class ZtPortfolioControllerProperties extends JControllerAdmin {
         }
         $ajax->addHtml($html->fetch('com_ztportfolio://html/properties.editor.php'), "#zt-portfolio-property-editor .modal-body");
         $ajax->addExecute('jQuery(\'#zt-portfolio-property-editor\').modal(\'show\');');
+        $ajax->addExecute('propertyUpdate();');
         $ajax->response();
     }
 

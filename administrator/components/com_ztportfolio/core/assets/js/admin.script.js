@@ -214,7 +214,7 @@
         var $propertiesEl = $('input#zt-portfolio-property-element');
         var properties = [];
         $propertiesEl.each(function () {
-            if($(this).val() !== ''){
+            if ($(this).val() !== '') {
                 var elementData = {};
                 elementData.name = $(this).data('name');
                 elementData.type = $(this).data('type');
@@ -246,7 +246,7 @@
         var $propertiesEl = $('input#zt-portfolio-property-element');
         var properties = [];
         $propertiesEl.each(function () {
-            if($(this).val() !== ''){
+            if ($(this).val() !== '') {
                 var elementData = {};
                 elementData.name = $(this).data('name');
                 elementData.type = $(this).data('type');
@@ -304,5 +304,45 @@
         $parent.find('input[type="checkbox"]').prop('checked', $(parent).find('#check-all').prop('checked'));
     };
 
+    $(document).on('change', '#property-type', function () {
+        var $parent = $('div#property-value-container');
+        if ($(this).val() === 'date') {
+            var html = '<div class="input-append date">';
+            html += '<input id="property-value" type="text"><span class="add-on"><i class="icon-calendar"></i></span>';
+            html += '</div>';
+            $parent.html(html);
+            $('input#property-value').prop('readonly', true);
+            $('input#property-value').datepicker({
+                autoclose: true,
+                format: 'mm/dd/yyyy'
+            });
+        } else {
+            $('input#property-value').remove();
+            $parent.html('<input id="property-value" type="text" value="">');
+        }
+    });
+
+    w.propertyUpdate = function () {
+        var $parent = $('div#property-value-container');
+        if ($('select#property-type').val() === 'date') {
+            var html = '<div class="input-append date">';
+            var value = $('input#property-value').val();
+            html += '<input id="property-value" type="text"><span class="add-on"><i class="icon-calendar"></i></span>';
+            html += '</div>';
+            $parent.html(html);
+            $('input#property-value').prop('readonly', true).val(value);
+            $('input#property-value').datepicker({
+                autoclose: true,
+                format: 'mm/dd/yyyy'
+            });
+        }
+    };
+
+    $(document).ready(function () {
+        $('input[data-provide="datepicker"]').datepicker({
+            autoclose: true,
+            format: 'mm/dd/yyyy'
+        });
+    });
 
 })(window, jQuery);

@@ -15,7 +15,7 @@ if (!empty($portfolio['header'])) {
         <div class="form-group" style="margin-bottom: 15px;">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_URL')); ?></label>
             <div class="controls">
-                <input id="portfolio-url" minlength="5" type="text" value="<?php echo(!empty($portfolio) ? $portfolio['url'] : ''); ?>">
+                <input id="portfolio-url"  type="text" value="<?php echo(!empty($portfolio) ? $portfolio['url'] : ''); ?>">
             </div>
             <i><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_URL_DESCRIPTION')); ?></i>
         </div>
@@ -35,9 +35,21 @@ if (!empty($portfolio['header'])) {
                                     <div class="controls">
                                         <div style="padding: 5px;">
                                             <?php if (!empty($headers[$property['type']][$property['name']])): ?>
-                                                <input id="zt-portfolio-property-element" type="text" value="<?php echo($headers[$property['type']][$property['name']]); ?>" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>">
+                                                <?php if ($property['type'] == 'date'): ?>
+                                                    <div class="input-append date">
+                                                        <input id="zt-portfolio-property-element" readonly data-provide="datepicker" type="text" value="<?php echo($headers[$property['type']][$property['name']]); ?>" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>"><span class="add-on"><i class="icon-calendar"></i></span>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <input id="zt-portfolio-property-element" type="text" value="<?php echo($headers[$property['type']][$property['name']]); ?>" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>">
+                                                <?php endif; ?>
                                             <?php else: ?>
-                                                <input id="zt-portfolio-property-element" type="text" value="" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>">
+                                                <?php if ($property['type'] == 'date'): ?>
+                                                    <div class="input-append date">
+                                                        <input id="zt-portfolio-property-element" readonly data-provide="datepicker" type="text" value="" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>"><span class="add-on"><i class="icon-calendar"></i></span>
+                                                    </div>
+                                                <?php else: ?>
+                                                    <input id="zt-portfolio-property-element" type="text" value="" data-name="<?php echo ($property['name']); ?>" data-type="<?php echo ($property['type']); ?>">
+                                                <?php endif; ?>   
                                             <?php endif; ?>
                                         </div>
                                     </div>
@@ -108,7 +120,7 @@ if (!empty($portfolio['header'])) {
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_TITLE')); ?></label>
             <div class="controls">
-                <input id="portfolio-title" minlength="5" type="text" value="<?php echo((!empty($portfolio) ? $portfolio['title'] : '')); ?>">
+                <input id="portfolio-title"  type="text" value="<?php echo((!empty($portfolio) ? $portfolio['title'] : '')); ?>">
             </div>
         </div>
         <div class="form-group">
@@ -128,7 +140,7 @@ if (!empty($portfolio['header'])) {
         <div class="form-group">
             <label class="control-label"><?php echo(JText::_('COM_ZTPORTFOLIO_LABEL_PORTFOLIO_THUMBNAIL')); ?></label>
             <div class="controls">
-                <input id="portfolio-thumbnail" minlength="5" type="text" readonly="true" value="<?php echo((!empty($portfolio) ? $portfolio['thumbnail'] : '')); ?>">
+                <input id="portfolio-thumbnail"  type="text" readonly="true" value="<?php echo((!empty($portfolio) ? $portfolio['thumbnail'] : '')); ?>">
                 <div id="portfolio-file-view" class="porfolio-file-view"></div>
                 <script type="text/javascript">
                     jQuery(document).ready(function () {

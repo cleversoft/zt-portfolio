@@ -30,7 +30,9 @@ if (JFolder::exists(JPATH_ROOT . '/plugins/system/zooframework') && defined('ZTF
 
     JHtml::_('formbehavior.chosen');
     $ztAsset->addScript('com_ztportfolio://assets/js/admin.script.js');
+    $ztAsset->addScript('com_ztportfolio://assets/vendor/datepicker/js/bootstrap-datepicker.js');
     $ztAsset->addStyleSheet('com_ztportfolio://assets/css/admin.style.css');
+    $ztAsset->addStyleSheet('com_ztportfolio://assets/vendor/datepicker/css/datepicker.css');
     $controller = JControllerLegacy::getInstance('ZtPortfolio');
     $controller->execute(JFactory::getApplication()->input->getCmd('task'));
     $controller->redirect();
