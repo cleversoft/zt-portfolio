@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form validate="true">
+	<fieldset name="basic" class="span8">
+		<field name="name" type="text" required="true" />
+		<field name="type" type="list" default="text" label="COM_ZTPORTFOLIO_CATEGORY_NAME">
+			<option value="text">COM_ZTPORTFOLIO_PROPERTY_TYPE_TEXT</option>
+                        <option value="date">COM_ZTPORTFOLIO_PROPERTY_TYPE_DATE</option>
+                        <option value="link">COM_ZTPORTFOLIO_PROPERTY_TYPE_LINK</option>
+		</field>
+		<field name="value" type="text" />
+	</fieldset>
+</form>

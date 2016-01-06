@@ -8,7 +8,7 @@
  */
 defined('_JEXEC') or die();
 
-class ZtPortfolioModelProperties extends FOFModel {
+class ZtPortfolioModelItems extends FOFModel {
 
     public function __construct($config = array()) {
         parent::__construct($config);

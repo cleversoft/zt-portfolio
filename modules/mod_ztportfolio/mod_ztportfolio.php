@@ -2,25 +2,14 @@
 
 defined('_JEXEC') or die;
 
-if(!JFolder::exists(JPATH_ROOT . '/plugins/system/zooframework') && defined('ZTFRAMEWORK')){
-    return JError::raiseWarning(404, JText::_('COM_ZTPORTFOLIO_ERROR_ZOOFRAMEWORK_REQUIRED'));
-}
-
-// Include the syndicate functions only once
+// Include only once
 require_once __DIR__ . '/helper.php';
 
-ZtFramework::registerExtension(__DIR__ . '/extension.json');
-
-$ztHtml = new ZtHtml();
 $portfolios = ModZtPortfolioHelper::getPortfolios();
-$categories = ModZtPortfolioHelper::getCategories();
+$tags = ModZtPortfolioHelper::getTags();
+$document = JFactory::getDocument();
+$document->addScript(JUri::base() . 'modules/mod_ztportfolio/core/assets/js/masonry.pkgd.min.js');
+$document->addScript(JUri::base() . 'modules/mod_ztportfolio/core/assets/js/isotope.min.js');
+$document->addStyleSheet(JUri::base() . 'modules/mod_ztportfolio/core/assets/css/portfolio.css');
 
-$ztPath = ZtPath::getInstance();
-$ztHtml->set('portfolios', $portfolios);
-$ztHtml->set('categories', $categories);
-
-$ztAsset = new ZtAssets();
-$ztAsset->addStyleSheet('mod_ztportfolio://assets/css/portfolio.css');
-$ztAsset->addScript('mod_ztportfolio://assets/js/isotope.min.js');
-
-echo $ztHtml->fetch('mod_ztportfolio://default.php');
+require_once __DIR__ . '/local/default.php';

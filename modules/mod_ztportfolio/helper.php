@@ -6,7 +6,7 @@
 class ModZtPortfolioHelper {
 
     static private $_portfolios = null;
-    static private $_categories = null;
+    static private $_tags = null;
     static private $_map = null;
 
     /**
@@ -14,13 +14,14 @@ class ModZtPortfolioHelper {
      * @return type
      */
     static public function getPortfolios() {
+        $languageTag = JFactory::getLanguage()->getTag();
         if (empty(self::$_portfolios)) {
             $db = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->select('*')
-                    ->from($db->quoteName('#__ztportfolio_data'))
-                    ->where('`status`=2')
-                    ->order($db->quoteName('id'));
+                    ->from($db->quoteName('#__ztportfolio_items'))
+                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->order($db->quoteName('ztportfolio_item_id'));
             self::$_portfolios = $db->setQuery($query)
                     ->loadAssocList();
         }
@@ -32,11 +33,11 @@ class ModZtPortfolioHelper {
      * @param type $categories
      */
     static private function _mapData() {
-        if (!empty(self::$_categories)) {
+        if (!empty(self::$_tags)) {
             if (empty(self::$_map)) {
                 self::$_map = array();
-                foreach (self::$_categories as $key => $item) {
-                    self::$_map[$item['id']] = $key;
+                foreach (self::$_tags as $key => $item) {
+                    self::$_map[$item['ztportfolio_tag_id']] = $key;
                 }
             }
         }
@@ -47,10 +48,10 @@ class ModZtPortfolioHelper {
      * @param type $id
      * @return int
      */
-    static public function getCategory($id) {
-        if (!empty(self::$_categories)) {
+    static public function getTag($id) {
+        if (!empty(self::$_tags)) {
             if (isset(self::$_map[$id])) {
-                return self::$_categories[self::$_map[$id]];
+                return self::$_tags[self::$_map[$id]];
             }
         }
         return 0;
@@ -60,19 +61,21 @@ class ModZtPortfolioHelper {
      * Get all categories
      * @return type
      */
-    static public function getCategories() {
-        if (empty(self::$_categories)) {
+    static public function getTags() {
+        if (empty(self::$_tags)) {
+            $languageTag = JFactory::getLanguage()->getTag();
             $db = JFactory::getDbo();
             $query = $db->getQuery(true);
             $query->select('*')
-                    ->from($db->quoteName('#__ztportfolio_categories'))
-                    ->where('`status`=5')
-                    ->order($db->quoteName('id'));
-            self::$_categories = $db->setQuery($query)
+                    ->from($db->quoteName('#__ztportfolio_tags'))
+                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->order($db->quoteName('ztportfolio_tag_id'));
+            self::$_tags = $db->setQuery($query)
                     ->loadAssocList();
         }
         self::_mapData();
-        return self::$_categories;
+        return self::$_tags;
+        
     }
 
     /**
@@ -94,7 +97,7 @@ class ModZtPortfolioHelper {
         $show = $jInput->get('show', 0, 'INT');
         if($module == 'mod_ztporfolio' && $show > 0){
             foreach(self::$_portfolios as $portfolio){
-                if($portfolio['id'] == $show){
+                if($portfolio['ztportfolio_item_id'] == $show){
                     return $portfolio;
                 }
             }

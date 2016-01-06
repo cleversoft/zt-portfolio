@@ -2,31 +2,8 @@
     background-size: cover;
     text-align: center;
     color: white;
-    font-size: 24pt;
-}
-
-.grid-item--width2 {
-    width: 160px;
-}
-
-.grid-item--width3 {
-    width: 320px;
-}
-
-.grid-item--width4 {
-    width: 640px;
-}
-
-.grid-item--height2 {
-    height: 160px;
-}
-
-.grid-item--height3 {
-    height: 320px;
-}
-
-.grid-item--height4 {
-    height: 360px;
+    font-size: 14pt;
+    height: 250px;
 }
 
 body {

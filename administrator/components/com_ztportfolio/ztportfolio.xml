@@ -1,43 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="3.4" method="upgrade">
-    <name>COM_ZTPORTFOLIO</name>
-    <author>ZooTemplate.Com</author>
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.3" type="component" method="upgrade">
+    <name>Zt Portfolio</name>
+    <creationDate>December 2015</creationDate>
+    <author>ZooTemplate</author>
     <authorEmail>support@zootemplate.com</authorEmail>
-    <authorUrl>http://www.example.org</authorUrl>
-    <copyright>(C) 2015 Copyright Info</copyright>
-    <license>License Info</license>
-    <version>1.1.0</version>
-    <creationDate>September 2015</creationDate>
-    <description>COM_ZTPORTFOLIO_XML_DESCRIPTION</description>
+    <authorUrl>http://www.zootemplate.com</authorUrl>
+    <copyright>Copyright (c) 2010- 2015 ZooTemplate. All rights reserved.</copyright>
+    <license>GNU General Public License version 2</license>
+    <version>1.2</version>
+    <description>Zt Portfolio Component for Joomla 3.x</description>
+
     <install>
         <sql>
-            <file driver="mysql" charset="utf8">sql/ztportfolio.install.sql</file>
+            <file driver="mysql" charset="utf8">sql/install/mysql/install.sql</file>
+            <file driver="mysql">sql/install/mysql/install.sql</file>
+
+            <file driver="mysqli" charset="utf8">sql/install/mysql/install.sql</file>
+            <file driver="mysqli">sql/install/mysql/install.sql</file>
         </sql>
     </install>
-    <uninstall>
-        <sql>
-            <file driver="mysql" charset="utf8">sql/ztportfolio.uninstall.sql</file>
-        </sql>
-    </uninstall>
+
     <administration>
-        <menu>COM_ZTPORTFOLIO_MENU</menu>
+        <menu view="cpanel">COM_ZTPORTFOLIO</menu>
+
         <files folder="admin">
-            <folder>sql</folder>
-            <folder>controllers</folder>
-            <folder>core</folder>
-            <folder>helpers</folder>
-            <folder>local</folder>
-            <folder>models</folder>
-            <folder>tables</folder>
-            <folder>views</folder>
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
             <filename>ztportfolio.php</filename>
-            <filename>controller.php</filename>
-            <filename>extension.json</filename>
+            <filename>fof.xml</filename>
+            <filename>toolbar.php</filename>
+			
+            <folder>sql</folder>
+            <folder>assets</folder>
+            <folder>tables</folder>
+            <folder>fields</folder>
+            <folder>models</folder>
+            <folder>controllers</folder>
+            <folder>views</folder>
+            <folder>helpers</folder>
         </files>
-        <languages folder="admin/language">
+
+        <languages folder="language/admin">
             <language tag="en-GB">en-GB/en-GB.com_ztportfolio.ini</language>
             <language tag="en-GB">en-GB/en-GB.com_ztportfolio.sys.ini</language>
         </languages>
     </administration>
-    <folder>sql</folder>
+	
 </extension>

@@ -1,0 +1,314 @@
+/**
+ * @package     Zt Portfolio
+ *
+ * @copyright   Copyright (C) 2010 - 2015 ZooTemplate. All rights reserved.
+ * @license     GNU General Public License version 2 or later.
+ */
+
+.zt-portfolio {
+  padding: 0;
+}
+.zt-portfolio:before,
+.zt-portfolio:after {
+  content: " ";
+  display: table;
+}
+.zt-portfolio:after {
+  clear: both;
+}
+.zt-portfolio .zt-portfolio-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.zt-portfolio .zt-portfolio-filter {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.zt-portfolio .zt-portfolio-filter > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+.zt-portfolio .zt-portfolio-filter > ul > li {
+  float: left;
+  display: block;
+  margin: 0 5px;
+}
+.zt-portfolio .zt-portfolio-filter > ul > li > a {
+  display: block;
+  padding: 5px 10px;
+  background: #eee;
+  color: #333;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.zt-portfolio .zt-portfolio-filter > ul > li.active > a {
+  background: #333;
+  color: #fff;
+}
+.zt-portfolio .zt-portfolio-items {
+  margin: -15px;
+}
+.zt-portfolio.layout-gallery-nospace .zt-portfolio-items {
+  margin: 0;
+}
+.zt-portfolio.layout-gallery-nospace .zt-portfolio-item {
+  padding: 0;
+}
+.zt-portfolio .zt-portfolio-columns-2 .zt-portfolio-item {
+  width: 50%;
+}
+.zt-portfolio .zt-portfolio-columns-3 .zt-portfolio-item {
+  width: 33.3333%;
+}
+.zt-portfolio .zt-portfolio-columns-4 .zt-portfolio-item {
+  width: 25%;
+}
+.zt-portfolio .zt-portfolio-item {
+  float: left;
+  padding: 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-overlay-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-overlay-wrapper .zt-portfolio-icon-video {
+  display: inline-block;
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: url(../img/icon-play.png) no-repeat 50% 50%;
+  background-size: contain;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px;
+  margin-left: -24px;
+  z-index: 1;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-overlay-wrapper .zt-portfolio-img {
+  float: left;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-overlay-wrapper .zt-portfolio-overlay {
+  opacity: 0;
+  transition: opacity 400ms;
+  -webkit-transition: opacity 400ms;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  z-index: 2;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-overlay-wrapper .zt-portfolio-overlay h3 {
+  font-size: 16px;
+  line-height: 1;
+  margin: 0;
+  color: #fff;
+}
+.zt-portfolio .zt-portfolio-item:hover .zt-portfolio-overlay {
+  opacity: 1;
+}
+
+.zt-portfolio .zt-portfolio-item .zt-portfolio-info:hover {
+  background: #333;
+  color: #fff;
+}
+
+.zt-portfolio .zt-portfolio-item .zt-portfolio-info:hover h3 > a {
+  color: #fff;
+}
+
+.zt-portfolio .zt-portfolio-item:hover .sp-vertical-middle .zt-portfolio-title,
+.zt-portfolio .zt-portfolio-item:hover .sp-vertical-middle .zt-portfolio-tags {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.zt-portfolio .zt-portfolio-item:hover .zt-portfolio-btns a {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+.zt-portfolio .zt-portfolio-item:hover .zt-portfolio-img {
+  -webkit-transform: scale3d(1.15, 1.15, 1);
+  transform: scale3d(1.15, 1.15, 1);
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-info {
+  background: #f5f5f5;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 13px;
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-info h3 {
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 16px;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-info h3 > a {
+  text-decoration: none;
+  color: #000;
+  -webkit-transition: color 400ms;
+  transition: color 400ms;
+}
+.zt-portfolio .zt-portfolio-item .sp-vertical-middle {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+.zt-portfolio .zt-portfolio-item .sp-vertical-middle > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+.zt-portfolio .zt-portfolio-item .sp-vertical-middle > div .zt-portfolio-title {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+.zt-portfolio .zt-portfolio-item .sp-vertical-middle > div .zt-portfolio-title a {
+  text-decoration: none;
+  color: #fff;
+}
+.zt-portfolio .zt-portfolio-item .sp-vertical-middle .zt-portfolio-title {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 15px, 0);
+  transform: translate3d(0, 15px, 0);
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.zt-portfolio .zt-portfolio-item .sp-vertical-middle .zt-portfolio-tags {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 15px, 0);
+  transform: translate3d(0, 15px, 0);
+  -webkit-transition: all 500ms;
+  transition: all 500ms;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-btns a {
+  display: inline-block;
+  padding: 7px 12px;
+  margin: 3px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+  opacity: 0;
+  -webkit-transform: scale3d(0, 0, 0);
+  transform: scale3d(0, 0, 0);
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+.zt-portfolio .zt-portfolio-item .zt-portfolio-btns a:hover {
+  background: #333;
+  border-color: #333;
+}
+.zt-portfolio .zt-portfolio-image {
+  margin-bottom: 20px;
+}
+.zt-portfolio .zt-portfolio-description {
+  width: 65%;
+  float: left;
+}
+.zt-portfolio .zt-portfolio-description > h2 {
+  font-size: 30px;
+  line-height: 1;
+  margin: 0 0 10px;
+}
+.zt-portfolio .zt-portfolio-meta {
+  width: 35%;
+  float: left;
+  padding-left: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.zt-portfolio .zt-portfolio-meta > div {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.zt-portfolio .zt-portfolio-meta > div:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.zt-portfolio .zt-portfolio-meta h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+.zt-portfolio .zt-portfolio-embed {
+  position: relative;
+  display: block;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}
+.zt-portfolio .zt-portfolio-embed iframe,
+.zt-portfolio .zt-portfolio-embed embed,
+.zt-portfolio .zt-portfolio-embed object,
+.zt-portfolio .zt-portfolio-embed video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.zt-portfolio-lightbox {
+  display: none;
+}
+
+@media only screen and (max-width : 992px) {
+  .zt-portfolio .zt-portfolio-items .zt-portfolio-item {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .zt-portfolio .zt-portfolio-description {
+    width: auto;
+    float: none;
+    margin-bottom: 30px;
+  }
+  .zt-portfolio .zt-portfolio-meta {
+    width: auto;
+    float: none;
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width : 480px) {
+  .zt-portfolio .zt-portfolio-items .zt-portfolio-item {
+    width: 100%;
+  }
+}
