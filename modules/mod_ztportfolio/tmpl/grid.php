@@ -1,5 +1,5 @@
 <?php
-$activePortfolio = ModZtPortfolioHelper::getActivePortfolio();
+$activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
 ?>
 <?php if (empty($activePortfolio)): ?>
     <div id="gallery">
@@ -39,26 +39,7 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio();
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        jQuery(window).load(function () {
-            var $ = jQuery;
-            $('.gallery-content-center').masonry({
-                columnWidth: 200,
-                itemSelector: '.gird-common'
-            });
-            var button_class = "gallery-header-center-right-links-current";
-            var $container = $('#gallery-content-center');
 
-            $('[id^="filter-"]').click(function () {
-                $container.isotope({filter: '.' + $(this).data('filter')});
-                console.log('.' + $(this).data('filter'));
-                $('.gallery-header-center-right-links').removeClass(button_class);
-                $(this).addClass(button_class);
-                $container.isotope();
-            });
-
-        });
-    </script>
 <?php else: ?>
     <?php $activeHeaders = json_decode($activePortfolio['properties']); ?>
     <div class="row-fluid">
