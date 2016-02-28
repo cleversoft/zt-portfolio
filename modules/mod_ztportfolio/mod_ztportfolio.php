@@ -12,4 +12,5 @@ $document->addScript(JUri::base() . 'modules/mod_ztportfolio/core/assets/js/maso
 $document->addScript(JUri::base() . 'modules/mod_ztportfolio/core/assets/js/isotope.min.js');
 $document->addStyleSheet(JUri::base() . 'modules/mod_ztportfolio/core/assets/css/portfolio.css');
 
-require_once __DIR__ . '/local/default.php';
+
+require_once JModuleHelper::getLayoutPath('mod_ztportfolio', $params->get('layout', 'default'));

@@ -15,7 +15,7 @@
     <description>MOD_ZTPORTFOLIO_XML_DESCRIPTION</description>
     <files>
         <folder>core</folder>
-        <folder>local</folder>
+        <folder>tmpl</folder>
         <filename module="mod_ztportfolio">mod_ztportfolio.php</filename>
         <filename>helper.php</filename>
         <filename>extension.json</filename>
@@ -24,4 +24,17 @@
         <language tag="en-GB">en-GB/en-GB.mod_ztportfolio.ini</language>
         <language tag="en-GB">en-GB/en-GB.mod_ztportfolio.sys.ini</language>
     </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="general">
+                <field name="layout"
+                       type="filelist"
+                       label="Layout"
+                       description="Wishlist Layout"
+                       directory="/modules/mod_ztportfolio/tmpl"
+                       default="default" hide_default="1" hide_none="1"
+                       stripext="1" filter="\.php$" exclude="^_"/>
+            </fieldset>
+        </fields>
+    </config>
 </extension>
