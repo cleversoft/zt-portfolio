@@ -9,12 +9,11 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
                     <div class="portfolio-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                 </div>
                 <div class="portfolio-header-center-right">
-                    <div class="portfolio-header-center-right-links" data-filter="all" class="filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
-                    <?php $filter = array('all'); ?>
+                    <div data-filter="all" class="zt_filter filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                     <?php foreach ($tags as $tag): ?>
                         <?php $class = $tag['alias']; ?>
                         <?php $filter[] = $class; ?>
-                        <div class="portfolio-header-center-right-links" data-filter="<?php echo $class; ?>" class="filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
+                        <div data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -49,7 +48,7 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
             var button_class = "portfolio-header-center-right-links-current";
             var $container = $('.portfolio-content-center');
             
-            $('[class^="filter-"]').click(function () {
+            $('.zt_filter').click(function () {
                 $container.isotope({filter: '.' + $(this).data('filter')});
                 console.log('.' + $(this).data('filter'));
                 $('.portfolio-header-center-right-links').removeClass(button_class);
@@ -77,6 +76,7 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
         </div>
     </div>
 <?php endif;
+?>
 <?php
 if($readmore == 1){
     ?>
