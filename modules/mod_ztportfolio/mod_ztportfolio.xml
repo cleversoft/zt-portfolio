@@ -50,6 +50,12 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+                <field name="orderby" type="list" default="1"
+                       label="MOD_ZTPORTFOLIO_BASIC_ORDERBY"
+                       description="MOD_ZTPORTFOLIO_BASIC_ORDERBY_DESC">
+                    <option value="0">ASC</option>
+                    <option value="1">DESC</option>
+                </field>
             </fieldset>
 
         </fields>
