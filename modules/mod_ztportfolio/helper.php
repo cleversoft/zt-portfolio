@@ -13,15 +13,24 @@ class ModZtPortfolioHelper {
      * Get all portfolio
      * @return type
      */
-    static public function getPortfolios() {
+    static public function getPortfolios($number = null) {
+        
         $languageTag = JFactory::getLanguage()->getTag();
+        
         if (empty(self::$_portfolios)) {
+            
             $db = JFactory::getDbo();
+            
             $query = $db->getQuery(true);
+            
             $query->select('*')
                     ->from($db->quoteName('#__ztportfolio_items'))
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_item_id'));
+            if($number != null){
+                $query->setLimit($number);
+                
+            }
             self::$_portfolios = $db->setQuery($query)
                     ->loadAssocList();
         }
