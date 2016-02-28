@@ -2,25 +2,25 @@
 $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
 ?>
 <?php if (empty($activePortfolio)): ?>
-    <div id="portfolio">
-        <div id="portfolio-header">
-            <div id="portfolio-header-center">
-                <div id="portfolio-header-center-left">
-                    <div id="portfolio-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
+    <div class="portfolio-wrap">
+        <div class="portfolio-header">
+            <div class="portfolio-header-center">
+                <div class="portfolio-header-center-left">
+                    <div class="portfolio-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                 </div>
-                <div id="portfolio-header-center-right">
-                    <div class="portfolio-header-center-right-links" data-filter="all" id="filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
+                <div class="portfolio-header-center-right">
+                    <div class="portfolio-header-center-right-links" data-filter="all" class="filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                     <?php $filter = array('all'); ?>
                     <?php foreach ($tags as $tag): ?>
                         <?php $class = $tag['alias']; ?>
                         <?php $filter[] = $class; ?>
-                        <div class="portfolio-header-center-right-links" data-filter="<?php echo $class; ?>" id="filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
+                        <div class="portfolio-header-center-right-links" data-filter="<?php echo $class; ?>" class="filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
-        <div id="portfolio-content">
-            <div id="portfolio-content-center">
+        <div class="portfolio-content">
+            <div class="portfolio-content-center">
                 <?php foreach ($portfolios as $portfolio): ?>
                     <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
                     <?php $class = array(); ?>
@@ -39,7 +39,26 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        jQuery(window).load(function () {
+            var $ = jQuery;
+            $('.portfolio-content-center').masonry({
+                columnWidth: 200,
+                itemSelector: '.gird-common'
+            });
+            var button_class = "portfolio-header-center-right-links-current";
+            var $container = $('.portfolio-content-center');
+            
+            $('[class^="filter-"]').click(function () {
+                $container.isotope({filter: '.' + $(this).data('filter')});
+                console.log('.' + $(this).data('filter'));
+                $('.portfolio-header-center-right-links').removeClass(button_class);
+                $(this).addClass(button_class);
+                $container.isotope();
+            });
 
+        });
+    </script>
 <?php else: ?>
     <?php $activeHeaders = json_decode($activePortfolio['properties']); ?>
     <div class="row-fluid">
@@ -54,7 +73,7 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
             <div><?php echo($activePortfolio['url']); ?></div>
             <div><?php echo($activePortfolio['description']); ?></div>
             <div><?php echo($activePortfolio['video']); ?></div>
-            <div><?php echo($activePortfolio['image']); ?></div>
+            <div><?php echo($activePortfolio['image']); ?></div>            
         </div>
     </div>
 <?php endif;
