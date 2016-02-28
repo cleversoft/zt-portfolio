@@ -1,5 +1,5 @@
 <?php
-$activePortfolio = ModZtPortfolioHelper::getActivePortfolio();
+$activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
 ?>
 <?php if (empty($activePortfolio)): ?>
     <div id="gallery">
