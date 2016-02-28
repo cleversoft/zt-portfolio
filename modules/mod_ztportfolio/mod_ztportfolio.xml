@@ -29,24 +29,24 @@
             <fieldset name="basic">
                 <field name="layout"
                        type="filelist"
-                       label="Layout"
-                       description="Portfolio Layout"
+                       label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
+                       description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
                        directory="/modules/mod_ztportfolio/tmpl"
                        default="default" hide_default="1" hide_none="1"
                        stripext="1" filter="\.php$" exclude="^_"/>
                 <field name="number"
                        type="text"
                        default=""
-                       label="Number"
-                       description="Number items"/>
+                       label="MOD_ZTPORTFOLIO_BASIC_NUMBER"
+                       description="MOD_ZTPORTFOLIO_BASIC_NUMBER_DESC"/>
                 <field name="number"
                        type="text"
                        default=""
-                       label="Number"
-                       description="Number items"/>
+                       label="MOD_ZTPORTFOLIO_BASIC_NUMBER"
+                       description="MOD_ZTPORTFOLIO_BASIC_NUMBER_DESC"/>
                 <field name="show_loadmore" type="list" default="1"
-                       label="Show Loadmore"
-                       description="Show Load more Button">
+                       label="MOD_ZTPORTFOLIO_BASIC_LOADMORE"
+                       description="MOD_ZTPORTFOLIO_BASIC_LOADMORE_DESC">
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
