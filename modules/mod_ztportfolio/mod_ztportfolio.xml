@@ -26,15 +26,32 @@
     </languages>
     <config>
         <fields name="params">
-            <fieldset name="general">
+            <fieldset name="basic">
                 <field name="layout"
                        type="filelist"
                        label="Layout"
-                       description="Wishlist Layout"
+                       description="Portfolio Layout"
                        directory="/modules/mod_ztportfolio/tmpl"
                        default="default" hide_default="1" hide_none="1"
                        stripext="1" filter="\.php$" exclude="^_"/>
+                <field name="number"
+                       type="text"
+                       default=""
+                       label="Number"
+                       description="Number items"/>
+                <field name="number"
+                       type="text"
+                       default=""
+                       label="Number"
+                       description="Number items"/>
+                <field name="show_loadmore" type="list" default="1"
+                       label="Show Loadmore"
+                       description="Show Load more Button">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
             </fieldset>
+
         </fields>
     </config>
 </extension>
