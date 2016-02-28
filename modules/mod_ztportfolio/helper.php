@@ -13,7 +13,7 @@ class ModZtPortfolioHelper {
      * Get all portfolio
      * @return type
      */
-    static public function getPortfolios($number = null) {
+    static public function getPortfolios($number = null, $orderby = 'ASC') {
         
         $languageTag = JFactory::getLanguage()->getTag();
         
@@ -27,6 +27,9 @@ class ModZtPortfolioHelper {
                     ->from($db->quoteName('#__ztportfolio_items'))
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_item_id'));
+            if($orderby == 'DESC') {
+                $query->order('turnover DESC');
+            }       
             if($number != null){
                 $query->setLimit($number);
                 
