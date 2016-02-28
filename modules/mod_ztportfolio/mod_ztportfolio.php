@@ -7,7 +7,7 @@ require_once __DIR__ . '/helper.php';
 
 $layout = $params->get('layout', 'default');
 $number = $params->get('number', 10);
-$number = $params->get('show_loadmore', 1);
+$readmore = $params->get('show_loadmore', 1);
 
 $portfolios = ModZtPortfolioHelper::getPortfolios($number);
 $tags = ModZtPortfolioHelper::getTags();
