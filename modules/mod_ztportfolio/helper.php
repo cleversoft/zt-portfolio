@@ -28,7 +28,7 @@ class ModZtPortfolioHelper {
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_item_id'));
             if($orderby == 'DESC') {
-                $query->order('turnover DESC');
+                $query->order('ordering DESC');
             }       
             if($number != null){
                 $query->setLimit($number);
