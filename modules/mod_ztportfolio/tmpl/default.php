@@ -77,3 +77,10 @@ $activePortfolio = ModZtPortfolioHelper::getActivePortfolio();
         </div>
     </div>
 <?php endif;
+<?php
+if($readmore == 1){
+    ?>
+    <input type="button" value="Read more" class="zt_readmore">
+    <?php
+}
+?>
