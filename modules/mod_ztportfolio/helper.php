@@ -70,7 +70,7 @@ class ModZtPortfolioHelper {
      * Get all categories
      * @return type
      */
-    static public function getTags() {
+    static public function getTags($number = null) {
         if (empty(self::$_tags)) {
             $languageTag = JFactory::getLanguage()->getTag();
             $db = JFactory::getDbo();
@@ -79,6 +79,10 @@ class ModZtPortfolioHelper {
                     ->from($db->quoteName('#__ztportfolio_tags'))
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_tag_id'));
+            if($number != null){
+                $query->setLimit($number);
+                
+            }
             self::$_tags = $db->setQuery($query)
                     ->loadAssocList();
         }
