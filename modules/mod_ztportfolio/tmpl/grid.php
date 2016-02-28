@@ -2,25 +2,25 @@
 $activePortfolio = ModZtPortfolioHelper::getActivePortfolio($number);
 ?>
 <?php if (empty($activePortfolio)): ?>
-    <div id="gallery">
-        <div id="gallery-header">
-            <div id="gallery-header-center">
-                <div id="gallery-header-center-left">
-                    <div id="gallery-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
+    <div id="portfolio">
+        <div id="portfolio-header">
+            <div id="portfolio-header-center">
+                <div id="portfolio-header-center-left">
+                    <div id="portfolio-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                 </div>
-                <div id="gallery-header-center-right">
-                    <div class="gallery-header-center-right-links" data-filter="all" id="filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
+                <div id="portfolio-header-center-right">
+                    <div class="portfolio-header-center-right-links" data-filter="all" id="filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                     <?php $filter = array('all'); ?>
                     <?php foreach ($tags as $tag): ?>
                         <?php $class = $tag['alias']; ?>
                         <?php $filter[] = $class; ?>
-                        <div class="gallery-header-center-right-links" data-filter="<?php echo $class; ?>" id="filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
+                        <div class="portfolio-header-center-right-links" data-filter="<?php echo $class; ?>" id="filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
                     <?php endforeach; ?>
                 </div>
             </div>
         </div>
-        <div id="gallery-content">
-            <div id="gallery-content-center">
+        <div id="portfolio-content">
+            <div id="portfolio-content-center">
                 <?php foreach ($portfolios as $portfolio): ?>
                     <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
                     <?php $class = array(); ?>
