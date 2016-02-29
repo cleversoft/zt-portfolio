@@ -13,7 +13,7 @@ class ModZtPortfolioHelper {
      * Get all portfolio
      * @return type
      */
-    static public function getPortfolios($number = null, $orderby = 'ASC') {
+    static public function getPortfolios($number = null, $offset = 0, $orderby = 'ASC') {
         
         $languageTag = JFactory::getLanguage()->getTag();
         
@@ -31,7 +31,7 @@ class ModZtPortfolioHelper {
                 $query->order('ordering DESC');
             }       
             if($number != null){
-                $query->setLimit($number);
+                $query->setLimit($number, $offset);
                 
             }
             self::$_portfolios = $db->setQuery($query)
@@ -102,24 +102,7 @@ class ModZtPortfolioHelper {
     static public function getUrl($input){
         return rtrim(JUri::root(), '/') . '/' . ltrim($input, '/');
     }
-    
-    /**
-     * Get active portfolio
-     * @return type
-     */
-    static public function getActivePortfolio(){
-        $jInput = JFactory::getApplication()->input;
-        $module = $jInput->get('module', '', 'CMD');
-        $show = $jInput->get('show', 0, 'INT');
-        if($module == 'mod_ztporfolio' && $show > 0){
-            foreach(self::$_portfolios as $portfolio){
-                if($portfolio['ztportfolio_item_id'] == $show){
-                    return $portfolio;
-                }
-            }
-        }
-        return array();
-    }
+
     
     /**
      * Get class name from strong

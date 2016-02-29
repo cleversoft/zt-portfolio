@@ -34,11 +34,11 @@
                        directory="/modules/mod_ztportfolio/tmpl"
                        default="default" hide_default="1" hide_none="1"
                        stripext="1" filter="\.php$" exclude="^_"/>
-                <field name="number"
+                <field name="column"
                        type="text"
                        default=""
-                       label="MOD_ZTPORTFOLIO_BASIC_NUMBER"
-                       description="MOD_ZTPORTFOLIO_BASIC_NUMBER_DESC"/>
+                       label="MOD_ZTPORTFOLIO_BASIC_COLUMN"
+                       description="MOD_ZTPORTFOLIO_BASIC_COLUMN_DESC"/>
                 <field name="number"
                        type="text"
                        default=""
