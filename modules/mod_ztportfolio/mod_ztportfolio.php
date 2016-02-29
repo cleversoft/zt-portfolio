@@ -16,9 +16,13 @@ if(isset($_REQUEST['page'])){
 }
 $offset = ($page - 1)*$number; 
 
-$portfolios = ModZtPortfolioHelper::getPortfolios($number = 10, $offset, $orderby = 'DESC');
+$portfolios = ModZtPortfolioHelper::getPortfolios($number, $offset, $orderby = 'DESC');
 
-$tags = ModZtPortfolioHelper::getTags($number = null );
+if(count($portfolios) == 0){
+	die( 'no_portfolios');
+}
+
+$tags = ModZtPortfolioHelper::getTags();
 
 $document = JFactory::getDocument();
 
@@ -29,3 +33,6 @@ $document->addStyleSheet(JUri::base() . 'modules/mod_ztportfolio/assets/css/layo
 
 
 require_once JModuleHelper::getLayoutPath('mod_ztportfolio', $layout);
+if(isset($_REQUEST['page'])){
+	die;
+}

@@ -5,7 +5,7 @@
 //print_r($portfolios);
 //die;
 ?>
-
+<div class="portfolio-wrap">
 <div class="portfolio-wrap">
     <div class="portfolio-header">
         <div class="portfolio-header-center">
@@ -23,7 +23,6 @@
         </div>
     </div>
     <div class="portfolio-content">
-        <div class="portfolio-content-center">
             <?php foreach ($portfolios as $portfolio): ?>
                 <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
                 <?php $class = array(); ?>
@@ -35,12 +34,18 @@
                 <div class="<?php echo(implode(' ', $class));  ?> gird-common all" style="background-image: url('<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>');">
                     <a href="<?php echo(ModZtPortfolioHelper::getUrl('/index.php?module=mod_ztporfolio&show=' . $portfolio['ztportfolio_item_id'])); ?>"><?php echo($portfolio['title']); ?></a>
                     <div><?php echo($portfolio['url']); ?></div>
-                    <div><?php echo($portfolio['description']); ?></div>
+                    <div><?php //echo($portfolio['description']); ?></div>
                     <div><?php echo($portfolio['video']); ?></div>
                 </div>
             <?php endforeach; ?>
-        </div>
     </div>
+    <?php
+    if($readmore == '1' && count($portfolios) == $number){
+        ?>
+        <input type="button" value="Read more" data-page="<?php echo $page; ?>" class="zt_readmore">
+        <?php
+    }
+    ?>
 </div>
 <script type="text/javascript">
     jQuery(window).load(function () {
@@ -60,13 +65,24 @@
             $container.isotope();
         });
 
+        var page_number = 2;
+        $('.zt_readmore').click(function(){
+            var $this = $(this);
+            var wrap = $this.closest('.portfolio-wrap');
+            $.ajax({
+                url: window.location.href,
+                data: {page: page_number},
+                type: 'POST',
+            }).success(function(response){
+                page_number++;
+                if(response != 'no_portfolios'){
+                    wrap.find('.portfolio-content').append($(response).find('.portfolio-content').html());
+                }else{
+                    $this.hide(); 
+                }
+                
+            });
+        });
+
     });
 </script>
-
-<?php
-if($readmore == 1){
-    ?>
-    <input type="button" value="Read more" class="zt_readmore">
-    <?php
-}
-?>
