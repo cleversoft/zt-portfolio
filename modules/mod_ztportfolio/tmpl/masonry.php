@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="portfolio-content">
-        <div class="portfolio-item">
+        <div class="portfolio-content-center">
             <?php foreach ($portfolios as $portfolio): ?>
                 <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
                 <?php $class = array(); ?>
@@ -32,7 +32,7 @@
                     <?php $class[] = $portfolioTag['alias']; ?>
                 <?php endforeach; ?>
                 <?php  ?>
-                <div class="<?php echo(implode(' ', $class));  ?> gird-common all" style="background-image: url('<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>');">
+                <div class="<?php echo(implode(' ', $class));  ?> gird-common all portfolio-item" style="background-image: url('<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>');">
                     <a href="<?php echo(ModZtPortfolioHelper::getUrl('/index.php?module=mod_ztporfolio&show=' . $portfolio['ztportfolio_item_id'])); ?>"><?php echo($portfolio['title']); ?></a>
                     <div><?php echo($portfolio['url']); ?></div>
                     <div><?php //echo($portfolio['description']); ?></div>
@@ -52,20 +52,26 @@
 <script type="text/javascript">
     jQuery(window).load(function () {
         var $ = jQuery;
-        $('.portfolio-content-center').masonry({
-            columnWidth: 200,
-            itemSelector: '.gird-common'
-        });
-        var button_class = "portfolio-header-center-right-links-current";
-        var $container = $('.portfolio-content-center');
         
-        $('.zt_filter').click(function () {
-            $container.isotope({filter: '.' + $(this).data('filter')});
-            console.log('.' + $(this).data('filter'));
-            $('.portfolio-header-center-right-links').removeClass(button_class);
-            $(this).addClass(button_class);
-            $container.isotope();
-        });
+        function bindEventMasonry(){
+            $('.portfolio-content-center').masonry({
+            columnWidth: 200,
+                itemSelector: '.gird-common'
+            });
+            var button_class = "portfolio-header-center-right-links-current";
+            var $container = $('.portfolio-content-center');
+            
+            $('.zt_filter').click(function () {
+                $container.isotope({filter: '.' + $(this).data('filter')});
+                console.log('.' + $(this).data('filter'));
+                $('.portfolio-header-center-right-links').removeClass(button_class);
+                $(this).addClass(button_class);
+                $container.isotope();
+            });
+
+        }
+
+        bindEventMasonry();
 
         var page_number = 2;
         var number = <?php echo $number; ?>;
@@ -79,13 +85,15 @@
             }).success(function(response){
                 page_number++;
                 if(response != 'no_portfolios'){
-                    wrap.find('.portfolio-content').append($(response).find('.portfolio-content').html());
+                    wrap.find('.portfolio-content-center').append($(response).find('.portfolio-content-center').html());
                     if($(response).find('.portfolio-item').length < number){
                         $this.hide(); 
                     }
                 }else{
                     $this.hide(); 
                 }
+
+                bindEventMasonry();
                 
             });
         });
