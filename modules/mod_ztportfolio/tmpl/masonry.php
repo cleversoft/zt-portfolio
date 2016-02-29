@@ -23,6 +23,7 @@
         </div>
     </div>
     <div class="portfolio-content">
+        <div class="portfolio-item">
             <?php foreach ($portfolios as $portfolio): ?>
                 <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
                 <?php $class = array(); ?>
@@ -38,6 +39,7 @@
                     <div><?php echo($portfolio['video']); ?></div>
                 </div>
             <?php endforeach; ?>
+        </div>
     </div>
     <?php
     if($readmore == '1' && count($portfolios) == $number){
@@ -66,6 +68,7 @@
         });
 
         var page_number = 2;
+        var number = <?php echo $number; ?>;
         $('.zt_readmore').click(function(){
             var $this = $(this);
             var wrap = $this.closest('.portfolio-wrap');
@@ -77,6 +80,9 @@
                 page_number++;
                 if(response != 'no_portfolios'){
                     wrap.find('.portfolio-content').append($(response).find('.portfolio-content').html());
+                    if($(response).find('.portfolio-item').length < number){
+                        $this.hide(); 
+                    }
                 }else{
                     $this.hide(); 
                 }
