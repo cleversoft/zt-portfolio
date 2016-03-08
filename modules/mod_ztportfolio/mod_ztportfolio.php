@@ -24,6 +24,12 @@ if(count($portfolios) == 0){
 
 $tags = ModZtPortfolioHelper::getTags();
 
+$cates = ModZtPortfolioHelper::getCategories();
+
+//echo '<pre>';
+//var_dump($cates);
+
+
 $document = JFactory::getDocument();
 
 $document->addScript(JUri::base() . 'modules/mod_ztportfolio/assets/js/masonry.pkgd.min.js');

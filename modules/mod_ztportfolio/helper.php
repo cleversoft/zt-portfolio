@@ -8,6 +8,7 @@ class ModZtPortfolioHelper {
     static private $_portfolios = null;
     static private $_tags = null;
     static private $_map = null;
+    static private $_categories = null;
 
     /**
      * Get all portfolio
@@ -70,7 +71,7 @@ class ModZtPortfolioHelper {
     }
 
     /**
-     * Get all categories
+     * Get all tag
      * @return type
      */
     static public function getTags($number = null) {
@@ -91,6 +92,33 @@ class ModZtPortfolioHelper {
         }
         self::_mapData();
         return self::$_tags;
+        
+    }
+
+    /**
+     * Get all categories
+     * @return type
+     */
+    static public function getCategories($number = null) {
+        if (empty(self::$_categories)) {
+
+            $db = JFactory::getDbo();
+
+            $query = $db->getQuery(true);
+
+            $query->select('*')
+                  ->from($db->quoteName('#__categories'))
+                  ->where($db->quoteName('extension') . ' = ' . $db->quote('com_ztportfolio'));
+            if($number != null){
+                $query->setLimit($number);
+                
+            }
+            $db->setQuery($query);
+
+            self::$_categories =  $db->setQuery($query)
+                    ->loadAssocList();
+        }
+        return self::$_categories;
         
     }
 
