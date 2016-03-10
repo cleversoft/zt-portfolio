@@ -131,6 +131,16 @@ class ModZtPortfolioHelper {
         return rtrim(JUri::root(), '/') . '/' . ltrim($input, '/');
     }
 
+    public static function getPortfolioUrl($item){
+        $menu   = JFactory::getApplication()->getMenu();
+        $itemId = '';
+        if(is_object($menu->getActive())) {
+            $active = $menu->getActive();
+            $itemId = '&Itemid=' . $active->id;
+        }
+        return JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$item['ztportfolio_item_id'].':'.$item['alias'] . $itemId); 
+    }
+
     
     /**
      * Get class name from strong
