@@ -1,37 +1,56 @@
+<?php
+$doc = JFactory::getDocument();
+$doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/featherlight.min.css' );
+$doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
+$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/jquery.shuffle.modernizr.min.js' );
+$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/featherlight.min.js' );
+$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztportfolio.js' );
 
-<div class="portfolio-wrap">
-    <div class="portfolio-header">
-        <div class="portfolio-header-center">
-            <div class="portfolio-header-center-left">
-                <div class="portfolio-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
-            </div>
-            <div class="portfolio-header-center-right">
-                <div data-filter="all" class="zt_filter filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
-                <?php foreach ($tags as $tag): ?>
-                    <?php $class = $tag['alias']; ?>
-                    <?php $filter[] = $class; ?>
-                    <div data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
-                <?php endforeach; ?>
-            </div>
-        </div>
+?>
+<div class="zt-portfolio zt-portfolio-view-items layout-default">
+    <div class="zt-portfolio-filter">
+        <ul>
+            <li data-filter="all" class="zt_filter filter-all"><a href="#"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></a></li>
+            <?php foreach ($tags as $tag): ?>
+                <?php $class = $tag['alias']; ?>
+                <?php $filter[] = $class; ?>
+                <li data-filter="portfolio-<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><a href="#"><?php echo($tag['title']); ?></a></li>
+            <?php endforeach; ?> 
+        </ul>
     </div>
     <div class="portfolio-content">
-        <div class="portfolio-content-center">
-            <?php foreach ($portfolios as $portfolio): ?>
-                <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
-                <?php $class = array(); ?>
-                <?php foreach ($portfolio['ztportfolio_tag_id'] as $id): ?>
-                    <?php $portfolioTag = ModZtPortfolioHelper::getTag($id); ?>
-                    <?php $class[] = $portfolioTag['alias']; ?>
-                <?php endforeach; ?>
-                <?php  ?>
-                <div class="<?php echo(implode(' ', $class));  ?> gird-common all" style="background-image: url('<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>');">
-                    <a href="<?php echo(ModZtPortfolioHelper::getUrl('/index.php?module=mod_ztporfolio&show=' . $portfolio['ztportfolio_item_id'])); ?>"><?php echo($portfolio['title']); ?></a>
-                    <div><?php echo($portfolio['url']); ?></div>
-                    <div><?php //echo($portfolio['description']); ?></div>
-                    <div><?php echo($portfolio['video']); ?></div>
+        <div class="portfolio-content-center  row">
+            <?php foreach ($portfolios as $portfolio): ?>  
+            <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
+                                <?php $class = array(); ?>
+                                <?php foreach ($portfolio['ztportfolio_tag_id'] as $id): ?>
+                                    <?php $portfolioTag = ModZtPortfolioHelper::getTag($id); ?> 
+                                    <?php $class[] = $portfolioTag['alias']; ?>
+                                <?php endforeach; ?>
+                <div class="portfolio-<?php echo(implode(' ', $class));  ?> gird-common all col-md-<?php echo 12/$column ?>" > 
+                     <div class="zt-portfolio-item">
+                        <div class="zt-portfolio-overlay-wrapper clearfix">
+                            <img class="zt-portfolio-img" src="<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>"  />
+                            <div class="zt-portfolio-overlay">
+                                <div class="sp-vertical-middle">
+                                    <div class="zt-portfolio-btns">
+                                        <a class="btn-zoom" href="<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>" data-featherlight="image">Zoom</a>
+                                        <a class="btn-view" href="<?php echo ModZtPortfolioHelper::getPortfolioUrl($portfolio); ?>">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zt-portfolio-info">
+                            <h3 class="zt-portfolio-title">
+                                <a href="<?php echo(ModZtPortfolioHelper::getPortfolioUrl($portfolio)); ?>"><?php echo($portfolio['title']); ?></a>
+                            </h3>
+                            <div class="zt-portfolio-tags">   
+                            <?php echo(implode(' ', $class));  ?>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach; ?> 
         </div>
     </div>
     <?php
@@ -44,13 +63,12 @@
     <script type="text/javascript">
         jQuery(window).load(function () {
             var $ = jQuery;
-            $('.portfolio-content-center').masonry({
+            $('.portfolio-content-center').isotope({
                 columnWidth: 200,
                 itemSelector: '.gird-common'
             });
             var button_class = "portfolio-header-center-right-links-current";
             var $container = $('.portfolio-content-center');
-            
             $('.zt_filter').click(function () {
                 $container.isotope({filter: '.' + $(this).data('filter')});
                 console.log('.' + $(this).data('filter'));
@@ -59,10 +77,10 @@
                 $container.isotope();
             });
 
-            var page_number = 2;
+            var page_number = 1;
             $('.zt_readmore').click(function(){
                 var $this = $(this);
-                var wrap = $this.closest('.portfolio-wrap');
+                var wrap = $this.closest('.zt-portfolio');
                 $.ajax({
                     url: window.location.href,
                     data: {page: page_number},
@@ -70,7 +88,15 @@
                 }).success(function(response){
                     page_number++;
                     if(response != 'no_portfolios'){
+                        alert($(response).find('.portfolio-content-center').html());
+                        alert(wrap.find('.portfolio-content-center').attr('class'));
                         wrap.find('.portfolio-content-center').append($(response).find('.portfolio-content-center').html());
+
+
+                        wrap.find('.portfolio-content-center').isotope({
+                            columnWidth: 200,
+                            itemSelector: '.gird-common'
+                        });
                     }else{
                         $this.hide(); 
                     }
