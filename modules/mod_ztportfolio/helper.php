@@ -41,6 +41,19 @@ class ModZtPortfolioHelper {
         return self::$_portfolios;
     }
 
+    public static function countPortfolio(){
+      $languageTag = JFactory::getLanguage()->getTag();
+
+      $db = JFactory::getDbo();
+            
+      $query = $db->getQuery(true);
+      $query->select( 'COUNT(*)' )
+            ->from($db->quoteName('#__ztportfolio_items'))
+            ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'');
+      $db->setQuery($query);
+      return $db->loadResult();
+    }
+
     /**
      * Map data
      * @param type $categories
