@@ -14,12 +14,11 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
             <?php foreach ($tags as $tag): ?>
                 <?php $class = $tag['alias']; ?>
                 <?php $filter[] = $class; ?>
-                <li data-filter="portfolio-<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><a href="#"><?php echo($tag['title']); ?></a></li>
+                <li data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><a href="#"><?php echo($tag['title']); ?></a></li>
             <?php endforeach; ?> 
         </ul>
     </div>
     <div class="portfolio-content">
-        <div class="portfolio-content-center  row">
             <?php foreach ($portfolios as $portfolio): ?>  
             <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
                                 <?php $class = array(); ?>
@@ -27,7 +26,7 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
                                     <?php $portfolioTag = ModZtPortfolioHelper::getTag($id); ?> 
                                     <?php $class[] = $portfolioTag['alias']; ?>
                                 <?php endforeach; ?>
-                <div class="portfolio-<?php echo(implode(' ', $class));  ?> gird-common all col-md-<?php echo 12/$column ?>" > 
+                <div class="<?php echo(implode(' ', $class));  ?> gird-common all col-md-<?php echo 12/$column ?>" > 
                      <div class="zt-portfolio-item">
                         <div class="zt-portfolio-overlay-wrapper clearfix">
                             <img class="zt-portfolio-img" src="<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>"  />
@@ -51,10 +50,9 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
                     </div>                    
                 </div>
             <?php endforeach; ?> 
-        </div>
     </div>
     <?php
-    if($readmore == 1){
+    if($readmore == 1 && count($portfolios) < $count_portfolios){
         ?>
         <input type="button" value="Read more" class="zt_readmore">
         <?php
@@ -63,42 +61,54 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
     <script type="text/javascript">
         jQuery(window).load(function () {
             var $ = jQuery;
-            $('.portfolio-content-center').isotope({
-                columnWidth: 200,
-                itemSelector: '.gird-common'
-            });
-            var button_class = "portfolio-header-center-right-links-current";
-            var $container = $('.portfolio-content-center');
-            $('.zt_filter').click(function () {
-                $container.isotope({filter: '.' + $(this).data('filter')});
-                console.log('.' + $(this).data('filter'));
-                $('.portfolio-header-center-right-links').removeClass(button_class);
-                $(this).addClass(button_class);
-                $container.isotope();
-            });
 
-            var page_number = 1;
+
+            function bindEvent(container){
+                var button_class = "active";
+                
+                container.isotope({
+                    masonry: {
+                        // use element for option
+                        columnWidth: '.gird-common'
+                    },
+                    itemSelector: '.gird-common'
+                });
+                
+                $('.zt_filter').click(function () {
+                    container.isotope({filter: '.' + $(this).data('filter')});
+
+                    console.log('.' + $(this).data('filter'));
+
+                    $('.zt_filter').removeClass(button_class);
+
+                    $(this).addClass(button_class);
+                });
+
+            }
+            var container = $('.portfolio-content');
+            bindEvent(container);
+
+            var page_number = 2;
             $('.zt_readmore').click(function(){
                 var $this = $(this);
                 var wrap = $this.closest('.zt-portfolio');
+                var number = <?php echo $number;?>;
+                var count = <?php echo $count_portfolios;?>;
                 $.ajax({
                     url: window.location.href,
                     data: {page: page_number},
                     type: 'POST',
                 }).success(function(response){
-                    page_number++;
+                    
                     if(response != 'no_portfolios'){
-                        alert($(response).find('.portfolio-content-center').html());
-                        alert(wrap.find('.portfolio-content-center').attr('class'));
-                        wrap.find('.portfolio-content-center').append($(response).find('.portfolio-content-center').html());
-
-
-                        wrap.find('.portfolio-content-center').isotope({
-                            columnWidth: 200,
-                            itemSelector: '.gird-common'
-                        });
-                    }else{
+                        var items = $(response).find('.portfolio-content .gird-common');
+                        container.append(items).isotope( 'appended', items );
+                        bindEvent(container);
+                    }
+                    if( number*page_number >=  count){
                         $this.hide(); 
+                    }else {
+                        page_number++;
                     }
                     
                 });

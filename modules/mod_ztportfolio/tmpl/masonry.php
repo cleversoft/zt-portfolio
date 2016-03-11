@@ -33,7 +33,7 @@
                 <?php endforeach; ?>
                 <?php  ?>
                 <div class="<?php echo(implode(' ', $class));  ?> gird-common all portfolio-item" style="background-image: url('<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>');">
-                    <a href="<?php echo(ModZtPortfolioHelper::getUrl('/index.php?module=mod_ztporfolio&show=' . $portfolio['ztportfolio_item_id'])); ?>"><?php echo($portfolio['title']); ?></a>
+                    <a href="<?php echo(ModZtPortfolioHelper::getPortfolioUrl($portfolio)); ?>"><?php echo($portfolio['title']); ?></a>
                     <div><?php echo($portfolio['url']); ?></div>
                     <div><?php //echo($portfolio['description']); ?></div>
                     <div><?php echo($portfolio['video']); ?></div>
