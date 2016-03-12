@@ -30,6 +30,81 @@ class ZtPortfolioHelper {
 		return true;
 	}
 
+	public static function getNextArticle($id){
+
+		$languageTag = JFactory::getLanguage()->getTag();
+        
+        if (empty(self::$_portfolios)) {
+            
+            $db = JFactory::getDbo();
+            
+            $query = $db->getQuery(true);
+
+            $query->select('min(ztportfolio_item_id) as id')
+                    ->from($db->quoteName('#__ztportfolio_items'))
+                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->where($db->quoteName('ztportfolio_item_id') .'>' . $id);
+            $next_id = $db->setQuery($query)
+                      ->loadAssocList();
+          	if(isset($next_id[0]['id'])){
+          		return self::getPortfolio($next_id[0]['id']);
+          	}
+        }
+        return false;
+	}
+
+
+	public static function getPortfolio($id){
+
+		if($id != null){
+			$db = JFactory::getDbo();
+            
+	        $query = $db->getQuery(true);
+
+	        $query->select('*')
+	            ->from($db->quoteName('#__ztportfolio_items'))
+	            ->where($db->quoteName('ztportfolio_item_id') .'=' . $id);
+	        return $db->setQuery($query)
+              		->loadAssocList();
+		}
+		return false;
+		
+	}
+
+	public static function getPortfolioUrl($item){
+        $menu   = JFactory::getApplication()->getMenu();
+        $itemId = '';
+        if(is_object($menu->getActive())) {
+            $active = $menu->getActive();
+            $itemId = '&Itemid=' . $active->id;
+        }
+        return JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$item['ztportfolio_item_id'].':'.$item['alias'] . $itemId); 
+    }
+
+
+	public static function getPreviousArticle($id){
+
+		$languageTag = JFactory::getLanguage()->getTag();
+        
+        if (empty(self::$_portfolios)) {
+            
+            $db = JFactory::getDbo();
+            
+            $query = $db->getQuery(true);
+
+            $query->select('max(ztportfolio_item_id) as id')
+                    ->from($db->quoteName('#__ztportfolio_items'))
+                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->where($db->quoteName('ztportfolio_item_id') .'<' . $id);
+            $next_id = $db->setQuery($query)
+                      ->loadAssocList();
+          	if(isset($next_id[0]['id'])){
+          		return self::getPortfolio($next_id[0]['id']);
+          	}
+        }
+        return false;
+	}
+
 	public static function getTags($ids) {
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);

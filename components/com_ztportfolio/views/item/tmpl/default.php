@@ -82,12 +82,41 @@ if($this->item->video) {
 				<?php echo implode(', ', $newtags); ?>
 			</div>
 
+			<div class="zt-portfolio-properties">
+				<h4><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_PROPERTIES'); ?></h4>
+				<?php 
+
+				$properties = json_decode($this->item->properties, true); 
+				foreach ($properties as $key => $item)
+	            {
+	                echo '<div class="control-group ">
+	                            <span><strong>' . base64_decode($item['name']) . ':</strong></span>
+	                            <span>' . base64_decode($item['value']) . '</span>
+                            </div>';
+	            }
+	          
+				?>
+			</div>
+
 			<?php if ($this->item->url) { ?>
 			<div class="zt-portfolio-link">
 				<a class="btn btn-primary" target="_blank" href="<?php echo $this->item->url; ?>"><?php echo JText::_('COM_ZTPORTFOLIO_VIEW_PROJECT'); ?></a>
 			</div>
 			<?php } ?>
 		</div>
+		
+	</div>
+	<div class="zt-portfolio-nav">
+		<?php
+		if($previous = ZtPortfolioHelper::getPreviousArticle($this->item->ztportfolio_item_id)): ?>
+			<a class="btn btn-default portfolio-previous" href="<?php echo ZtPortfolioHelper::getPortfolioUrl($previous[0])?>"><?php echo $previous[0]['title']?></a>
+		<?php
+		endif;
+		if($next = ZtPortfolioHelper::getNextArticle($this->item->ztportfolio_item_id)):
+		?>
+		<a class="btn btn-default portfolio-next" href="<?php echo ZtPortfolioHelper::getPortfolioUrl($next[0])?>"><?php echo $next[0]['title']?></a>
+		<?php
+		endif;?>
 		
 	</div>
 </div>
