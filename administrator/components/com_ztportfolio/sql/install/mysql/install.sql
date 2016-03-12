@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `#__ztportfolio_items` (
   `category_id` int(11) NOT NULL,
   `image` text NOT NULL,
   `video` text NOT NULL,
+  `properties` text NOT NULL,
   `description` mediumtext,
   `ztportfolio_tag_id` text NOT NULL,
   `url` text NOT NULL,
