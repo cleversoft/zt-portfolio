@@ -15,6 +15,17 @@
                 $inputItems.trigger('keyup');
             }
         });
+
+        var data = [];
+            $inputItems.each(function () {
+                data.push({
+                    name: $(this).data('name'),
+                    type: $(this).data('type'),
+                    value: btoa($(this).val())
+                });
+            });
+            $('#ztportfolioPropeties').val(JSON.stringify(data));
+            
         $inputItems.keyup(function () {
             var data = [];
             $inputItems.each(function () {
