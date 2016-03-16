@@ -7,54 +7,56 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/feath
 $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztportfolio.js' );
 
 ?>
-<div class="zt-portfolio zt-portfolio-view-items layout-default">
-    <div class="zt-portfolio-filter">
-        <ul>
-            <li data-filter="all" class="zt_filter filter-all"><a href="#"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></a></li>
-            <?php foreach ($tags as $tag): ?>
-                <?php $class = $tag['alias']; ?>
-                <?php $filter[] = $class; ?>
-                <li data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><a href="#"><?php echo($tag['title']); ?></a></li>
-            <?php endforeach; ?> 
-        </ul>
+<div class="portfolio-wrap">
+    <div class="portfolio-header"> 
+            <div class="portfolio-header-center-left">
+                <h2><?php echo(JText::_('MOD_ZTPORTFOLIO_FEATURE_PROJECTS')); ?></h2>
+            </div>
+            <div class="portfolio-header-center-right">
+                <span data-filter="all" class="zt_filter filter-all active"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></span>
+                <?php foreach ($tags as $tag): ?>
+                    <?php $class = $tag['alias']; ?>
+                    <?php $filter[] = $class; ?>
+                    <span data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></span>
+                <?php endforeach; ?>
+            </div> 
     </div>
-    <div class="portfolio-content">
-            <?php foreach ($portfolios as $portfolio): ?>  
-            <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
-                                <?php $class = array(); ?>
-                                <?php foreach ($portfolio['ztportfolio_tag_id'] as $id): ?>
-                                    <?php $portfolioTag = ModZtPortfolioHelper::getTag($id); ?> 
-                                    <?php $class[] = $portfolioTag['alias']; ?>
-                                <?php endforeach; ?>
+    <div class="portfolio-content row">
+        <div class="portfolio-content-center">
+            <?php foreach ($portfolios as $portfolio): ?>
+                <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
+                <?php $class = array(); ?>
+                <?php foreach ($portfolio['ztportfolio_tag_id'] as $id): ?>
+                    <?php $portfolioTag = ModZtPortfolioHelper::getTag($id); ?>
+                    <?php $class[] = $portfolioTag['alias']; ?>
+                <?php endforeach; ?>
+                <?php  ?> 
                 <div class="<?php echo(implode(' ', $class));  ?> gird-common all col-md-<?php echo 12/$column ?>" > 
-                     <div class="zt-portfolio-item">
-                        <div class="zt-portfolio-overlay-wrapper clearfix">
-                            <img class="zt-portfolio-img" src="<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>"  />
-                            <div class="zt-portfolio-overlay">
-                                <div class="sp-vertical-middle">
-                                    <div class="zt-portfolio-btns">
-                                        <a class="btn-zoom" href="<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>" data-featherlight="image">Zoom</a>
-                                        <a class="btn-view" href="<?php echo ModZtPortfolioHelper::getPortfolioUrl($portfolio); ?>">View</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="zt-portfolio-item">
+                        <div class="zt-portfolio-thumb">
+                        <a href="<?php echo(ModZtPortfolioHelper::getPortfolioUrl($portfolio)); ?>">
+                            <img width="800" height="600" src="<?php echo ModZtPortfolioHelper::getUrl($portfolio['image']); ?>"  />
+                        </a>
+                        </div> 
                         <div class="zt-portfolio-info">
                             <h3 class="zt-portfolio-title">
                                 <a href="<?php echo(ModZtPortfolioHelper::getPortfolioUrl($portfolio)); ?>"><?php echo($portfolio['title']); ?></a>
                             </h3>
-                            <div class="zt-portfolio-tags">   
-                            <?php echo(implode(' ', $class));  ?>
+                            <div class="zt-portfolio-description">   
+                            <?php echo substr($portfolio['description'], 0, 90);  ?>
                             </div>
-                        </div>
+                        </div>                        
                     </div>                    
                 </div>
-            <?php endforeach; ?> 
+            <?php endforeach; ?>
+        </div>
     </div>
     <?php
     if($readmore == 1 && count($portfolios) < $count_portfolios){
         ?>
-        <input type="button" value="Read more" class="zt_readmore">
+        <div class="text-center">
+            <input type="button" value="<?php echo(JText::_('MOD_ZTPORTFOLIO_LOAD_MORE')); ?>" class="btn btn-loadmore zt_readmore" />
+        </div>
         <?php
     }
     ?>
