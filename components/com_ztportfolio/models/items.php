@@ -122,9 +122,11 @@ class ZtPortfolioModelItems extends FOFModel {
 
 	public function getSubCategories($ids, &$catIDs, $level){
 
+		$languageTag = JFactory::getLanguage()->getTag();
+		$db = JFactory::getDbo();
+
 		foreach($ids as $id){
-			$languageTag = JFactory::getLanguage()->getTag();
-			$db = JFactory::getDbo();
+			
 	        $cat_query = $db->getQuery(true);
 	        $cat_query->select('id')
 	                ->from($db->quoteName('#__categories'))
