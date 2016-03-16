@@ -14,7 +14,7 @@ class ModZtPortfolioHelper {
      * Get all portfolio
      * @return type
      */
-    static public function getPortfolios($number = null, $offset = 0, $orderby = 'ASC') {
+    static public function getPortfolios($number = null, $categories, $offset = 0, $orderby = 'ASC') {
         
         $languageTag = JFactory::getLanguage()->getTag();
         
@@ -28,6 +28,15 @@ class ModZtPortfolioHelper {
                     ->from($db->quoteName('#__ztportfolio_items'))
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_item_id'));
+            if(count( $categories) > 0){
+                $condition = '';
+                foreach ($categories as $catid) {
+                    $condition .= '`category_id`=' . $catid . ' OR ';
+                }
+                $condition = substr($condition, 0, -3);
+
+                $query->where($condition);
+            }
             if($orderby == 'DESC') {
                 $query->order('ordering DESC');
             }       
@@ -41,7 +50,7 @@ class ModZtPortfolioHelper {
         return self::$_portfolios;
     }
 
-    public static function countPortfolio(){
+    public static function countPortfolio($categories){
       $languageTag = JFactory::getLanguage()->getTag();
 
       $db = JFactory::getDbo();
@@ -50,6 +59,15 @@ class ModZtPortfolioHelper {
       $query->select( 'COUNT(*)' )
             ->from($db->quoteName('#__ztportfolio_items'))
             ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'');
+      if(count( $categories) > 0){
+          $condition = '';
+          foreach ($categories as $catid) {
+              $condition .= '`category_id`=' . $catid . ' OR ';
+          }
+          $condition = substr($condition, 0, -3);
+
+          $query->where($condition);
+      }
       $db->setQuery($query);
       return $db->loadResult();
     }

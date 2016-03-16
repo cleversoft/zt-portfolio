@@ -34,6 +34,15 @@
                        directory="/modules/mod_ztportfolio/tmpl"
                        default="default" hide_default="1" hide_none="1"
                        stripext="1" filter="\.php$" exclude="^_"/>
+                <field
+                  name="catid"
+                  type="category"
+                  extension="com_ztportfolio"
+                  multiple="true"
+                  size="5"
+                  label="JCATEGORY"
+                  description="MOD_ARTICLES_CATEGORY_FIELD_CATEGORY_DESC"
+                />
                 <field name="column"
                        type="text"
                        default=""

@@ -10,6 +10,7 @@ $number = intval($params->get('number', 10));
 $readmore = $params->get('show_loadmore', 1);
 $column = $params->get('column', 3);
 $orderby = $params->get('orderby', 'ASC');
+$catids = $params->get('catid', '');
 
 $page = 1;
 if(isset($_REQUEST['page'])){
@@ -17,9 +18,9 @@ if(isset($_REQUEST['page'])){
 }
 $offset = ($page - 1)*$number; 
 
-$portfolios = ModZtPortfolioHelper::getPortfolios($number, $offset, $orderby = 'DESC');
+$portfolios = ModZtPortfolioHelper::getPortfolios($number, $catids, $offset, $orderby = 'DESC');
 
-$count_portfolios = ModZtPortfolioHelper::countPortfolio();
+$count_portfolios = ModZtPortfolioHelper::countPortfolio($catids);
 
 
 if(count($portfolios) == 0){
@@ -28,7 +29,7 @@ if(count($portfolios) == 0){
 
 $tags = ModZtPortfolioHelper::getTags();
 
-$cates = ModZtPortfolioHelper::getCategories();
+//$cates = ModZtPortfolioHelper::getCategories();
 
 //echo '<pre>';
 //var_dump($cates);
