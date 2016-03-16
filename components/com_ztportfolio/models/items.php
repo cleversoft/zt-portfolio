@@ -53,13 +53,34 @@ class ZtPortfolioModelItems extends FOFModel {
 
 			//has category
 			if ($params->get('category_id') != '') {
-				$query->where($db->qn('category_id')." = ".$db->quote( $params->get('category_id') ));
+
+				$category_ids = array($params->get('category_id'));
+				$this->getSubCategories( array($params->get('category_id')), $category_ids, 4 );
+
+
+
+				if(count( $category_ids) > 0){
+					$condition = '';
+					foreach ($category_ids as $catid) {
+						$condition .= $db->qn('category_id')." = " . $db->quote( $catid ). ' OR ';
+					}
+					if($condition != ''){
+						$condition = substr($condition, 0, -3);
+
+						$query->where($condition);
+					}
+					
+		        }
+
+				//$query->where($db->qn('category_id')." = ".$db->quote( $params->get('category_id') ));
 			}
 
 			//Enabled
 			$query->where($db->qn('enabled')." = ".$db->quote('1'));
 			//Access
-			$query->where($db->quoteName('access')." IN (" . implode( ',', JFactory::getUser()->getAuthorisedViewLevels() ) . ")");
+			$auth = JFactory::getUser()->getAuthorisedViewLevels();
+			if(count($auth) > 0)
+				$query->where($db->quoteName('access')." IN (" . implode( ',', $auth ) . ")");
 		}
 
 		if (!$overrideLimits)
@@ -97,6 +118,34 @@ class ZtPortfolioModelItems extends FOFModel {
 
 		return $query;
 
+	}
+
+	public function getSubCategories($ids, &$catIDs, $level){
+
+		foreach($ids as $id){
+			$languageTag = JFactory::getLanguage()->getTag();
+			$db = JFactory::getDbo();
+	        $cat_query = $db->getQuery(true);
+	        $cat_query->select('id')
+	                ->from($db->quoteName('#__categories'))
+	                ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+	                ->where('`parent_id`=' . $id);
+	        $categories = $db->setQuery($cat_query)
+	                    ->loadAssocList();
+            $temp_id = array();
+        	if(count($categories) > 0){
+
+        		foreach ($categories as $cate) {
+        			$temp_id[] = $cate['id'];
+        			$catIDs[] = $cate['id'];
+        		}
+        	}
+
+        	if($level >= 0 && count($temp_id) > 0){
+        		$level--;
+        		$this->getSubCategories($temp_id, $catIDs, $level);
+        	}
+		}
 	}
 
 

@@ -86,14 +86,15 @@ if($this->item->video) {
 				<h4><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_PROPERTIES'); ?></h4>
 				<?php 
 
-				$properties = json_decode($this->item->properties, true); 
-				foreach ($properties as $key => $item)
-	            {
-	                echo '<div class="control-group ">
-	                            <span><strong>' . base64_decode($item['name']) . ':</strong></span>
-	                            <span>' . base64_decode($item['value']) . '</span>
-                            </div>';
-	            }
+				$properties = json_decode($this->item->properties, true);  
+                if(count($properties) > 0)
+    				foreach ($properties as $key => $item)
+    	            {
+    	                echo '<div class="control-group ">
+    	                            <span><strong>' . base64_decode($item['name']) . ':</strong></span>
+    	                            <span>' . base64_decode($item['value']) . '</span>
+                                </div>';
+    	            }
 	          
 				?>
 			</div>
