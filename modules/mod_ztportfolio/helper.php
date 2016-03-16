@@ -28,14 +28,16 @@ class ModZtPortfolioHelper {
                     ->from($db->quoteName('#__ztportfolio_items'))
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_item_id'));
-            if(count( $categories) > 0){
+            if( is_array($categories)) {
                 $condition = '';
                 foreach ($categories as $catid) {
                     $condition .= '`category_id`=' . $catid . ' OR ';
                 }
+
                 $condition = substr($condition, 0, -3);
 
-                $query->where($condition);
+                if($condition != '')
+                  $query->where($condition);
             }
             if($orderby == 'DESC') {
                 $query->order('ordering DESC');
@@ -59,14 +61,16 @@ class ModZtPortfolioHelper {
       $query->select( 'COUNT(*)' )
             ->from($db->quoteName('#__ztportfolio_items'))
             ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'');
-      if(count( $categories) > 0){
+      if( is_array($categories)) {
+        
           $condition = '';
           foreach ($categories as $catid) {
               $condition .= '`category_id`=' . $catid . ' OR ';
           }
           $condition = substr($condition, 0, -3);
 
-          $query->where($condition);
+          if($condition != '')
+              $query->where($condition);
       }
       $db->setQuery($query);
       return $db->loadResult();
