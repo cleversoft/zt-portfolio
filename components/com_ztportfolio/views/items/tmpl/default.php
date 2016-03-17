@@ -26,8 +26,7 @@ $tower 		= strtolower( $params->get('tower', '600x800') );
 $doc = JFactory::getDocument();
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/featherlight.min.css' );
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
-$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/jquery.shuffle.modernizr.min.js' );
-$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/featherlight.min.js' );
+$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/isotope.min.js' );
 $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztportfolio.js' );
 
 $menu 	= JFactory::getApplication()->getMenu();
@@ -69,12 +68,12 @@ $sizes = array(
 	<?php if($this->params->get('show_filter', 1)) { ?>
 		<div class="zt-portfolio-filter">
 			<ul>
-				<li class="active" data-group="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
+				<li class="active" data-filter="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
 				<?php
 					$filters = ZtPortfolioHelper::getAllTags();
 					foreach ($filters as $filter) {
 						?>
-							<li data-group="<?php echo $filter->alias; ?>"><a href="#"><?php echo $filter->title; ?></a></li>
+							<li data-filter="<?php echo $filter->alias; ?>"><a href="#"><?php echo $filter->title; ?></a></li>
 						<?php
 					}	
 				?>
@@ -124,14 +123,14 @@ $sizes = array(
 			foreach ($tags as $tag) {
 				$newtags[] 	 = $tag->title;
 				$filter 	.= ' ' . $tag->alias;
-				$groups[] 	.= '"' . $tag->alias . '"';
+				$groups[] 	= $tag->alias;
 			}
 
-			$groups = implode(',', $groups);
+			$groups = implode(' ', $groups);
 
 			?>
 
-			<div class="zt-portfolio-item" data-groups='[<?php echo $groups; ?>]'>
+			<div class="zt-portfolio-item all <?php echo $groups; ?>">
 				<?php $this->item->url = JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$this->item->ztportfolio_item_id.':'.$this->item->alias . $itemId); ?>
 				
 				<div class="zt-portfolio-overlay-wrapper clearfix">
@@ -217,6 +216,30 @@ $sizes = array(
 <script>
 	jQuery(document).ready(function(){
 
+		function bindEvent(container){
+            var button_class = "active";
+            
+            container.isotope({
+                masonry: {
+                    // use element for option
+                    columnWidth: '.zt-portfolio-item'
+                },
+                itemSelector: '.zt-portfolio-item'
+            });
+            
+            jQuery('.zt-portfolio-filter li').click(function () {
+
+                container.isotope({filter: '.' + jQuery(this).data('filter')});
+
+                jQuery('.zt-portfolio-filter li').removeClass(button_class);
+
+                jQuery(this).addClass(button_class);
+            });
+
+        }
+        var container = jQuery('.zt-portfolio-items');
+        bindEvent(container);
+
 	    var page_number = 1;
 	    jQuery('.zt_readmore').on('click', function(e){
 	    	e.preventDefault();
@@ -231,18 +254,12 @@ $sizes = array(
 	            data: {limitstart: page_number*number, ajax_loadmore: 1},
 	            type: 'POST',
 	        }).success(function(response){
-
-	        	var container = jQuery('.zt-portfolio-items');
 	            
                 var items = jQuery(response).find('.zt-portfolio-items .zt-portfolio-item');
 
-                var $sizer = container.find('.shuffle__sizer');
+            	container.append(items).isotope( 'appended', items ).isotope('layout');
 
-                container.append(items);
-
-                container.shuffle('appended', items);
-
-                container.shuffle('layout');
+                bindEvent(container);
 
                 page_number++;
 	            
