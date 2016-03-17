@@ -238,18 +238,17 @@ $sizes = array(
 
                 var $sizer = container.find('.shuffle__sizer');
 
+                container.append(items);
+
                 container.shuffle({
 					itemSelector: '.zt-portfolio-item',
 					sequentialFadeDelay: 150,
 					sizer: $sizer
 				});
 
-                container.append(items).shuffle('appended', items);
+                container.shuffle('appended', items);
 
                 
-
-				
-
                 page_number++;
 	            
 	            if( page_number >=  total){
