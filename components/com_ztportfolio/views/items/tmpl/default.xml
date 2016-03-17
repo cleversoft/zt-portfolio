@@ -24,6 +24,11 @@
 				<option value="square">COM_ZTPORTFOLIO_THUMBNAIL_SQUARE</option>
 				<option value="rectangular">COM_ZTPORTFOLIO_THUMBNAIL_RECTANGULAR</option>
 			</field>
+			<field name="pagination" type="list" default="nomal" label="COM_ZTPORTFOLIO_FIELD_PAGINATION" description="COM_ZTPORTFOLIO_FIELD_PAGINATION_DESC">
+				<option value="none">COM_ZTPORTFOLIO_FIELD_PAGINATION_NONE</option>	
+				<option value="ajax">COM_ZTPORTFOLIO_FIELD_PAGINATION_AJAX</option>	
+				<option value="nomal">COM_ZTPORTFOLIO_FIELD_PAGINATION_NOMAL</option>	
+			</field>
 			<field name="limit" type="number" default="12" label="COM_ZTPORTFOLIO_FIELD_LIMIT" description="COM_ZTPORTFOLIO_FIELD_LIMIT_DESC" />
 		</fieldset>
 	</fields>

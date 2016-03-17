@@ -125,6 +125,28 @@ class ZtPortfolioHelper {
 		return $db->loadObjectList();
 	}
 
+	/**
+     * Get all tag
+     * @return type
+     */
+    static public function getAllTags($number = null) {
+
+        $languageTag = JFactory::getLanguage()->getTag();
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+                ->from($db->quoteName('#__ztportfolio_tags'))
+                ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                ->order($db->quoteName('ztportfolio_tag_id'));
+        if($number != null){
+            $query->setLimit($number);
+            
+        }
+        return $db->setQuery($query)
+                ->loadObjectList();
+        
+    }
+
 
 	public static function getTagList($items) {
 		$db = JFactory::getDbo();

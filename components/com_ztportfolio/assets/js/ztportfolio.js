@@ -36,5 +36,7 @@ jQuery(function($) {
 		$container.shuffle( 'shuffle', $this.data('group') );
 	});
 
+	
+
 });
 

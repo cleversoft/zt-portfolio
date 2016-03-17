@@ -71,7 +71,7 @@ $sizes = array(
 			<ul>
 				<li class="active" data-group="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
 				<?php
-					$filters = ZtPortfolioHelper::getTagList( $this->items );
+					$filters = ZtPortfolioHelper::getAllTags();
 					foreach ($filters as $filter) {
 						?>
 							<li data-group="<?php echo $filter->alias; ?>"><a href="#"><?php echo $filter->title; ?></a></li>
@@ -198,14 +198,60 @@ $sizes = array(
 
 		<?php } ?>
 	</div>
-
+	<?php  $pagination = $this->params->get('pagination', 'nomal'); ?>
 	<?php if ($this->pagination->get('pages.total') >1) { ?>
-	<div class="pagination">
-		<?php echo $this->pagination->getPagesLinks(); ?>
-	</div>
+
+		<?php if($pagination  == 'nomal'){ ?>
+			<div class="pagination">
+				<?php echo $this->pagination->getPagesLinks(); ?>
+			</div>
+		<?php } ?>
+		<?php if($pagination  == 'ajax'){ ?>
+			<div class="text-center">
+	            <a class="btn btn-loadmore zt_readmore"><?php echo(JText::_('COM_ZTPORTFOLIO_LOAD_MORE')); ?></a>
+	        </div>
+		<?php } ?>
 	<?php } ?>
 </div>
 
+<script>
+	jQuery(document).ready(function(){
 
+		function ZTBindEventShuffle( container ){
+			container.shuffle({
+				itemSelector: '.zt-portfolio-item',
+				sequentialFadeDelay: 150,
+			});
+		}
+
+	    var page_number = 2;
+	    jQuery('.zt_readmore').click(function(e){
+	    	e.preventDefault();
+
+	        var $this = jQuery(this);
+	        var wrap = $this.closest('.zt-portfolio');
+	        var number = <?php echo $this->pagination->get('limit');?>;
+	        var total = <?php echo $this->pagination->get('pages.total');?>;
+	        
+	        jQuery.ajax({
+	            url: window.location.href,
+	            data: {page: page_number, ajax_loadmore: 1},
+	            type: 'POST',
+	        }).success(function(response){
+	            
+                var items = jQuery(response).find('.zt-portfolio-items .zt-portfolio-item');
+
+                jQuery('.zt-portfolio-items').append(items).shuffle('appended', items)
+	            
+	            if( page_number >=  total){
+	                $this.hide(); 
+	            }else {
+	                page_number++;
+	            }
+	        });
+	    });
+	});
+</script>
+<?php if( isset($_REQUEST['ajax_loadmore']) ) {die;} ?>
 
 
