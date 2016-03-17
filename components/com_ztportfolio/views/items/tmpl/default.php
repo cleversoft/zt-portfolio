@@ -231,10 +231,24 @@ $sizes = array(
 	            data: {limitstart: page_number*number, ajax_loadmore: 1},
 	            type: 'POST',
 	        }).success(function(response){
+
+	        	var container = jQuery('.zt-portfolio-items');
 	            
                 var items = jQuery(response).find('.zt-portfolio-items .zt-portfolio-item');
 
-                jQuery('.zt-portfolio-items').append(items).shuffle('appended', items);
+                var $sizer = container.find('.shuffle__sizer');
+
+                container.shuffle({
+					itemSelector: '.zt-portfolio-item',
+					sequentialFadeDelay: 150,
+					sizer: $sizer
+				});
+
+                container.append(items).shuffle('appended', items);
+
+                
+
+				
 
                 page_number++;
 	            
