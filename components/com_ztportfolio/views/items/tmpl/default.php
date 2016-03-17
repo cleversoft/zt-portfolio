@@ -218,7 +218,7 @@ $sizes = array(
 	jQuery(document).ready(function(){
 
 	    var page_number = 1;
-	    jQuery('.zt_readmore').click(function(e){
+	    jQuery('.zt_readmore').on('click', function(e){
 	    	e.preventDefault();
 
 	        var $this = jQuery(this);
@@ -240,15 +240,10 @@ $sizes = array(
 
                 container.append(items);
 
-                container.shuffle({
-					itemSelector: '.zt-portfolio-item',
-					sequentialFadeDelay: 150,
-					sizer: $sizer
-				});
-
                 container.shuffle('appended', items);
 
-                
+                container.shuffle('update');
+
                 page_number++;
 	            
 	            if( page_number >=  total){
