@@ -217,14 +217,7 @@ $sizes = array(
 <script>
 	jQuery(document).ready(function(){
 
-		function ZTBindEventShuffle( container ){
-			container.shuffle({
-				itemSelector: '.zt-portfolio-item',
-				sequentialFadeDelay: 150,
-			});
-		}
-
-	    var page_number = 2;
+	    var page_number = 1;
 	    jQuery('.zt_readmore').click(function(e){
 	    	e.preventDefault();
 
@@ -235,23 +228,21 @@ $sizes = array(
 	        
 	        jQuery.ajax({
 	            url: window.location.href,
-	            data: {page: page_number, ajax_loadmore: 1},
+	            data: {limitstart: page_number*number, ajax_loadmore: 1},
 	            type: 'POST',
 	        }).success(function(response){
 	            
                 var items = jQuery(response).find('.zt-portfolio-items .zt-portfolio-item');
 
-                jQuery('.zt-portfolio-items').append(items).shuffle('appended', items)
+                jQuery('.zt-portfolio-items').append(items).shuffle('appended', items);
+
+                page_number++;
 	            
 	            if( page_number >=  total){
 	                $this.hide(); 
-	            }else {
-	                page_number++;
 	            }
 	        });
 	    });
 	});
 </script>
 <?php if( isset($_REQUEST['ajax_loadmore']) ) {die;} ?>
-
-
