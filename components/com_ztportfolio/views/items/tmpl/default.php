@@ -242,7 +242,7 @@ $sizes = array(
 
                 container.shuffle('appended', items);
 
-                container.shuffle('update');
+                container.shuffle('layout');
 
                 page_number++;
 	            
