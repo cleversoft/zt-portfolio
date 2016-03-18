@@ -15,6 +15,8 @@ ZtPortfolioHelper::generateMeta($this->item);
 $doc = JFactory::getDocument();
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
 
+$this->item->url = $_SERVER['SERVER_NAME'] . JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$this->item->ztportfolio_item_id.':'.$this->item->alias );
+
 $tags = ZtPortfolioHelper::getTags( (array) $this->item->ztportfolio_tag_id );
 $newtags = array();
 foreach ($tags as $tag) {
@@ -97,6 +99,26 @@ if($this->item->video) {
     	            }
 	          
 				?>
+				<div class="control-group ">
+	                <a href="http://www.facebook.com/sharer.php?u=<?php echo $this->item->url; ?>" 
+	                	class="post_share_facebook" 
+	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;">
+						<i class="fa fa-facebook"></i>
+					</a>
+	                <a href="https://twitter.com/share?url=<?php echo $this->item->url; ?>" 
+	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;" 
+	                	class="product_share_twitter">
+						<i class="fa fa-twitter"></i>
+					</a>
+	                <a href="https://plus.google.com/share?url=<?php echo $this->item->url; ?>" 
+	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+						<i class="fa fa-google-plus"></i>
+					</a>
+	                <a href="http://pinterest.com/pin/create/button/?url=<?php echo $this->item->url; ?>&amp;media=<?php echo JURI::base() . $this->item->image; ?>&amp;description=" 
+	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
+	                	<i class="fa fa-pinterest"></i>
+	                </a>
+                </div>
 			</div>
 
 			<?php if ($this->item->url) { ?>
