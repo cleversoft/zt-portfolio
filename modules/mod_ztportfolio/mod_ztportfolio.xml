@@ -5,19 +5,20 @@
     client="site"
     method="upgrade">
     <name>ZtPortfolio</name>
-    <creationDate>September 2008</creationDate>
+    <creationDate>March 2016</creationDate>
     <author>ZooTemplate.Com</author>
     <authorEmail>support@zootemplate.com</authorEmail>
     <authorUrl>https://www.zootemplate.com</authorUrl>
     <copyright>(C) 2015 Copyright Info</copyright>
     <license>License Info</license>
-    <version>1.1.0</version>
+    <version>1.0.0</version>
     <description>MOD_ZTPORTFOLIO_XML_DESCRIPTION</description>
     <files>
-        <folder>core</folder>
+        <folder>assets</folder>
         <folder>tmpl</folder>
         <filename module="mod_ztportfolio">mod_ztportfolio.php</filename>
         <filename>helper.php</filename>
+        <filename>mod_ztportfolio.xml</filename>
         <filename>extension.json</filename>
     </files>
     <languages folder="language">
