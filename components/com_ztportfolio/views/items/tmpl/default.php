@@ -28,6 +28,7 @@ $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
 $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/isotope.min.js' );
 $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztportfolio.js' );
+$doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/imagesloaded.pkgd.min.js' );
 
 $menu 	= JFactory::getApplication()->getMenu();
 $itemId = '';
@@ -139,38 +140,16 @@ $sizes = array(
 						<span class="zt-portfolio-icon-video"></span>
 					<?php } ?>
 
+					<a href="<?php echo $this->item->url; ?>">
 					<?php if($this->params->get('thumbnail_type', 'masonry') == 'masonry') { ?>
 						<img class="zt-portfolio-img" src="<?php echo JURI::base(true) . '/images/ztportfolio/' . $this->item->alias . '/' . JFile::stripExt(JFile::getName($this->item->image)) . '_' . $sizes[$i] . '.' . JFile::getExt($this->item->image); ?>" alt="<?php echo $this->item->title; ?>">
 					<?php } else if($this->params->get('thumbnail_type', 'masonry') == 'rectangular') { ?>
 						<img class="zt-portfolio-img" src="<?php echo JURI::base(true) . '/images/ztportfolio/' . $this->item->alias . '/' . JFile::stripExt(JFile::getName($this->item->image)) . '_'. $rectangle .'.' . JFile::getExt($this->item->image); ?>" alt="<?php echo $this->item->title; ?>">
 					<?php } else { ?>
 						<img class="zt-portfolio-img" src="<?php echo JURI::base(true) . '/images/ztportfolio/' . $this->item->alias . '/' . JFile::stripExt(JFile::getName($this->item->image)) . '_'. $square .'.' . JFile::getExt($this->item->image); ?>" alt="<?php echo $this->item->title; ?>">
-					<?php } ?>
-
-					<div class="zt-portfolio-overlay">
-						<div class="sp-vertical-middle">
-							<div>
-								<div class="zt-portfolio-btns">
-									<?php if( $this->item->video ) { ?>
-										<a class="btn-zoom" href="#" data-featherlight="#zt-portfolio-video<?php echo $this->item->ztportfolio_item_id; ?>"><?php echo JText::_('COM_ZTPORTFOLIO_WATCH'); ?></a>
-									<?php } else { ?>
-										<a class="btn-zoom" href="<?php echo JURI::base(true) . '/images/ztportfolio/' . $this->item->alias . '/' . JFile::stripExt(JFile::getName($this->item->image)) . '_'. $rectangle .'.' . JFile::getExt($this->item->image); ?>" data-featherlight="image"><?php echo JText::_('COM_ZTPORTFOLIO_ZOOM'); ?></a>
-									<?php } ?>
-									<a class="btn-view" href="<?php echo $this->item->url; ?>"><?php echo JText::_('COM_ZTPORTFOLIO_VIEW'); ?></a>
-								</div>
-								<?php if($layout_type!='default') { ?>
-								<h3 class="zt-portfolio-title">
-									<a href="<?php echo $this->item->url; ?>">
-										<?php echo $this->item->title; ?>
-									</a>
-								</h3>
-								<div class="zt-portfolio-tags">
-									<?php echo implode(', ', $newtags); ?>
-								</div>
-								<?php } ?>
-							</div>
-						</div>
-					</div>
+					<?php } ?> 
+                    </a>   
+ 
 				</div>
 				
 				<?php if($layout_type=='default') { ?>
@@ -206,7 +185,7 @@ $sizes = array(
 			</div>
 		<?php } ?>
 		<?php if($pagination  == 'ajax'){ ?>
-			<div class="text-center">
+			<div class="text-center pagination">
 	            <a class="btn btn-loadmore zt_readmore"><?php echo(JText::_('COM_ZTPORTFOLIO_LOAD_MORE')); ?></a>
 	        </div>
 		<?php } ?>
@@ -257,15 +236,18 @@ $sizes = array(
 	            
                 var items = jQuery(response).find('.zt-portfolio-items .zt-portfolio-item');
 
-            	container.append(items).isotope( 'appended', items ).isotope('layout');
+            	container.append(items).isotope( 'appended', items );
 
                 bindEvent(container);
-
                 page_number++;
 	            
 	            if( page_number >=  total){
 	                $this.hide(); 
 	            }
+                items.imagesLoaded(function () {
+                    // show elems now they're ready
+                    container.isotope('layout');
+                });
 	        });
 	    });
 	});
