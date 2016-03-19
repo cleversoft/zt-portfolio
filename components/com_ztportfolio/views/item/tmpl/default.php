@@ -92,14 +92,14 @@ if($this->item->video) {
     				foreach ($properties as $key => $item)
     	            {
     	                echo '<div class="control-group ">
-    	                            <h4>' . base64_decode($item['name']) . ':</h4>
+    	                            <h3>' . base64_decode($item['name']) . ':</h3>
     	                            <span>' . base64_decode($item['value']) . '</span>
                                 </div>';
     	            }
 	          
 				?>
 				<div class="control-group ">
-                <h4><?php echo JText::_('COM_ZTPORTFOLIO_SHARE_SOCIAL'); ?></h4>
+                <h3><?php echo JText::_('COM_ZTPORTFOLIO_SHARE_SOCIAL'); ?></h3>
 	                <a href="http://www.facebook.com/sharer.php?u=<?php echo $this->item->share_url; ?>" 
 	                	class="post_share_facebook" 
 	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;">
@@ -119,13 +119,14 @@ if($this->item->video) {
 	                	<i class="fa fa-pinterest"></i>
 	                </a>
                 </div>
+    			<?php if ($this->item->url) { ?>
+    			<div class="control-group">
+                    <h3><?php echo JText::_('COM_ZTPORTFOLIO_VIEW_PROJECT'); ?></h3>
+    				<a  target="_blank" href="<?php echo $this->item->url; ?>"><?php echo $this->item->url; ?></a>
+    			</div>
+    			<?php } ?>
 			</div>
 
-			<?php if ($this->item->url) { ?>
-			<div class="zt-portfolio-link">
-				<a class="btn btn-primary" target="_blank" href="<?php echo $this->item->url; ?>"><?php echo JText::_('COM_ZTPORTFOLIO_VIEW_PROJECT'); ?></a>
-			</div>
-			<?php } ?>
 		</div>
 		
 	</div>
