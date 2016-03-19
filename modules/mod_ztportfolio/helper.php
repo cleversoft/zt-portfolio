@@ -30,7 +30,7 @@ class ModZtPortfolioHelper {
                     ->order($db->quoteName('ztportfolio_item_id'));
             if( is_array($categories)) {
                 $category_ids = $categories;
-                $this->getSubCategories( $categories, $category_ids, 4 );
+                self::getSubCategories( $categories, $category_ids, 4 );
 
 
 
@@ -85,7 +85,7 @@ class ModZtPortfolioHelper {
 
             if($level >= 0 && count($temp_id) > 0){
               $level--;
-              $this->getSubCategories($temp_id, $catIDs, $level);
+              self::getSubCategories($temp_id, $catIDs, $level);
             }
       }
     }
