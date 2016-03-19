@@ -302,22 +302,19 @@
     padding: 10px 0;
     border-top: 1px solid #f2f2f2;
     border-bottom: 1px solid #f2f2f2;
-    a{
-        color: #ccc;
-        text-transform: uppercase;
-        line-height: 100%;
-        &:hover{
-            color: @green;
-        }
-    }
-    .portfolio-previous{
-        float: left;
-    }
-    .portfolio-next{
-        float: right;
-    }
 }
 
+.zt-portfolio-nav a{
+    color: #ccc;
+    text-transform: uppercase;
+    line-height: 100%;
+} 
+.zt-portfolio-nav .portfolio-previous{
+    float: left;
+}
+.zt-portfolio-nav .portfolio-next{
+    float: right;
+}
 @media only screen and (max-width : 992px) {
   .zt-portfolio .zt-portfolio-items .zt-portfolio-item {
     width: 50%;
