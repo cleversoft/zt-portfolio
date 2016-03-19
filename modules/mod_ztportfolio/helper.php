@@ -29,16 +29,24 @@ class ModZtPortfolioHelper {
                     ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
                     ->order($db->quoteName('ztportfolio_item_id'));
             if( is_array($categories)) {
-                $condition = '';
-                foreach ($categories as $catid) {
-                    $condition .= '`category_id`=' . $catid . ' OR ';
+                $category_ids = $categories;
+                $this->getSubCategories( $categories, $category_ids, 4 );
+
+
+
+                if(count( $category_ids) > 0){
+                  $condition = '';
+                  foreach ($category_ids as $catid) {
+                    $condition .= $db->qn('category_id')." = " . $db->quote( $catid ). ' OR ';
+                  }
+                  if($condition != ''){
+                    $condition = substr($condition, 0, -3);
+
+                    $query->where($condition);
+                  }
+                  
+                    }
                 }
-
-                $condition = substr($condition, 0, -3);
-
-                if($condition != '')
-                  $query->where($condition);
-            }
             if($orderby == 'DESC') {
                 $query->order('ordering DESC');
             }       
@@ -50,6 +58,36 @@ class ModZtPortfolioHelper {
                     ->loadAssocList();
         }
         return self::$_portfolios;
+    }
+
+    public static function getSubCategories($ids, &$catIDs, $level){
+
+      $languageTag = JFactory::getLanguage()->getTag();
+      $db = JFactory::getDbo();
+
+      foreach($ids as $id){
+        
+            $cat_query = $db->getQuery(true);
+            $cat_query->select('id')
+                    ->from($db->quoteName('#__categories'))
+                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->where('`parent_id`=' . $id);
+            $categories = $db->setQuery($cat_query)
+                        ->loadAssocList();
+              $temp_id = array();
+            if(count($categories) > 0){
+
+              foreach ($categories as $cate) {
+                $temp_id[] = $cate['id'];
+                $catIDs[] = $cate['id'];
+              }
+            }
+
+            if($level >= 0 && count($temp_id) > 0){
+              $level--;
+              $this->getSubCategories($temp_id, $catIDs, $level);
+            }
+      }
     }
 
     public static function countPortfolio($categories){
