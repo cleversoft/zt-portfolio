@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="1.6" method="upgrade">
+	<name>Zt Portfolio Package</name>
+	<author>ZooTemplate</author>
+	<creationDate>March 2016</creationDate>
+	<packagename>pkg_zt_portfolio</packagename>
+	<version>1.0.0</version>
+	<authorEmail>support@zootemplate.com</authorEmail>
+	<authorUrl>http://www.zootemplate.com</authorUrl>
+	<copyright>Copyright (c) 2010- 2015 ZooTemplate. All rights reserved.</copyright>
+	<license>GNU General Public License version 2</license>
+	<version>1.2</version>
+	<description>Zt Portfolio Package for Joomla 3.x</description>
+	<files folder="packages">
+		<file type="component" id="com_ztportfolio" >com_ztportfolio.zip</file>
+		<file type="module" id="mod_ztportfolio" client="site">mod_ztportfolio.zip</file>
+	</files>
+</extension>
