@@ -260,6 +260,9 @@
   padding-bottom: 0;
   border-bottom: 0;
 }
+.zt-portfolio .zt-portfolio-meta h3 { 
+  font-weight: bold; 
+}
 .zt-portfolio .zt-portfolio-meta h4 {
   font-size: 16px;
   font-weight: bold;
@@ -286,6 +289,33 @@
 }
 .zt-portfolio-lightbox {
   display: none;
+}
+
+#zt-portfolio .pagination{
+    padding: 30px 0 0;
+     clear: both;
+}
+
+.zt-portfolio-nav{
+    overflow: hidden;
+    margin: 25px 0;
+    padding: 10px 0;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    a{
+        color: #ccc;
+        text-transform: uppercase;
+        line-height: 100%;
+        &:hover{
+            color: @green;
+        }
+    }
+    .portfolio-previous{
+        float: left;
+    }
+    .portfolio-next{
+        float: right;
+    }
 }
 
 @media only screen and (max-width : 992px) {
