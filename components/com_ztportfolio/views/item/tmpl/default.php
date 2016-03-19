@@ -15,7 +15,7 @@ ZtPortfolioHelper::generateMeta($this->item);
 $doc = JFactory::getDocument();
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
 
-$this->item->url = $_SERVER['SERVER_NAME'] . JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$this->item->ztportfolio_item_id.':'.$this->item->alias );
+$this->item->share_url = $_SERVER['SERVER_NAME'] . JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$this->item->ztportfolio_item_id.':'.$this->item->alias );
 
 $tags = ZtPortfolioHelper::getTags( (array) $this->item->ztportfolio_tag_id );
 $newtags = array();
@@ -75,17 +75,16 @@ if($this->item->video) {
 		<div class="zt-portfolio-meta">
 
 			<div class="zt-portfolio-created">
-				<h4><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_DATE'); ?></h4>
+				<h3><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_DATE'); ?></h3>
 				<?php echo JHtml::_('date', $this->item->created_on, JText::_('DATE_FORMAT_LC3')); ?>
 			</div>
 
 			<div class="zt-portfolio-tags">
-				<h4><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_CATEGORIES'); ?></h4>
+				<h3><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_CATEGORIES'); ?></h3>
 				<?php echo implode(', ', $newtags); ?>
 			</div>
 
-			<div class="zt-portfolio-properties">
-				<h4><?php echo JText::_('COM_ZTPORTFOLIO_PROJECT_PROPERTIES'); ?></h4>
+			<div class="zt-portfolio-properties"> 
 				<?php 
 
 				$properties = json_decode($this->item->properties, true);  
@@ -93,28 +92,29 @@ if($this->item->video) {
     				foreach ($properties as $key => $item)
     	            {
     	                echo '<div class="control-group ">
-    	                            <span><strong>' . base64_decode($item['name']) . ':</strong></span>
+    	                            <h4>' . base64_decode($item['name']) . ':</h4>
     	                            <span>' . base64_decode($item['value']) . '</span>
                                 </div>';
     	            }
 	          
 				?>
 				<div class="control-group ">
-	                <a href="http://www.facebook.com/sharer.php?u=<?php echo $this->item->url; ?>" 
+                <h4><?php echo JText::_('COM_ZTPORTFOLIO_SHARE_SOCIAL'); ?></h4>
+	                <a href="http://www.facebook.com/sharer.php?u=<?php echo $this->item->share_url; ?>" 
 	                	class="post_share_facebook" 
 	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=220,width=600');return false;">
 						<i class="fa fa-facebook"></i>
 					</a>
-	                <a href="https://twitter.com/share?url=<?php echo $this->item->url; ?>" 
+	                <a href="https://twitter.com/share?url=<?php echo $this->item->share_url; ?>" 
 	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=260,width=600');return false;" 
 	                	class="product_share_twitter">
 						<i class="fa fa-twitter"></i>
 					</a>
-	                <a href="https://plus.google.com/share?url=<?php echo $this->item->url; ?>" 
+	                <a href="https://plus.google.com/share?url=<?php echo $this->item->share_url; ?>" 
 	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
 						<i class="fa fa-google-plus"></i>
 					</a>
-	                <a href="http://pinterest.com/pin/create/button/?url=<?php echo $this->item->url; ?>&amp;media=<?php echo JURI::base() . $this->item->image; ?>&amp;description=" 
+	                <a href="http://pinterest.com/pin/create/button/?url=<?php echo $this->item->share_url; ?>&amp;media=<?php echo JURI::base() . $this->item->image; ?>&amp;description=" 
 	                	onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;">
 	                	<i class="fa fa-pinterest"></i>
 	                </a>
@@ -132,12 +132,24 @@ if($this->item->video) {
 	<div class="zt-portfolio-nav">
 		<?php
 		if($previous = ZtPortfolioHelper::getPreviousArticle($this->item->ztportfolio_item_id)): ?>
-			<a class="btn btn-default portfolio-previous" href="<?php echo ZtPortfolioHelper::getPortfolioUrl($previous[0])?>"><?php echo $previous[0]['title']?></a>
+        <div class="portfolio-previous text-left">
+            <h4><?php echo $previous[0]['title']?></h4>
+			<a class="" href="<?php echo ZtPortfolioHelper::getPortfolioUrl($previous[0])?>">
+                <i class="fa fa-long-arrow-left"></i>
+                <span>Previous</span>
+            </a>
+        </div>
 		<?php
 		endif;
 		if($next = ZtPortfolioHelper::getNextArticle($this->item->ztportfolio_item_id)):
 		?>
-		<a class="btn btn-default portfolio-next" href="<?php echo ZtPortfolioHelper::getPortfolioUrl($next[0])?>"><?php echo $next[0]['title']?></a>
+        <div class="portfolio-next text-right">
+            <h4><?php echo $next[0]['title']?></h4>
+    		<a class=" " href="<?php echo ZtPortfolioHelper::getPortfolioUrl($next[0])?>">
+                <span>Next</span>
+                <i class="fa fa-long-arrow-right"></i>
+            </a>
+        </div>
 		<?php
 		endif;?>
 		
