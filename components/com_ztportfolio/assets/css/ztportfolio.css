@@ -261,7 +261,8 @@
   border-bottom: 0;
 }
 .zt-portfolio .zt-portfolio-meta h3 { 
-  font-weight: bold; 
+    min-width: 150px;
+    display: inline-block;
 }
 .zt-portfolio .zt-portfolio-meta h4 {
   font-size: 16px;
