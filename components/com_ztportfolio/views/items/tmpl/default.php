@@ -194,7 +194,7 @@ $sizes = array(
 
 <script>
 	jQuery(window).load(function() {
- 
+
 		function bindEvent(container){
             var button_class = "active";
             
