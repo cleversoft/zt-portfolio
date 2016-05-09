@@ -4,5 +4,8 @@ ZT Portfoliois a free Joomla! 3.x extension designed to create media (image or v
 
 It’s very easy and fast to create stunning portfolios and integrate them into your Joomla! site. The Filterable Portfolio - when a particular tag is selected, the list of projects is instantly regenerated with a new list of projects from the selected tag.
 
+## Change Logs
 
-Test commit
+## Version 2.0.1 Release May 09, 2016
+
+* Fixed installation issue

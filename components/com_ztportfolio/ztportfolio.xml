@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.3" type="component" method="upgrade">
     <name>Zt Portfolio</name>
-    <creationDate>Mar 2016</creationDate>
+    <creationDate>May 09, 2016</creationDate>
     <author>ZooTemplate</author>
     <authorEmail>support@zootemplate.com</authorEmail>
     <authorUrl>http://www.zootemplate.com</authorUrl>
-    <copyright>Copyright (c) 2010- 2016 ZooTemplate. All rights reserved.</copyright>
+    <copyright>Copyright (c) 2010- 2015 ZooTemplate. All rights reserved.</copyright>
     <license>GNU General Public License version 2</license>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <description>Zt Portfolio Component for Joomla 3.x</description>
 
     <files>
@@ -29,11 +29,7 @@
 
     <install>
         <sql>
-            <file driver="mysql" charset="utf8">admin/sql/install/mysql/install.sql</file>
-            <file driver="mysql">admin/sql/install/mysql/install.sql</file>
-
-            <file driver="mysqli" charset="utf8">admin/sql/install/mysql/install.sql</file>
-            <file driver="mysqli">admin/sql/install/mysql/install.sql</file>
+            <file driver="mysql" charset="utf8">sql/install/mysql/install.sql</file>
         </sql>
     </install>
 
