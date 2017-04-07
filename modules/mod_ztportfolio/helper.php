@@ -26,7 +26,7 @@ class ModZtPortfolioHelper {
             
             $query->select('*')
                     ->from($db->quoteName('#__ztportfolio_items'))
-                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->where('(`language`=\'' . $languageTag . '\' OR `language`=\'*\')')
                     ->order($db->quoteName('ztportfolio_item_id'));
             if( is_array($categories)) {
                 $category_ids = $categories;
@@ -35,12 +35,13 @@ class ModZtPortfolioHelper {
 
 
                 if(count( $category_ids) > 0){
-                  $condition = '';
+                  $condition = '(';
                   foreach ($category_ids as $catid) {
                     $condition .= $db->qn('category_id')." = " . $db->quote( $catid ). ' OR ';
                   }
                   if($condition != ''){
                     $condition = substr($condition, 0, -3);
+                    $condition .= ')';
 
                     $query->where($condition);
                   }
@@ -70,7 +71,7 @@ class ModZtPortfolioHelper {
             $cat_query = $db->getQuery(true);
             $cat_query->select('id')
                     ->from($db->quoteName('#__categories'))
-                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->where('(`language`=\'' . $languageTag . '\' OR `language`=\'*\')')
                     ->where('`parent_id`=' . $id);
             $categories = $db->setQuery($cat_query)
                         ->loadAssocList();
@@ -98,18 +99,21 @@ class ModZtPortfolioHelper {
       $query = $db->getQuery(true);
       $query->select( 'COUNT(*)' )
             ->from($db->quoteName('#__ztportfolio_items'))
-            ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'');
+            ->where('(`language`=\'' . $languageTag . '\' OR `language`=\'*\')');
+
       if( is_array($categories)) {
         
-          $condition = '';
+          $condition = '(';
           foreach ($categories as $catid) {
               $condition .= '`category_id`=' . $catid . ' OR ';
           }
           $condition = substr($condition, 0, -3);
+          $condition .= ')';
 
           if($condition != '')
               $query->where($condition);
       }
+
       $db->setQuery($query);
       return $db->loadResult();
     }
@@ -154,7 +158,7 @@ class ModZtPortfolioHelper {
             $query = $db->getQuery(true);
             $query->select('*')
                     ->from($db->quoteName('#__ztportfolio_tags'))
-                    ->where('`language`=\'' . $languageTag . '\' OR `language`=\'*\'')
+                    ->where('(`language`=\'' . $languageTag . '\' OR `language`=\'*\')')
                     ->order($db->quoteName('ztportfolio_tag_id'));
             if($number != null){
                 $query->setLimit($number);

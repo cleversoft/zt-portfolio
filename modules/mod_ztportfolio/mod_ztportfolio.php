@@ -10,7 +10,9 @@ $number = intval($params->get('number', 10));
 $readmore = $params->get('show_loadmore', 1);
 $column = $params->get('column', 3);
 $orderby = $params->get('orderby', 'ASC');
+$show_filter = $params->get('show_filter', 1);
 $catids = $params->get('catid', '');
+$sub_title = $params->get('sub_title', '');
 
 $page = 1;
 if(isset($_REQUEST['page'])){

@@ -9,17 +9,24 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
 ?>
 <div class="portfolio-wrap">
     <div class="portfolio-header"> 
-            <div class="portfolio-header-center-left">
-                <h2><?php echo(JText::_('MOD_ZTPORTFOLIO_FEATURE_PROJECTS')); ?></h2>
-            </div>
-            <div class="portfolio-header-center-right">
-                <span data-filter="all" class="zt_filter filter-all active"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></span>
-                <?php foreach ($tags as $tag): ?>
-                    <?php $class = $tag['alias']; ?>
-                    <?php $filter[] = $class; ?>
-                    <span data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></span>
-                <?php endforeach; ?>
-            </div> 
+        <div class="portfolio-header-center-left">
+            <h2><?php echo(JText::_('MOD_ZTPORTFOLIO_FEATURE_PROJECTS')); ?></h2>
+        </div>
+        <?php if(JString::trim($sub_title) != '') : ?>
+        <div class="portfolio-sub-header">
+            <?php echo $sub_title ?>
+        </div>
+        <?php endif ?>
+        <?php if($show_filter == 1) : ?>
+        <div class="portfolio-header-center-right">
+            <span data-filter="all" class="zt_filter filter-all active"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></span>
+            <?php foreach ($tags as $tag): ?>
+                <?php $class = $tag['alias']; ?>
+                <?php $filter[] = $class; ?>
+                <span data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></span>
+            <?php endforeach; ?>
+        </div> 
+        <?php endif ?>
     </div>
     <div class="portfolio-content row">
         <div class="portfolio-content-center">

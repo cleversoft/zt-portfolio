@@ -12,6 +12,12 @@
             <div class="portfolio-header-center-left">
                 <div class="portfolio-header-center-left-title"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
             </div>
+            <?php if(JString::trim($sub_title) != '') : ?>
+            <div class="portfolio-sub-header">
+                <?php echo $sub_title ?>
+            </div>
+            <?php endif ?>
+            <?php if($show_filter == 1) : ?>
             <div class="portfolio-header-center-right">
                 <div data-filter="all" class="zt_filter filter-all"><?php echo(JText::_('MOD_ZTPORTFOLIO_ALL_CATEGORY')); ?></div>
                 <?php foreach ($tags as $tag): ?>
@@ -20,6 +26,7 @@
                     <div data-filter="<?php echo $class; ?>" class="zt_filter filter-<?php echo $class; ?>"><?php echo($tag['title']); ?></div>
                 <?php endforeach; ?>
             </div>
+            <?php endif ?>
         </div>
     </div>
     <div class="portfolio-content">
