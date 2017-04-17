@@ -28,13 +28,12 @@
     <config>
         <fields name="params">
             <fieldset name="basic">
-                <field name="layout"
-                       type="filelist"
-                       label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
-                       description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
-                       directory="/modules/mod_ztportfolio/tmpl"
-                       default="default" hide_default="1" hide_none="1"
-                       stripext="1" filter="\.php$" exclude="^_"/>
+              <field
+                name="layout"
+                type="modulelayout"
+                label="JFIELD_ALT_LAYOUT_LABEL"
+                description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+              />
                 <field
                   name="catid"
                   type="category"
