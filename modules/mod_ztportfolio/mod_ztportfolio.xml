@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension
     type="module"
-    version="3.4"
+    version="3.6"
     client="site"
     method="upgrade">
     <name>ZtPortfolio</name>
-    <creationDate>Oct 31, 2016</creationDate>
+    <creationDate>Apr 17, 2017</creationDate>
     <author>ZooTemplate.Com</author>
     <authorEmail>support@zootemplate.com</authorEmail>
     <authorUrl>https://www.zootemplate.com</authorUrl>
-    <copyright>(C) 2016 Copyright Info</copyright>
+    <copyright>(C) 2017 Copyright Info</copyright>
     <license>License Info</license>
     <version>2.0.2</version>
     <description>MOD_ZTPORTFOLIO_XML_DESCRIPTION</description>
@@ -31,8 +31,8 @@
               <field
                 name="layout"
                 type="modulelayout"
-                label="JFIELD_ALT_LAYOUT_LABEL"
-                description="JFIELD_ALT_MODULE_LAYOUT_DESC"
+                label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
+                description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
               />
                 <field
                   name="catid"
@@ -78,6 +78,11 @@
                       default=""
                       label="MOD_ZTPORTFOLIO_SUB_TITLE"
                       description="MOD_ZTPORTFOLIO_SUB_TITLE_DESC"/>
+              <field name="moduleclass_sfx"
+                      type="textarea"
+                      label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                      description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+                      rows="3" />
             </fieldset>
         </fields>
     </config>

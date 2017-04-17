@@ -31,20 +31,10 @@ if(count($portfolios) == 0){
 
 $tags = ModZtPortfolioHelper::getTags();
 
-//$cates = ModZtPortfolioHelper::getCategories();
-
-//echo '<pre>';
-//var_dump($cates);
-
-
 $document = JFactory::getDocument();
-
 $document->addScript(JUri::base() . 'modules/mod_ztportfolio/assets/js/masonry.pkgd.min.js');
 $document->addScript(JUri::base() . 'modules/mod_ztportfolio/assets/js/isotope.min.js');
 $document->addStyleSheet(JUri::base() . 'modules/mod_ztportfolio/assets/css/mod_ztportfolio.css');
-$document->addStyleSheet(JUri::base() . 'modules/mod_ztportfolio/assets/css/layout/'.$layout.'.css');
-
-
 
 require JModuleHelper::getLayoutPath('mod_ztportfolio', $params->get('layout', 'default'));
 if(isset($_REQUEST['page'])){

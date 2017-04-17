@@ -1,10 +1,3 @@
-<?php
-
-
-//echo '<pre>';
-//print_r($portfolios);
-//die;
-?>
 <div class="portfolio-wrap">
 <div class="portfolio-wrap">
     <div class="portfolio-header">
