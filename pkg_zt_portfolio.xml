@@ -2,7 +2,11 @@
 <extension type="package" version="3.6" method="upgrade">
 	<name>Zt Portfolio Package</name>
 	<author>ZooTemplate</author>
+<<<<<<< HEAD
 	<creationDate>Apr 25, 2017</creationDate>
+=======
+	<creationDate>Apr 17, 2017</creationDate>
+>>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
 	<packagename>pkg_zt_portfolio</packagename>
 	<authorEmail>support@zootemplate.com</authorEmail>
 	<authorUrl>http://www.zootemplate.com</authorUrl>

@@ -5,7 +5,11 @@
     client="site"
     method="upgrade">
     <name>ZtPortfolio</name>
+<<<<<<< HEAD
     <creationDate>Apr 25, 2017</creationDate>
+=======
+    <creationDate>Apr 17, 2017</creationDate>
+>>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
     <author>ZooTemplate.Com</author>
     <authorEmail>support@zootemplate.com</authorEmail>
     <authorUrl>https://www.zootemplate.com</authorUrl>
@@ -27,6 +31,7 @@
     </languages>
     <config>
         <fields name="params">
+<<<<<<< HEAD
             <fieldset name="basic" addfieldpath="/modules/mod_ztportfolio/elements/">
                 <field
                   name="jevent"
@@ -40,6 +45,15 @@
                   label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
                   description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
                 />
+=======
+            <fieldset name="basic">
+              <field
+                name="layout"
+                type="modulelayout"
+                label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
+                description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
+              />
+>>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
                 <field
                   name="catid"
                   type="category"
@@ -109,6 +123,7 @@
                 </field>
             </fieldset>
             <fieldset name="advanced">
+<<<<<<< HEAD
               <field 
                 name="sub_title"
                 type="text"
@@ -123,6 +138,18 @@
                 description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
                 rows="3"
               />
+=======
+              <field name="sub_title"
+                      type="text"
+                      default=""
+                      label="MOD_ZTPORTFOLIO_SUB_TITLE"
+                      description="MOD_ZTPORTFOLIO_SUB_TITLE_DESC"/>
+              <field name="moduleclass_sfx"
+                      type="textarea"
+                      label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                      description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+                      rows="3" />
+>>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
             </fieldset>
         </fields>
     </config>
