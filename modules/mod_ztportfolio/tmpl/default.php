@@ -8,10 +8,7 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
 
 ?>
 <div class="portfolio-wrap">
-    <div class="portfolio-header"> 
-        <div class="portfolio-header-center-left">
-            <h2><?php echo(JText::_('MOD_ZTPORTFOLIO_FEATURE_PROJECTS')); ?></h2>
-        </div>
+    <div class="portfolio-header">
         <?php if(JString::trim($sub_title) != '') : ?>
         <div class="portfolio-sub-header">
             <?php echo $sub_title ?>

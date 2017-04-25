@@ -6,6 +6,12 @@ It’s very easy and fast to create stunning portfolios and integrate them into 
 
 ## Change Logs
 
+## Version 2.1.0 Release Apr 25, 2017
+
+* Add new slide layout
+
+* Fixed errors and updated the previous versions
+
 ## Version 2.0.1 Release May 09, 2016
 
 * Fixed installation issue
