@@ -55,11 +55,10 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/owl.c
               <?php if($show_desc == 1) : ?>
               <div class="zt-portfolio-description">   
                 <?php if($desc_limit == '') : ?>
-                    <?php echo JText::_($portfolio['description']) ?>
-                    <?php else : ?>
-                    <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
-                    <?php endif ?>
-                </div>
+                <?php echo JText::_($portfolio['description']) ?>
+                <?php else : ?>
+                <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
+                <?php endif ?>
               </div>
               <?php endif ?>
             </div>                        
