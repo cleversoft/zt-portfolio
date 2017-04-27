@@ -43,12 +43,23 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/ztpor
                         </a>
                         </div> 
                         <div class="zt-portfolio-info">
-                            <h3 class="zt-portfolio-title">
+                             <h3 class="zt-portfolio-title">
                                 <a href="<?php echo(ModZtPortfolioHelper::getPortfolioUrl($portfolio)); ?>"><?php echo($portfolio['title']); ?></a>
                             </h3>
-                            <div class="zt-portfolio-description">   
-                            <?php echo substr($portfolio['description'], 0, 90);  ?>
+                            <?php if($show_tags == 1) : ?>
+                            <div class="zt-portfolio-tags">
+                                <?php echo(implode(' ', $tags));  ?>
                             </div>
+                            <?php endif ?>
+                            <?php if($show_desc == 1) : ?>
+                            <div class="zt-portfolio-description"> 
+                                <?php if($desc_limit == '') : ?>
+                                <?php echo JText::_($portfolio['description']) ?>
+                                <?php else : ?>
+                                <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
+                                <?php endif ?>
+                            </div>
+                            <?php endif ?>
                         </div>                        
                     </div>                    
                 </div>

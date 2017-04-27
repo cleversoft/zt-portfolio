@@ -5,11 +5,7 @@
     client="site"
     method="upgrade">
     <name>ZtPortfolio</name>
-<<<<<<< HEAD
     <creationDate>Apr 25, 2017</creationDate>
-=======
-    <creationDate>Apr 17, 2017</creationDate>
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
     <author>ZooTemplate.Com</author>
     <authorEmail>support@zootemplate.com</authorEmail>
     <authorUrl>https://www.zootemplate.com</authorUrl>
@@ -31,37 +27,24 @@
     </languages>
     <config>
         <fields name="params">
-<<<<<<< HEAD
             <fieldset name="basic" addfieldpath="/modules/mod_ztportfolio/elements/">
-                <field
-                  name="jevent"
-                  type="jevent"
-                  label=""
-                  description=""
+                <field name="jevent"
+                       type="jevent"
+                       label=""
+                       description=""
                 />
-                <field
-                  name="layout"
-                  type="modulelayout"
-                  label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
-                  description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
+                <field name="layout"
+                       type="modulelayout"
+                       label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
+                       description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
                 />
-=======
-            <fieldset name="basic">
-              <field
-                name="layout"
-                type="modulelayout"
-                label="MOD_ZTPORTFOLIO_BASIC_LAYOUT"
-                description="MOD_ZTPORTFOLIO_BASIC_LAYOUT_DESC"
-              />
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
-                <field
-                  name="catid"
-                  type="category"
-                  extension="com_ztportfolio"
-                  multiple="true"
-                  size="5"
-                  label="JCATEGORY"
-                  description="MOD_ARTICLES_CATEGORY_FIELD_CATEGORY_DESC"
+                <field name="catid"
+                       type="category"
+                       extension="com_ztportfolio"
+                       multiple="true"
+                       size="5"
+                       label="JCATEGORY"
+                       description="MOD_ARTICLES_CATEGORY_FIELD_CATEGORY_DESC"
                 />
                 <field name="column"
                        type="text"
@@ -85,6 +68,18 @@
                     <option value="0">JNO</option>
                     <option value="1">JYES</option>
                 </field>
+                <field name="show_desc" type="list" default="1"
+                       label="MOD_ZTPORTFOLIO_BASIC_DESCRIPTION"
+                       description="MOD_ZTPORTFOLIO_BASIC_DESCRIPTION_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field name="desc_limit" 
+                       type="text" 
+                       default="" 
+                       label="MOD_ZTPORTFOLIO_DESCRIPTION_LIMIT" 
+                       description="MOD_ZTPORTFOLIO_DESCRIPTION_LIMIT_DESC"
+                />
                 <field name="show_nav" type="list" default="0"
                        label="MOD_ZTPORTFOLIO_SHOW_BUTTONS"
                        description="MOD_ZTPORTFOLIO_SHOW_BUTTONS_NAVIGATION_DESC">
@@ -123,33 +118,18 @@
                 </field>
             </fieldset>
             <fieldset name="advanced">
-<<<<<<< HEAD
-              <field 
-                name="sub_title"
-                type="text"
-                default=""
-                label="MOD_ZTPORTFOLIO_SUB_TITLE"
-                description="MOD_ZTPORTFOLIO_SUB_TITLE_DESC"
-              />
-              <field
-                name="moduleclass_sfx"
-                type="textarea"
-                label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-                description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
-                rows="3"
-              />
-=======
               <field name="sub_title"
-                      type="text"
-                      default=""
-                      label="MOD_ZTPORTFOLIO_SUB_TITLE"
-                      description="MOD_ZTPORTFOLIO_SUB_TITLE_DESC"/>
+                     type="text"
+                     default=""
+                     label="MOD_ZTPORTFOLIO_SUB_TITLE"
+                     description="MOD_ZTPORTFOLIO_SUB_TITLE_DESC"
+              />
               <field name="moduleclass_sfx"
-                      type="textarea"
-                      label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
-                      description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
-                      rows="3" />
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
+                     type="textarea"
+                     label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                     description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"
+                     rows="3"
+              />
             </fieldset>
         </fields>
     </config>

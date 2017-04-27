@@ -7,14 +7,7 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/owl.c
 
 ?>
 <div class="portfolio-wrap">
-<<<<<<< HEAD
   <div class="portfolio-header">
-=======
-  <div class="portfolio-header"> 
-    <div class="portfolio-header-center-left">
-      <h2><?php echo(JText::_('MOD_ZTPORTFOLIO_FEATURE_PROJECTS')); ?></h2>
-    </div>
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
     <?php if(JString::trim($sub_title) != '') : ?>
       <div class="portfolio-sub-header">
         <?php echo $sub_title ?>
@@ -31,13 +24,8 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/owl.c
       </div> 
     <?php endif ?> 
   </div>
-<<<<<<< HEAD
   <div class="portfolio-content">
     <div class="portfolio-content-center owl-carousel owl-theme">
-=======
-  <div class="portfolio-content owl-carousel owl-theme">
-    <div class="portfolio-content-center">
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
       <?php foreach ($portfolios as $portfolio): ?>
         <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
         <?php $class = $tags = array(); ?>
@@ -58,22 +46,22 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/owl.c
               <h3 class="zt-portfolio-title">
                 <a href="<?php echo(ModZtPortfolioHelper::getPortfolioUrl($portfolio)); ?>"><?php echo($portfolio['title']); ?></a>
               </h3>
-<<<<<<< HEAD
-
               <?php if($show_tags == 1) : ?>
               <div class="zt-portfolio-tags">
                 <?php echo(implode(' ', $tags));  ?>
               </div>
               <?php endif ?>
-              
-=======
-              <div class="zt-portfolio-tags">
-                <?php echo(implode(' ', $tags));  ?>
-              </div>
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
+
+              <?php if($show_desc == 1) : ?>
               <div class="zt-portfolio-description">   
-                <?php echo substr($portfolio['description'], 0, 90);  ?>
+                <?php if($desc_limit == '') : ?>
+                    <?php echo JText::_($portfolio['description']) ?>
+                    <?php else : ?>
+                    <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
+                    <?php endif ?>
+                </div>
               </div>
+              <?php endif ?>
             </div>                        
           </div>                    
         </div>
@@ -81,7 +69,6 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/owl.c
     </div>
   </div>
   <script type="text/javascript">
-<<<<<<< HEAD
     jQuery('.portfolio-content-center').owlCarousel({
       nav: <?php echo $show_nav == 1 ? 'true' : 'false' ?>,
       dots: <?php echo $show_dots == 1 ? 'true' : 'false' ?>,
@@ -102,8 +89,5 @@ $doc->addScript( JURI::root(true) . '/components/com_ztportfolio/assets/js/owl.c
       items: <?php echo $column ?>
       <?php endif ?>
     });
-=======
-    jQuery('.portfolio-content').owlCarousel();
->>>>>>> 7dd63fc408ff77d5065ad6edaa3c78ef23d265bc
   </script>
 </div>
