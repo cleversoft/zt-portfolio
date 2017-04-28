@@ -4,8 +4,6 @@
  * Modulde portfolio helper
  */
 class ModZtPortfolioHelper {
-
-    static private $_portfolios = null;
     static private $_tags = null;
     static private $_map = null;
     static private $_categories = null;
@@ -18,47 +16,44 @@ class ModZtPortfolioHelper {
         
         $languageTag = JFactory::getLanguage()->getTag();
         
-        if (empty(self::$_portfolios)) {
+
             
-            $db = JFactory::getDbo();
-            
-            $query = $db->getQuery(true);
-            
-            $query->select('*')
-                    ->from($db->quoteName('#__ztportfolio_items'))
-                    ->where('(`language`=\'' . $languageTag . '\' OR `language`=\'*\')')
-                    ->order($db->quoteName('ztportfolio_item_id'));
-            if( is_array($categories)) {
-                $category_ids = $categories;
-                self::getSubCategories( $categories, $category_ids, 4 );
+        $db = JFactory::getDbo();
+
+        $query = $db->getQuery(true);
+
+        $query->select('*')
+                ->from($db->quoteName('#__ztportfolio_items'))
+                ->where('(`language`=\'' . $languageTag . '\' OR `language`=\'*\')')
+                ->order($db->quoteName('ztportfolio_item_id'));
+        if( is_array($categories)) {
+            $category_ids = $categories;
+            self::getSubCategories( $categories, $category_ids, 4 );
 
 
 
-                if(count( $category_ids) > 0){
-                  $condition = '(';
-                  foreach ($category_ids as $catid) {
-                    $condition .= $db->qn('category_id')." = " . $db->quote( $catid ). ' OR ';
-                  }
-                  if($condition != ''){
-                    $condition = substr($condition, 0, -3);
-                    $condition .= ')';
+            if(count( $category_ids) > 0){
+              $condition = '(';
+              foreach ($category_ids as $catid) {
+                $condition .= $db->qn('category_id')." = " . $db->quote( $catid ). ' OR ';
+              }
+              if($condition != ''){
+                $condition = substr($condition, 0, -3);
+                $condition .= ')';
 
-                    $query->where($condition);
-                  }
-                  
-                    }
+                $query->where($condition);
+              }
+
                 }
-            if($orderby == 'DESC') {
-                $query->order('ordering DESC');
-            }       
-            if($number != null){
-                $query->setLimit($number, $offset);
-                
             }
-            self::$_portfolios = $db->setQuery($query)
-                    ->loadAssocList();
+        if($orderby == 'DESC') {
+            $query->order('ordering DESC');
         }
-        return self::$_portfolios;
+        if($number != null){
+            $query->setLimit($number, $offset);
+
+        }
+        return $db->setQuery($query)->loadAssocList();
     }
 
     public static function getSubCategories($ids, &$catIDs, $level){
