@@ -16,5 +16,6 @@ if(!defined('FOF_INCLUDED')) {
 	JError::raiseError ('500', 'FOF is not installed');
 	return;
 }
+require_once JPATH_COMPONENT . '/helpers/helper.php';
 
 FOFDispatcher::getTmpInstance('com_ztportfolio')->dispatch();

@@ -8,9 +8,7 @@
 
 defined('_JEXEC') or die();
 
-require_once JPATH_COMPONENT . '/helpers/helper.php';
 ZtPortfolioHelper::generateMeta($this->item);
-
 
 $doc = JFactory::getDocument();
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );

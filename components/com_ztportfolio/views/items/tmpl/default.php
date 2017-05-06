@@ -8,7 +8,6 @@
 
 defined('_JEXEC') or die();
 
-require_once JPATH_COMPONENT . '/helpers/helper.php';
 jimport( 'joomla.filesystem.file' );
 $layout_type = $this->params->get('layout_type', 'default');
 
@@ -226,6 +225,8 @@ $sizes = array(
                     jQuery('.zt-portfolio-filter li').removeClass(button_class);
 
                     jQuery(this).addClass(button_class);
+
+                    return false;
                 });
 
             }
