@@ -10,7 +10,7 @@ defined('_JEXEC') or die();
 
 JLoader::register('JHtmlString', JPATH_LIBRARIES.'/joomla/html/html/string.php');
 
-class ZtPortfolioHelper {
+class ZtPortfolioSiteHelper {
 
 	public static function generateMeta($item) {
 		$document = JFactory::getDocument();

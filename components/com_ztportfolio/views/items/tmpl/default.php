@@ -76,7 +76,7 @@ $sizes = array(
                         <ul>
                             <li class="active" data-filter="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
                             <?php
-                            $filters = ZtPortfolioHelper::getAllTags();
+                            $filters = ZtPortfolioSiteHelper::getAllTags();
                             foreach ($filters as $filter) {
                                 ?>
                                 <li data-filter="<?php echo $filter->alias; ?>"><a href="#"><?php echo $filter->title; ?></a></li>
@@ -126,7 +126,7 @@ $sizes = array(
             <?php foreach ($this->items as $this->item) { ?>
 
                 <?php
-                $tags = ZtPortfolioHelper::getTags( $this->item->ztportfolio_tag_id );
+                $tags = ZtPortfolioSiteHelper::getTags( $this->item->ztportfolio_tag_id );
                 $newtags = array();
                 $filter = '';
                 $groups = array();
