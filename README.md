@@ -6,6 +6,12 @@ It’s very easy and fast to create stunning portfolios and integrate them into 
 
 ## Change Logs
 
+## Version 2.1.1 Release May 30, 2017
+
+* Fix error create thumbnail of zt portfolio item
+
+* Add an option for zt portfolio module
+
 ## Version 2.1.0 Release Apr 25, 2017
 
 * Add new slide layout

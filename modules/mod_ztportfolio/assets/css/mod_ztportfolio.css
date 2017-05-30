@@ -14,11 +14,11 @@
     line-height: 38px;
     margin: 0;
 }
-.portfolio-header-center-right{
+.portfolio-filter {
         text-align: right;
         padding: 10px 0;
 }
-.portfolio-header-center-right .zt_filter {
+.portfolio-filter .zt_filter {
     text-transform: uppercase;
     font-weight: 600;
     cursor: pointer; 

@@ -6,6 +6,8 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . ' is not all
 require_once __DIR__ . '/helper.php';
 
 $layout = $params->get('layout', 'default');
+$thumbnail_type = $params->get('thumbnail_type', 'rectangle');
+$layout_type = $params->get('layout_type', 'default');
 $number = intval($params->get('number', 10)); 
 $readmore = $params->get('show_loadmore', 1);
 $show_tags = $params->get('show_tags', 1);

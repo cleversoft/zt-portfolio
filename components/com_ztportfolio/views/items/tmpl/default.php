@@ -17,9 +17,9 @@ JHtml::_('jquery.framework');
 
 //Params
 $params 	= JComponentHelper::getParams('com_ztportfolio');
-$square 	= strtolower( $params->get('quare', '370x220') );
-$rectangle 	= strtolower( $params->get('rectangle', '370x220') );
-$tower 		= strtolower( $params->get('tall', '370x220') );
+$square 	= strtolower( $params->get('square', '600x600') );
+$rectangle 	= strtolower( $params->get('rectangle', '600x400') );
+$tower 		= strtolower( $params->get('tower', '600x800') );
 
 //Add js and css files
 $doc = JFactory::getDocument();
@@ -76,7 +76,7 @@ $sizes = array(
                         <ul>
                             <li class="active" data-filter="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
                             <?php
-                            $filters = ZtPortfolioSiteHelper::getAllTags();
+                            $filters = ZtPortfolioHelper::getAllTags();
                             foreach ($filters as $filter) {
                                 ?>
                                 <li data-filter="<?php echo $filter->alias; ?>"><a href="#"><?php echo $filter->title; ?></a></li>
@@ -126,7 +126,7 @@ $sizes = array(
             <?php foreach ($this->items as $this->item) { ?>
 
                 <?php
-                $tags = ZtPortfolioSiteHelper::getTags( $this->item->ztportfolio_tag_id );
+                $tags = ZtPortfolioHelper::getTags( $this->item->ztportfolio_tag_id );
                 $newtags = array();
                 $filter = '';
                 $groups = array();

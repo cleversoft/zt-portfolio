@@ -8,14 +8,14 @@
 
 defined('_JEXEC') or die();
 
-ZtPortfolioSiteHelper::generateMeta($this->item);
+ZtPortfolioHelper::generateMeta($this->item);
 
 $doc = JFactory::getDocument();
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
 
 $this->item->share_url = $_SERVER['SERVER_NAME'] . JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$this->item->ztportfolio_item_id.':'.$this->item->alias );
 
-$tags = ZtPortfolioSiteHelper::getTags( (array) $this->item->ztportfolio_tag_id );
+$tags = ZtPortfolioHelper::getTags( (array) $this->item->ztportfolio_tag_id );
 $newtags = array();
 foreach ($tags as $tag) {
 	$newtags[] 	 = $tag->title;
@@ -130,21 +130,21 @@ if($this->item->video) {
 	</div>
 	<div class="zt-portfolio-nav">
 		<?php
-		if($previous = ZtPortfolioSiteHelper::getPreviousArticle($this->item->ztportfolio_item_id)): ?>
+		if($previous = ZtPortfolioHelper::getPreviousArticle($this->item->ztportfolio_item_id)): ?>
         <div class="portfolio-previous text-left">
             <h4><?php echo $previous[0]['title']?></h4>
-			<a class="" href="<?php echo ZtPortfolioSiteHelper::getPortfolioUrl($previous[0])?>">
+			<a class="" href="<?php echo ZtPortfolioHelper::getPortfolioUrl($previous[0])?>">
                 <i class="fa fa-long-arrow-left"></i>
                 <span>Previous</span>
             </a>
         </div>
 		<?php
 		endif;
-		if($next = ZtPortfolioSiteHelper::getNextArticle($this->item->ztportfolio_item_id)):
+		if($next = ZtPortfolioHelper::getNextArticle($this->item->ztportfolio_item_id)):
 		?>
         <div class="portfolio-next text-right">
             <h4><?php echo $next[0]['title']?></h4>
-    		<a class=" " href="<?php echo ZtPortfolioSiteHelper::getPortfolioUrl($next[0])?>">
+    		<a class=" " href="<?php echo ZtPortfolioHelper::getPortfolioUrl($next[0])?>">
                 <span>Next</span>
                 <i class="fa fa-long-arrow-right"></i>
             </a>

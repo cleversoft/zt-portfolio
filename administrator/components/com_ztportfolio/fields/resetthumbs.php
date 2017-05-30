@@ -12,7 +12,7 @@ jimport('joomla.form.formfield');
 
 class JFormFieldResetthumbs extends JFormField {
 
-    protected $type = 'Besetthumbs';
+    protected $type = 'resetthumbs';
 
     protected function getInput() {
 

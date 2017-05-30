@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.6" type="component" method="upgrade">
+<extension version="3.7.2" type="component" method="upgrade">
     <name>Zt Portfolio</name>
-    <creationDate>Apr 25, 2017</creationDate>
+    <creationDate>May 30, 2017</creationDate>
     <author>ZooTemplate</author>
     <authorEmail>support@zootemplate.com</authorEmail>
     <authorUrl>http://www.zootemplate.com</authorUrl>
     <copyright>Copyright (c) 2010- 2017 ZooTemplate. All rights reserved.</copyright>
     <license>GNU General Public License version 2</license>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
     <description>Zt Portfolio Component for Joomla 3.x</description>
 
     <files>
