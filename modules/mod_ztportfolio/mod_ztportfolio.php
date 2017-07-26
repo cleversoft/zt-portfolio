@@ -6,8 +6,6 @@ defined('_JEXEC') or die('Direct Access to ' . basename(__FILE__) . ' is not all
 require_once __DIR__ . '/helper.php';
 
 $layout = $params->get('layout', 'default');
-$thumbnail_type = $params->get('thumbnail_type', 'rectangle');
-$layout_type = $params->get('layout_type', 'default');
 $number = intval($params->get('number', 10)); 
 $readmore = $params->get('show_loadmore', 1);
 $show_tags = $params->get('show_tags', 1);
@@ -16,12 +14,15 @@ $desc_limit = $params->get('desc_limit', '');
 $show_dots = $params->get('show_dots', 0);
 $show_nav = $params->get('show_nav', 0);
 $autoplay = $params->get('autoplay', 0);
-$responsive = $params->get('responsive', 1);
 $column = $params->get('column', 3);
+$mobile_items = $params->get('mobile_items', 1);
+$tablet_items = $params->get('tablet_items', 1);
+$space = $params->get('space', 15);
 $orderby = $params->get('orderby', 'ASC');
 $show_filter = $params->get('show_filter', 1);
 $catids = $params->get('catid', '');
 $sub_title = $params->get('sub_title', '');
+$thumbnail_type = $params->get('thumbnail_type', 'rectangle');
 
 $page = 1;
 if(isset($_REQUEST['page'])){

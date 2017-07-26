@@ -10,6 +10,7 @@ defined('_JEXEC') or die();
 
 ZtPortfolioHelper::generateMeta($this->item);
 
+
 $doc = JFactory::getDocument();
 $doc->addStylesheet( JURI::root(true) . '/components/com_ztportfolio/assets/css/ztportfolio.css' );
 

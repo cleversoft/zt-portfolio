@@ -68,25 +68,17 @@ $sizes = array(
 
         <?php if($this->params->get('show_filter', 1)) { ?>
             <div class="zt-portfolio-filter">
-                <div class="row">
-                    <div class="col-md-3 col-lg-2 title-portfolio-filter">
-                        <h4>Productos</h4>
-                    </div>
-                    <div class="col-md-9 col-lg-10 list-portfolio-filter">
-                        <ul>
-                            <li class="active" data-filter="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
-                            <?php
-                            $filters = ZtPortfolioHelper::getAllTags();
-                            foreach ($filters as $filter) {
-                                ?>
+                <ul>
+                    <li class="active" data-filter="all"><a href="#"><?php echo JText::_('COM_ZTPORTFOLIO_SHOW_ALL'); ?></a></li>
+                    <?php
+                        $filters = ZtPortfolioHelper::getAllTags();
+                        foreach ($filters as $filter) {
+                            ?>
                                 <li data-filter="<?php echo $filter->alias; ?>"><a href="#"><?php echo $filter->title; ?></a></li>
                             <?php
-                            }
-                            ?>
-                        </ul>
-                    </div>
-                </div>
-
+                        }   
+                    ?>
+                </ul>
             </div>
         <?php } ?>
 
@@ -225,8 +217,6 @@ $sizes = array(
                     jQuery('.zt-portfolio-filter li').removeClass(button_class);
 
                     jQuery(this).addClass(button_class);
-
-                    return false;
                 });
 
             }

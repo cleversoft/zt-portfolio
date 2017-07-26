@@ -6,6 +6,14 @@ It’s very easy and fast to create stunning portfolios and integrate them into 
 
 ## Change Logs
 
+## Version 2.1.4 Release July 26, 2017
+
+* Fix errors of module layouts
+
+* Remove grid layout and mansory layout and replace with gallery layout
+
+## Version 2.1.3 Release June 29, 2017
+
 ## Version 2.1.2 Release June 21, 2017
 
 * Fix error display image of portfolio item in Slide layout

@@ -67,7 +67,7 @@ $sizes = array(
                 <?php $class[] = $portfolioTag['alias']; ?>
                 <?php $tags[] = $portfolioTag['title'] ?>
             <?php endforeach; ?>
-            <?php  
+            <?php 
                 if($thumbnail_type == 'masonry') {
                     $src = JURI::base(true) . '/images/ztportfolio/' . $portfolio['alias'] . '/' . JFile::stripExt(JFile::getName($portfolio['image'])) . '_' . $sizes[$i] . '.' . JFile::getExt($portfolio['image']);
                     $alt = $portfolio['title'];
@@ -78,7 +78,7 @@ $sizes = array(
                     $src = JURI::base(true) . '/images/ztportfolio/' . $portfolio['alias'] . '/' . JFile::stripExt(JFile::getName($portfolio['image'])) . '_'. $square .'.' . JFile::getExt($portfolio['image']);
                     $alt = $portfolio['title'];
                 } 
-            ?> 
+            ?>
             <div class="zt-portfolio-item <?php echo(implode(' ', $class));  ?> gird-common all" > 
                 <div class="zt-portfolio-overlay-wrapper">
                     <div class="zt-portfolio-thumb">
@@ -86,32 +86,30 @@ $sizes = array(
                     </div> 
                     <div class="zt-portfolio-overlay">
                         <div>
+                            <h3 class="zt-portfolio-title">
+                                <a href="<?php echo JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$portfolio['ztportfolio_item_id'].':'.$portfolio['alias']) ?>"><?php echo($portfolio['title']); ?></a>
+                            </h3>
+                            <?php if($show_tags == 1) : ?>
+                            <div class="zt-portfolio-tags">
+                                <?php echo(implode(' ', $tags));  ?>
+                            </div>
+                            <?php endif ?>
+                            <?php if($show_desc == 1) : ?>
+                                <div class="zt-portfolio-description"> 
+                                <?php if($desc_limit == '') : ?>
+                                <?php echo JText::_($portfolio['description']) ?>
+                                <?php else : ?>
+                                <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
+                                <?php endif ?>
+                                </div>
+                            <?php endif ?>
                             <div class="zt-portfolio-btns">
                                 <a href="<?php echo $src ?>" data-featherlight="image"><i class="fa fa-search"></i></a>
                                 <a href="<?php echo JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$portfolio['ztportfolio_item_id'].':'.$portfolio['alias']) ?>"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div>                        
                 </div>
-                <div class="zt-portfolio-info">
-                    <h3 class="zt-portfolio-title">
-                        <a href="<?php echo JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$portfolio['ztportfolio_item_id'].':'.$portfolio['alias']) ?>"><?php echo($portfolio['title']); ?></a>
-                    </h3>
-                    <?php if($show_tags == 1) : ?>
-                    <div class="zt-portfolio-tags">
-                        <?php echo(implode(' ', $tags));  ?>
-                    </div>
-                    <?php endif ?>
-                    <?php if($show_desc == 1) : ?>
-                        <div class="zt-portfolio-description"> 
-                        <?php if($desc_limit == '') : ?>
-                        <?php echo JText::_($portfolio['description']) ?>
-                        <?php else : ?>
-                        <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
-                        <?php endif ?>
-                        </div>
-                    <?php endif ?>
-                </div>                        
             </div>
             <?php
             $i++;

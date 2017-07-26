@@ -34,7 +34,7 @@ $sizes = array(
 );
 
 ?>
-<div class="zt-portfolio">
+<div class="zt-portfolio layout-gallery-nospace">
     <div class="zt-portfolio-header"> 
         <?php if(JString::trim($sub_title) != '') : ?>
         <div class="portfolio-sub-header">
@@ -58,7 +58,7 @@ $sizes = array(
         </div> 
         <?php endif ?> 
     </div>
-    <div class="zt-portfolio-content zt-portfolio-column-<?php echo $column ?>">
+    <div class="portfolio-content zt-portfolio-column-<?php echo $column ?>">
         <?php foreach ($portfolios as $portfolio): ?>
             <?php $portfolio['ztportfolio_tag_id'] = json_decode($portfolio['ztportfolio_tag_id']); ?>
             <?php $class = $tags = array(); ?>
@@ -67,7 +67,7 @@ $sizes = array(
                 <?php $class[] = $portfolioTag['alias']; ?>
                 <?php $tags[] = $portfolioTag['title'] ?>
             <?php endforeach; ?>
-            <?php  
+            <?php 
                 if($thumbnail_type == 'masonry') {
                     $src = JURI::base(true) . '/images/ztportfolio/' . $portfolio['alias'] . '/' . JFile::stripExt(JFile::getName($portfolio['image'])) . '_' . $sizes[$i] . '.' . JFile::getExt($portfolio['image']);
                     $alt = $portfolio['title'];
@@ -78,40 +78,38 @@ $sizes = array(
                     $src = JURI::base(true) . '/images/ztportfolio/' . $portfolio['alias'] . '/' . JFile::stripExt(JFile::getName($portfolio['image'])) . '_'. $square .'.' . JFile::getExt($portfolio['image']);
                     $alt = $portfolio['title'];
                 } 
-            ?> 
-            <div class="zt-portfolio-item <?php echo(implode(' ', $class));  ?> gird-common all" > 
+            ?>
+            <div class="zt-portfolio-item <?php echo(implode(' ', $class));  ?> gird-common all"> 
                 <div class="zt-portfolio-overlay-wrapper">
                     <div class="zt-portfolio-thumb">
                         <img class="zt-portfolio-img" src="<?php echo $src; ?>" alt="<?php echo $alt ?>">
                     </div> 
                     <div class="zt-portfolio-overlay">
                         <div>
+                            <h3 class="zt-portfolio-title">
+                                <a href="<?php echo JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$portfolio['ztportfolio_item_id'].':'.$portfolio['alias']) ?>"><?php echo($portfolio['title']); ?></a>
+                            </h3>
+                            <?php if($show_tags == 1) : ?>
+                            <div class="zt-portfolio-tags">
+                                <?php echo(implode(' ', $tags));  ?>
+                            </div>
+                            <?php endif ?>
+                            <?php if($show_desc == 1) : ?>
+                                <div class="zt-portfolio-description"> 
+                                <?php if($desc_limit == '') : ?>
+                                <?php echo JText::_($portfolio['description']) ?>
+                                <?php else : ?>
+                                <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
+                                <?php endif ?>
+                                </div>
+                            <?php endif ?>
                             <div class="zt-portfolio-btns">
                                 <a href="<?php echo $src ?>" data-featherlight="image"><i class="fa fa-search"></i></a>
                                 <a href="<?php echo JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$portfolio['ztportfolio_item_id'].':'.$portfolio['alias']) ?>"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                    </div>
+                    </div>                        
                 </div>
-                <div class="zt-portfolio-info">
-                    <h3 class="zt-portfolio-title">
-                        <a href="<?php echo JRoute::_('index.php?option=com_ztportfolio&view=item&id='.$portfolio['ztportfolio_item_id'].':'.$portfolio['alias']) ?>"><?php echo($portfolio['title']); ?></a>
-                    </h3>
-                    <?php if($show_tags == 1) : ?>
-                    <div class="zt-portfolio-tags">
-                        <?php echo(implode(' ', $tags));  ?>
-                    </div>
-                    <?php endif ?>
-                    <?php if($show_desc == 1) : ?>
-                        <div class="zt-portfolio-description"> 
-                        <?php if($desc_limit == '') : ?>
-                        <?php echo JText::_($portfolio['description']) ?>
-                        <?php else : ?>
-                        <?php echo substr($portfolio['description'], 0, $desc_limit);  ?>
-                        <?php endif ?>
-                        </div>
-                    <?php endif ?>
-                </div>                        
             </div>
             <?php
             $i++;
@@ -152,13 +150,13 @@ $sizes = array(
                 });
 
             }
-            var container = $('.zt-portfolio-content');
+            var container = $('.portfolio-content');
             bindEvent(container);
 
             var page_number = 2;
             $('.zt_readmore').click(function(){
                 var $this = $(this);
-                var wrap = $this.closest('.zt-portfolio');
+                var wrap = $this.closest('.portfolio-wrap');
                 var number = <?php echo $number;?>;
                 var count = <?php echo $count_portfolios;?>;
                 $.ajax({
@@ -168,7 +166,7 @@ $sizes = array(
                 }).success(function(response){
                     
                     if(response != 'no_portfolios'){
-                        var items = $(response).find('.zt-portfolio-content .gird-common');
+                        var items = $(response).find('.portfolio-content .gird-common');
                         container.append(items).isotope( 'appended', items );
                         bindEvent(container);
                     }
